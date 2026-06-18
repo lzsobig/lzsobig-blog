@@ -128,3 +128,21 @@ Stage Summary:
 - Scene 1 title now centered in portal opening (visible, not too high)
 - Scene 1 has original View Reel play cards (faithful to index.html)
 - Scene 2 minimal — just title + subtitle + simple button, no AI-feel decorations
+
+---
+Task ID: 16
+Agent: main
+Task: Fix 3 issues — nav transparency, title fully inside portal opening, cards lower than title
+
+Work Log:
+- Issue 1: Navigation bar had semi-transparent dark bg + border-bottom over Portal = visible separator. Fix: Navigation now transparent (bg:none, border:none, backdrop:none) while over the Portal hero (scrollY < innerHeight*3.6), restores blurred bg only after entering blog body
+- Issue 2: Centered title was too tall (210px span), overlapped portal arch edges. Fix: reduced font sizes (AI×建造 22→20px, 重新定义工程 46→30px clamp, subtitle 16→13px), tightened margins. Title now 129px span, fully inside the arch opening, no edge overlap
+- Issue 3: Cards were at top:50% (same height as title). Fix: moved cards to top:62% (now ~108px lower than title)
+- Lint clean, no console errors
+- VLM verified all 3: nav blended with scene (no white bg/separator), title fully in arch opening (no overlap), cards lower than title
+- Verified nav restores blurred bg after scrolling into blog body (readability preserved)
+
+Stage Summary:
+- Portal nav transparent & blended with scene (like original)
+- Title fits cleanly inside the portal opening
+- Cards sit a bit below the title (not on same line)

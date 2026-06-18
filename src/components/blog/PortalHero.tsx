@@ -425,7 +425,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                   textAlign: "center",
                   color: "#fff",
                   textShadow:
-                    "0 2px 24px rgba(0,0,0,0.7),0 1px 4px rgba(0,0,0,0.9)",
+                    "0 2px 24px rgba(0,0,0,0.75),0 1px 4px rgba(0,0,0,0.95)",
                   width: "max-content",
                   maxWidth: "90vw",
                 }}
@@ -433,8 +433,8 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(30px,4.2vw,52px)",
-                    lineHeight: 1.1,
+                    fontSize: "clamp(20px,2.6vw,32px)",
+                    lineHeight: 1,
                     letterSpacing: "0.04em",
                   }}
                 >
@@ -444,10 +444,10 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(46px,7vw,82px)",
+                    fontSize: "clamp(30px,4.2vw,50px)",
                     lineHeight: 0.9,
                     letterSpacing: "-0.02em",
-                    marginTop: "4px",
+                    marginTop: "2px",
                   }}
                 >
                   重新定义工程
@@ -455,15 +455,15 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <p
                   style={{
                     fontFamily: "'Imprima',sans-serif",
-                    fontSize: "16px",
-                    lineHeight: 1.7,
-                    color: "rgba(255,245,235,0.9)",
-                    maxWidth: "420px",
-                    margin: "20px auto 0",
-                    textShadow: "0 1px 12px rgba(0,0,0,0.8)",
+                    fontSize: "13px",
+                    lineHeight: 1.55,
+                    color: "rgba(255,245,235,0.92)",
+                    maxWidth: "320px",
+                    margin: "10px auto 0",
+                    textShadow: "0 1px 12px rgba(0,0,0,0.9)",
                   }}
                 >
-                  在代码、工程与智能之间，记录智能建造、能源工程与前沿技术的实践与思考。
+                  在代码、工程与智能之间，记录智能建造与能源工程的实践与思考。
                 </p>
               </div>
 
@@ -472,7 +472,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 style={{
                   position: "absolute",
                   right: "40px",
-                  top: "50%",
+                  top: "62%",
                   transform: "translateY(-50%)",
                   display: "flex",
                   gap: "12px",

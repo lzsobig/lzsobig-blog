@@ -18,7 +18,12 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => {
+      // Keep nav transparent over the immersive portal hero (≈420vh tall);
+      // show the blurred bar only once we've scrolled into the blog body.
+      const portalEnd = window.innerHeight * 3.6;
+      setScrolled(window.scrollY > portalEnd);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -44,9 +49,19 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-50 nav-blur transition-all duration-300 ${
-          scrolled ? "py-2" : "py-3"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled ? "py-2 nav-blur" : "py-3"
         }`}
+        style={
+          scrolled
+            ? undefined
+            : {
+                background: "transparent",
+                backdropFilter: "none",
+                WebkitBackdropFilter: "none",
+                borderBottom: "none",
+              }
+        }
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
