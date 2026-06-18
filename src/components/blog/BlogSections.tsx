@@ -46,33 +46,7 @@ export function StatsBand() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 relative" ref={ref}>
-      {/* transition gradient from portal darkness into blog */}
-      <div
-        className="absolute top-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: "120px",
-          background:
-            "linear-gradient(to bottom, rgba(8,6,12,0.9) 0%, transparent 100%)",
-        }}
-      />
-      {/* welcome line */}
-      <div className="relative text-center mb-12 px-4">
-        <div
-          className="inline-flex items-center gap-2 text-xs mb-3"
-          style={{ color: "var(--fg-muted)", letterSpacing: "0.18em" }}
-        >
-          <span style={{ width: "24px", height: "1px", background: "var(--border-strong)" }} />
-          欢迎进入
-          <span style={{ width: "24px", height: "1px", background: "var(--border-strong)" }} />
-        </div>
-        <h2
-          className="font-black"
-          style={{ fontSize: "clamp(22px, 3vw, 32px)" }}
-        >
-          知识<span className="gradient-text-accent">世界</span>
-        </h2>
-      </div>
+    <section className="py-16 md:py-20 relative" ref={ref}>
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-5">
         {stats.map((s, i) => (
           <div

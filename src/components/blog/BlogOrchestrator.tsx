@@ -5,6 +5,7 @@ import { useBlogStore, initBlogStore } from "@/store/blog-store";
 import { articles } from "@/data/articles";
 import PortalHero from "./PortalHero";
 import Navigation from "./Navigation";
+import FeaturedCarousel from "./FeaturedCarousel";
 import {
   StatsBand,
   About,
@@ -198,6 +199,7 @@ export default function BlogOrchestrator() {
         className="relative z-10 flex flex-col"
         style={{ minHeight: "auto" }}
       >
+        <FeaturedCarousel />
         <StatsBand />
         <About />
         <ArticlesGrid />

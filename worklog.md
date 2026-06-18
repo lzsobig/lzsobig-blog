@@ -60,3 +60,23 @@ Stage Summary:
 - Homepage decluttered: removed redundant 3D carousel section
 - Portal crystal effect fully preserved (user-requested "全保留")
 - Clean transition from immersive portal into blog content
+
+---
+Task ID: 13
+Agent: main
+Task: Faithful direct concatenation per user — restore original Portal assets + 3D carousel, only handle seam/substitution
+
+Work Log:
+- User clarification: wanted direct concatenation of the two originals (preserve ALL elements incl. 3D carousel), NOT my removal of the carousel
+- Downloaded 5 original Portal image assets (world/clouds/portal/curtain-left/curtain-right .webp) from plugin-assets.open-design.ai to /public/portal/ — all HTTP 200
+- Rewrote PortalHero to faithfully reproduce original index.html: real world/clouds/portal/curtain image layers, original scroll-parallax + curtain-open + portal-zoom-through logic, original Viaoda Libre + Imprima fonts, scene1 (title + WeChat card + article preview cards) / scene2 ("进入知识世界") transitions
+- Substitutions in Portal scene1 only: title "AI × 建造 重新定义工程", WeChat "AI4E建智工坊" card, 3 article preview cards from AI+construction articles
+- Restored FeaturedCarousel (3D rotating ring of 8 featured articles) to BlogOrchestrator after Portal — LUMINA signature element
+- Added Viaoda Libre + Imprima fonts to layout.tsx (next/font)
+- Removed my previous "知识世界" transition heading — FeaturedCarousel now acts as the blog hero (cleaner seam, matches LUMINA hero→carousel flow)
+- Page flow: Portal (immersive) → 3D Carousel (精选) → Stats → 关于 → 文章 → 订阅 → Footer
+- Lint clean, no console errors, Agent Browser + VLM verified: crystal portal (ring/starfield/curtains) restored, 3D carousel rotates, reader/search/theme/mobile all work
+
+Stage Summary:
+- True direct concatenation: original Portal (faithful, real assets) + original LUMINA structure (3D carousel + all sections)
+- Only seam + content substitution done as requested (lzsobig branding, AI+建造/能源 articles, WeChat AI4E建智工坊)

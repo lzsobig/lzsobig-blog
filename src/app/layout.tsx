@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Outfit, Noto_Serif_SC, JetBrains_Mono } from "next/font/google";
+import {
+  Outfit,
+  Noto_Serif_SC,
+  JetBrains_Mono,
+  Viaoda_Libre,
+  Imprima,
+} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -19,6 +25,21 @@ const notoSerif = Noto_Serif_SC({
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Portal hero fonts (faithful to original index.html)
+const viaoda = Viaoda_Libre({
+  variable: "--font-viaoda",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const imprima = Imprima({
+  variable: "--font-imprima",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -66,7 +87,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${outfit.variable} ${notoSerif.variable} ${jetbrains.variable} antialiased`}
+        className={`${outfit.variable} ${notoSerif.variable} ${jetbrains.variable} ${viaoda.variable} ${imprima.variable} antialiased`}
       >
         {children}
         <Toaster />

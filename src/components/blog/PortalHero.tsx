@@ -7,120 +7,62 @@ interface PortalHeroProps {
   onEnterBlog: () => void;
 }
 
+/**
+ * Faithful recreation of the original index.html "Step Into Wonder" portal.
+ * Uses the original image assets (world / clouds / portal / curtains) and the
+ * original layer + scroll-parallax logic. Only the scene-1 copy & cards are
+ * swapped for the lzsobig blog (title, WeChat card, article previews).
+ */
 export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const portalRef = useRef<HTMLDivElement>(null);
-  const nebulaRef = useRef<HTMLDivElement>(null);
-  const curtainLRef = useRef<HTMLDivElement>(null);
-  const curtainRRef = useRef<HTMLDivElement>(null);
+  const worldRef = useRef<HTMLImageElement>(null);
+  const cloudsRef = useRef<HTMLImageElement>(null);
+  const portalRef = useRef<HTMLImageElement>(null);
+  const curtainLRef = useRef<HTMLImageElement>(null);
+  const curtainRRef = useRef<HTMLImageElement>(null);
   const scene1Ref = useRef<HTMLDivElement>(null);
   const scene2Ref = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const scene1ChildrenRef = useRef<HTMLDivElement>(null);
 
   const [entranceDone, setEntranceDone] = useState(false);
   const [uiVisible, setUiVisible] = useState(false);
+
   const featured = getFeaturedArticles().slice(0, 3);
 
-  // Entrance sequence
+  // Entrance sequence: curtains open → UI fades in → entrance done
   useEffect(() => {
     const t1 = setTimeout(() => {
-      setUiVisible(true);
-    }, 500);
+      if (curtainLRef.current)
+        curtainLRef.current.style.transform = "translateX(-62%)";
+      if (curtainRRef.current)
+        curtainRRef.current.style.transform = "translateX(62%)";
+    }, 120);
+
     const t2 = setTimeout(() => {
+      setUiVisible(true);
+      if (scene1ChildrenRef.current) {
+        scene1ChildrenRef.current.style.transition = "opacity 0.9s ease";
+        scene1ChildrenRef.current.style.opacity = "0.9";
+      }
+      if (scene1Ref.current) scene1Ref.current.style.pointerEvents = "auto";
+    }, 620);
+
+    const t3 = setTimeout(() => {
       setEntranceDone(true);
-    }, 2100);
+      if (curtainLRef.current) curtainLRef.current.style.transition = "none";
+      if (curtainRRef.current) curtainRRef.current.style.transition = "none";
+      if (scene1ChildrenRef.current)
+        scene1ChildrenRef.current.style.transition = "none";
+    }, 2200);
+
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
     };
   }, []);
 
-  // Starfield canvas
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let stars: {
-      x: number;
-      y: number;
-      z: number;
-      r: number;
-      tw: number;
-      hue: number;
-    }[] = [];
-    let w = 0;
-    let h = 0;
-    let raf = 0;
-
-    function resize() {
-      if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.clientWidth;
-      h = canvas.clientHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.floor((w * h) / 4500);
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        z: Math.random() * 0.8 + 0.2,
-        r: Math.random() * 1.4 + 0.3,
-        tw: Math.random() * Math.PI * 2,
-        hue: Math.random() < 0.7 ? 0 : Math.random() < 0.5 ? 280 : 330,
-      }));
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    let t = 0;
-    function draw() {
-      if (!ctx || !canvas) return;
-      ctx.clearRect(0, 0, w, h);
-      t += 0.012;
-      for (const s of stars) {
-        const tw = 0.5 + 0.5 * Math.sin(t * 1.5 + s.tw);
-        const alpha = (0.25 + 0.55 * tw) * s.z;
-        if (s.hue === 0) {
-          ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-        } else {
-          ctx.fillStyle = `hsla(${s.hue},80%,75%,${alpha})`;
-        }
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
-        ctx.fill();
-        // glow for bigger stars
-        if (s.r > 1.2) {
-          ctx.fillStyle =
-            s.hue === 0
-              ? `rgba(255,255,255,${alpha * 0.15})`
-              : `hsla(${s.hue},80%,75%,${alpha * 0.15})`;
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r * s.z * 3, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        // slow drift
-        s.y += 0.04 * s.z;
-        if (s.y > h) {
-          s.y = 0;
-          s.x = Math.random() * w;
-        }
-      }
-      raf = requestAnimationFrame(draw);
-    }
-    draw();
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  // Scroll + parallax render loop
+  // Scroll + mouse-parallax render loop (mirrors original index.html logic)
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
@@ -129,8 +71,15 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
       my = 0,
       mxL = 0,
       myL = 0;
-    const speed = 0.08;
+    const speed = 0.07;
+    const MAG = { world: 6, clouds: 9, portal: 7, curtainL: 14, curtainR: 14 };
     const isDesktop = () => window.matchMedia("(min-width: 1100px)").matches;
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const clamp = (v: number, mn: number, mx: number) =>
+      Math.max(mn, Math.min(mx, v));
+    const easeInOut = (t: number) =>
+      t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 
     function onMove(e: MouseEvent) {
       mx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -138,14 +87,8 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
     }
     document.addEventListener("mousemove", onMove);
 
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    const clamp = (v: number, mn: number, mx: number) =>
-      Math.max(mn, Math.min(mx, v));
-    const easeInOut = (t: number) =>
-      t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    const MAG = { nebula: 8, portal: 6, curtain: 14, cards: 5 };
-
     let rafActive = true;
+    let raf = 0;
 
     function render() {
       const rootEl = rootRef.current;
@@ -159,60 +102,62 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
       myL = lerp(myL, my, speed);
       const desktop = isDesktop();
 
-      // Nebula (background clouds)
-      if (nebulaRef.current) {
-        const s = lerp(1, 1.35, ep);
-        const tx = desktop ? -mxL * MAG.nebula : 0;
-        const ty = desktop ? -myL * MAG.nebula : 0;
-        nebulaRef.current.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
-        nebulaRef.current.style.opacity = String(
-          clamp(1 - sp / 0.7, 0.35, 1)
+      // World background
+      if (worldRef.current) {
+        const s = lerp(1, 1.18, ep);
+        const tx = desktop ? -mxL * MAG.world : 0;
+        const ty = desktop ? -myL * MAG.world : 0;
+        worldRef.current.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+      }
+      // Clouds
+      if (cloudsRef.current) {
+        const s = lerp(1, 1.4, ep);
+        const tx = desktop ? -mxL * MAG.clouds : 0;
+        const ty = desktop ? -myL * MAG.clouds * 0.4 : 0;
+        cloudsRef.current.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
+        cloudsRef.current.style.opacity = String(
+          clamp(lerp(0.7, 1, sp / 0.05), 0.7, 1)
         );
       }
-
-      // Portal ring (zoom-through)
+      // Portal frame (zoom-through)
       if (portalRef.current) {
-        const s = lerp(1, 9, ep);
+        const s = lerp(1, 7.5, ep);
         const tx = desktop ? -mxL * MAG.portal : 0;
         const ty = desktop ? -myL * MAG.portal : 0;
         portalRef.current.style.transform = `translate(${tx}px,${ty}px) scale(${s})`;
-        portalRef.current.style.opacity = sp <= 0.62 ? "1" : String(clamp(1 - (sp - 0.62) / 0.18, 0, 1));
+        portalRef.current.style.opacity =
+          sp <= 0.65 ? "1" : String(clamp(1 - (sp - 0.65) / 0.2, 0, 1));
       }
-
-      // Curtains
-      if (curtainLRef.current && curtainRRef.current && entranceDone) {
-        const extra = lerp(0, 130, ep);
-        const cs = lerp(1, 1.25, ep);
-        const cLMx = desktop ? -mxL * MAG.curtain : 0;
-        const cRMx = desktop ? -mxL * MAG.curtain : 0;
-        curtainLRef.current.style.transform = `translate(${-62 - extra + cLMx}%,0) scale(${cs})`;
-        curtainRRef.current.style.transform = `translate(${62 + extra + cRMx}%,0) scale(${cs})`;
+      // Curtains (after entrance)
+      if (
+        curtainLRef.current &&
+        curtainRRef.current &&
+        entranceDone
+      ) {
+        const extra = lerp(0, 150, ep);
+        const cs = lerp(1, 1.3, ep);
+        const cLx = desktop ? -mxL * MAG.curtainL : 0;
+        const cLy = desktop ? -myL * MAG.curtainL * 0.3 : 0;
+        const cRx = desktop ? -mxL * MAG.curtainR : 0;
+        const cRy = desktop ? -myL * MAG.curtainR * 0.3 : 0;
+        curtainLRef.current.style.transform = `translate(${-62 - extra + cLx}%,${cLy}px) scale(${cs})`;
+        curtainRRef.current.style.transform = `translate(${62 + extra + cRx}%,${cRy}px) scale(${cs})`;
       }
-
       // Scene 1 opacity
       if (scene1Ref.current && uiVisible) {
         const s1o = clamp(1 - sp / 0.22, 0, 1);
         scene1Ref.current.style.opacity = String(s1o);
       }
-
-      // Cards parallax (within scene 1)
-      if (cardsRef.current && uiVisible) {
-        const tx = desktop ? -mxL * MAG.cards : 0;
-        const ty = desktop ? -myL * MAG.cards : 0;
-        cardsRef.current.style.transform = `translate(${tx}px,${ty}px)`;
-      }
-
-      // Scene 2 opacity (transition text)
+      // Scene 2 opacity
       if (scene2Ref.current) {
-        const s2o = clamp((sp - 0.7) / 0.18, 0, 1);
+        const s2o = clamp((sp - 0.68) / 0.16, 0, 1);
         scene2Ref.current.style.opacity = String(s2o);
-        scene2Ref.current.style.pointerEvents = s2o > 0.5 ? "auto" : "none";
+        scene2Ref.current.style.paddingTop = "12vh";
       }
 
       if (rafActive) raf = requestAnimationFrame(render);
     }
-
-    let raf = requestAnimationFrame(render);
+    raf = requestAnimationFrame(render);
 
     function wake() {
       if (!rafActive) {
@@ -222,11 +167,11 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
     }
     document.addEventListener("mousemove", wake);
     window.addEventListener("scroll", wake, { passive: true });
-    // stop continuous RAF after entrance to save CPU, re-wake on interaction
+    // stop continuous RAF after entrance to save CPU
     setTimeout(() => {
       rafActive = false;
       cancelAnimationFrame(raf);
-    }, 2400);
+    }, 2500);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -236,560 +181,606 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
     };
   }, [entranceDone, uiVisible]);
 
-  const handleEnter = () => {
-    // Smooth scroll to end of portal (start of blog)
-    const root = rootRef.current;
-    if (root) {
-      const target = root.scrollHeight - window.innerHeight + 8;
-      window.scrollTo({ top: target, behavior: "smooth" });
-    }
-  };
-
   return (
     <div
       ref={rootRef}
-      className="portal-root"
-      style={{ height: "380vh", position: "relative" }}
+      id="portal-root"
+      style={{ height: "420vh", position: "relative" }}
     >
-      <div ref={viewportRef} className="portal-viewport">
-        {/* Starfield canvas */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-          style={{ zIndex: 1 }}
-        />
-
-        {/* Nebula clouds (CSS radial gradients) */}
-        <div
-          ref={nebulaRef}
-          className="absolute inset-0"
+      <div
+        id="viewport"
+        style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          overflow: "hidden",
+          background: "#0a0608",
+        }}
+      >
+        {/* Layer 1: World background */}
+        <img
+          ref={worldRef}
+          src="/portal/world.webp"
+          alt=""
           style={{
-            zIndex: 2,
-            opacity: 0.6,
-            background:
-              "radial-gradient(ellipse 60% 40% at 30% 70%, rgba(139,92,246,0.45) 0%, transparent 60%), radial-gradient(ellipse 50% 35% at 75% 65%, rgba(236,72,153,0.35) 0%, transparent 60%), radial-gradient(ellipse 70% 30% at 50% 95%, rgba(20,184,166,0.25) 0%, transparent 60%)",
-            filter: "blur(30px)",
-            transformOrigin: "50% 70%",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transformOrigin: "50% 50%",
+            zIndex: 0,
           }}
         />
-
-        {/* Bottom cloud band */}
-        <div
-          className="absolute bottom-0 left-0 right-0"
+        {/* Layer 2: Bottom clouds */}
+        <img
+          ref={cloudsRef}
+          src="/portal/clouds.webp"
+          alt=""
           style={{
-            zIndex: 8,
-            height: "45%",
-            background:
-              "linear-gradient(to top, rgba(8,6,12,0.95) 0%, rgba(20,12,30,0.6) 40%, transparent 100%)",
-            pointerEvents: "none",
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            width: "100%",
+            height: "auto",
+            transformOrigin: "50% 100%",
+            zIndex: 10,
+            opacity: 0.7,
           }}
         />
-
-        {/* Portal ring (the gateway) */}
-        <div
+        {/* Layer 3: Portal frame */}
+        <img
           ref={portalRef}
-          className="absolute inset-0 grid place-items-center"
-          style={{ zIndex: 6, transformOrigin: "50% 50%" }}
-        >
-          <div
-            style={{
-              width: "min(58vw, 620px)",
-              height: "min(58vw, 620px)",
-              borderRadius: "50%",
-              background:
-                "radial-gradient(circle at 50% 50%, rgba(20,10,40,0) 0%, rgba(30,15,50,0.2) 35%, rgba(139,92,246,0.55) 48%, rgba(236,72,153,0.65) 50%, rgba(139,92,246,0.3) 53%, transparent 62%)",
-              boxShadow:
-                "0 0 80px rgba(139,92,246,0.5), 0 0 160px rgba(236,72,153,0.35), inset 0 0 80px rgba(20,10,40,0.6)",
-              filter: "blur(0.5px)",
-            }}
-          />
-          {/* inner swirl */}
-          <div
-            className="absolute"
-            style={{
-              width: "min(46vw, 480px)",
-              height: "min(46vw, 480px)",
-              borderRadius: "50%",
-              background:
-                "conic-gradient(from 0deg, rgba(139,92,246,0.4), rgba(236,72,153,0.5), rgba(20,184,166,0.35), rgba(139,92,246,0.4))",
-              filter: "blur(28px)",
-              opacity: 0.7,
-              animation: "spin 24s linear infinite",
-            }}
-          />
-        </div>
-
-        {/* Top fade */}
-        <div
-          className="absolute top-0 left-0 right-0"
+          src="/portal/portal.webp"
+          alt=""
           style={{
-            zIndex: 12,
-            height: "40vh",
-            background:
-              "linear-gradient(to bottom, rgba(8,6,12,0.6) 0%, transparent 100%)",
-            pointerEvents: "none",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transformOrigin: "52% 38%",
+            zIndex: 15,
           }}
         />
-
-        {/* Curtains */}
+        {/* Bottom fade */}
         <div
-          ref={curtainLRef}
-          className="absolute inset-0"
           style={{
-            zIndex: 14,
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "40%",
+            background:
+              "linear-gradient(to top,rgba(0,0,0,0.45) 0%,transparent 100%)",
+            pointerEvents: "none",
+            zIndex: 16,
+          }}
+        />
+        {/* Layer 4L: Curtain left */}
+        <img
+          ref={curtainLRef}
+          src="/portal/curtain-left.webp"
+          alt=""
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "right center",
             transformOrigin: "left center",
             transform: "translateX(0)",
-            transition: !entranceDone
-              ? "transform 1.8s cubic-bezier(0.16,1,0.3,1)"
-              : "none",
-            background:
-              "linear-gradient(to right, #08060c 0%, #120a18 55%, rgba(30,18,42,0.7) 85%, transparent 100%)",
+            transition: "transform 1.8s cubic-bezier(0.16,1,0.3,1)",
+            zIndex: 16,
           }}
         />
-        <div
+        {/* Layer 4R: Curtain right */}
+        <img
           ref={curtainRRef}
-          className="absolute inset-0"
+          src="/portal/curtain-right.webp"
+          alt=""
           style={{
-            zIndex: 14,
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "left center",
             transformOrigin: "right center",
             transform: "translateX(0)",
-            transition: !entranceDone
-              ? "transform 1.8s cubic-bezier(0.16,1,0.3,1)"
-              : "none",
-            background:
-              "linear-gradient(to left, #08060c 0%, #120a18 55%, rgba(30,18,42,0.7) 85%, transparent 100%)",
+            transition: "transform 1.8s cubic-bezier(0.16,1,0.3,1)",
+            zIndex: 16,
           }}
         />
-
-        {/* Curtain gold trim (left/right edges) */}
+        {/* Top fade */}
         <div
-          className="absolute top-0 bottom-0"
           style={{
-            zIndex: 15,
-            left: "38%",
-            width: "2px",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "42vh",
             background:
-              "linear-gradient(to bottom, transparent, rgba(245,200,140,0.6), transparent)",
-            opacity: entranceDone ? 0 : 0.8,
-            transition: "opacity 1.5s ease",
-          }}
-        />
-        <div
-          className="absolute top-0 bottom-0"
-          style={{
-            zIndex: 15,
-            right: "38%",
-            width: "2px",
-            background:
-              "linear-gradient(to bottom, transparent, rgba(245,200,140,0.6), transparent)",
-            opacity: entranceDone ? 0 : 0.8,
-            transition: "opacity 1.5s ease",
+              "linear-gradient(to bottom,rgba(0,0,0,0.45) 0%,transparent 100%)",
+            pointerEvents: "none",
+            zIndex: 45,
           }}
         />
 
-        {/* Trigger curtain open on mount */}
-        <CurtainTrigger
-          curtainLRef={curtainLRef}
-          curtainRRef={curtainRRef}
-        />
-
-        {/* Navigation overlay (portal-style) */}
-        <PortalNav onEnter={handleEnter} />
+        {/* Navigation (portal style) */}
+        <nav
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            zIndex: 50,
+            padding: "22px 48px",
+          }}
+        >
+          <div
+            className="nav-group-desktop"
+            style={{ display: "flex", gap: "36px" }}
+          >
+            {["首页", "关于", "文章"].map((t) => (
+              <button
+                key={t}
+                onClick={onEnterBlog}
+                style={{
+                  fontFamily: "'Imprima',sans-serif",
+                  fontSize: "12px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  opacity: 0.9,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+          {/* Star logo */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="lzsobig"
+            style={{ background: "none", border: "none", cursor: "pointer" }}
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 2l2.09 6.42H23l-5.45 3.96 2.09 6.42L14 14.84l-5.64 4.06 2.09-6.42L4.96 8.42h6.95L14 2z"
+                fill="white"
+                opacity="0.9"
+              />
+              <circle cx="14" cy="24" r="1.5" fill="white" opacity="0.6" />
+              <circle cx="6" cy="6" r="1" fill="white" opacity="0.4" />
+              <circle cx="22" cy="6" r="1" fill="white" opacity="0.4" />
+            </svg>
+          </button>
+          <div
+            className="nav-group-desktop"
+            style={{ display: "flex", gap: "36px" }}
+          >
+            {["订阅", "公众号", "联系"].map((t) => (
+              <button
+                key={t}
+                onClick={onEnterBlog}
+                style={{
+                  fontFamily: "'Imprima',sans-serif",
+                  fontSize: "12px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  opacity: 0.9,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </nav>
 
         {/* Scene 1: Hero content */}
         <div
           ref={scene1Ref}
-          className="absolute inset-0"
           style={{
-            zIndex: 18,
+            position: "absolute",
+            inset: 0,
+            zIndex: 20,
+            pointerEvents: "none",
             opacity: 0,
-            transition: "opacity 0.8s ease",
-            pointerEvents: uiVisible ? "auto" : "none",
           }}
         >
           <div
-            className="w-full h-full flex flex-col items-center justify-center px-6 text-center"
-            style={{
-              opacity: uiVisible ? 1 : 0,
-              transition: "opacity 1s ease 0.2s",
-            }}
+            ref={scene1ChildrenRef}
+            style={{ width: "100%", height: "100%", opacity: 0 }}
           >
-            {/* Status pill */}
             <div
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-8"
-              style={{
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(12px)",
-                border: "1px solid rgba(255,255,255,0.16)",
-              }}
+              className="scene1-desktop"
+              style={{ display: "block" }}
             >
-              <span className="pulse-dot" />
-              <span
-                style={{
-                  fontSize: "12px",
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.85)",
-                }}
-              >
-                正在写作 · 2026
-              </span>
-            </div>
-
-            {/* Hero title */}
-            <h1
-              className="font-black leading-[0.95] mb-6"
-              style={{
-                fontSize: "clamp(36px, 7vw, 84px)",
-                letterSpacing: "-0.02em",
-                color: "#fff",
-                textShadow: "0 2px 30px rgba(0,0,0,0.6)",
-                maxWidth: "900px",
-              }}
-            >
-              AI <span style={{ color: "rgba(245,200,140,0.7)" }}>×</span> 建造
-              <br />
-              <span
-                style={{
-                  background:
-                    "linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                重新定义工程
-              </span>
-            </h1>
-
-            <p
-              className="mb-10"
-              style={{
-                fontSize: "clamp(15px, 1.6vw, 19px)",
-                lineHeight: 1.7,
-                color: "rgba(255,245,235,0.82)",
-                maxWidth: "560px",
-                textShadow: "0 1px 12px rgba(0,0,0,0.7)",
-              }}
-            >
-              在代码、工程与智能之间，记录智能建造、能源工程与前沿技术的实践与思考。这里收藏关于计算机视觉、BIM、数字孪生与强化学习的工程随笔。
-            </p>
-
-            {/* Cards row: WeChat + article previews */}
-            <div
-              ref={cardsRef}
-              className="flex flex-wrap items-stretch justify-center gap-4"
-              style={{ maxWidth: "780px" }}
-            >
-              {/* WeChat card */}
+              {/* Heading (left) */}
               <div
-                className="rounded-3xl p-5 flex flex-col justify-between text-left"
                 style={{
-                  width: "220px",
-                  minHeight: "150px",
-                  background:
-                    "linear-gradient(135deg, rgba(16,185,129,0.25), rgba(20,184,166,0.15))",
-                  border: "1px solid rgba(16,185,129,0.35)",
-                  backdropFilter: "blur(14px)",
-                  boxShadow: "0 12px 40px rgba(16,185,129,0.2)",
+                  position: "absolute",
+                  top: "46%",
+                  left: "60px",
+                  maxWidth: "460px",
+                  transform: "translateY(-50%)",
+                  color: "#fff",
+                  textShadow:
+                    "0 2px 24px rgba(0,0,0,0.7),0 1px 4px rgba(0,0,0,0.9)",
                 }}
               >
-                <div className="flex items-center gap-2">
-                  <span
+                <div
+                  style={{
+                    fontFamily: "'Viaoda Libre',serif",
+                    fontSize: "clamp(32px,4.5vw,54px)",
+                    lineHeight: 1.1,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  AI <span style={{ color: "rgba(255,220,180,0.7)" }}>×</span>{" "}
+                  建造
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Viaoda Libre',serif",
+                    fontSize: "clamp(50px,7.5vw,88px)",
+                    lineHeight: 0.9,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  重新定义工程
+                </div>
+                <p
+                  style={{
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "18px",
+                    lineHeight: 1.7,
+                    color: "rgba(255,245,235,0.88)",
+                    maxWidth: "340px",
+                    marginTop: "24px",
+                    textShadow: "0 1px 12px rgba(0,0,0,0.8)",
+                  }}
+                >
+                  在代码、工程与智能之间，记录智能建造、能源工程与前沿技术的实践与思考。
+                </p>
+                <button
+                  onClick={onEnterBlog}
+                  style={{
+                    marginTop: "24px",
+                    background: "rgba(255,255,255,0.12)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255,255,255,0.3)",
+                    color: "#fff",
+                    padding: "10px 22px",
+                    borderRadius: "999px",
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "13px",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                  }}
+                >
+                  进入博客 →
+                </button>
+              </div>
+
+              {/* Cards (right): WeChat + 2 article previews */}
+              <div
+                style={{
+                  position: "absolute",
+                  right: "40px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  display: "flex",
+                  gap: "12px",
+                }}
+              >
+                {/* WeChat card */}
+                <button
+                  onClick={() =>
+                    window.open("https://mp.weixin.qq.com/", "_blank")
+                  }
+                  style={{
+                    width: "158px",
+                    height: "158px",
+                    borderRadius: "28px",
+                    background:
+                      "linear-gradient(135deg, rgba(16,185,129,0.85), rgba(20,184,166,0.7))",
+                    position: "relative",
+                    overflow: "hidden",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.45)",
+                    border: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    padding: 0,
+                  }}
+                >
+                  <div
                     style={{
-                      width: "32px",
-                      height: "32px",
-                      borderRadius: "8px",
-                      background: "#10b981",
+                      position: "absolute",
+                      bottom: "0",
+                      left: "0",
+                      right: "0",
+                      height: "60%",
+                      background:
+                        "linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%)",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "16px",
+                      left: "16px",
+                      width: "34px",
+                      height: "34px",
+                      borderRadius: "9px",
+                      background: "#fff",
                       display: "grid",
                       placeItems: "center",
-                      color: "#fff",
+                      color: "#10b981",
                       fontWeight: 800,
                       fontSize: "16px",
                     }}
                   >
                     微
-                  </span>
-                  <div>
+                  </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "14px",
+                      left: "16px",
+                      right: "16px",
+                    }}
+                  >
                     <div
-                      style={{ color: "#fff", fontWeight: 700, fontSize: "14px" }}
+                      style={{
+                        fontFamily: "'Viaoda Libre',serif",
+                        fontSize: "20px",
+                        color: "#fff",
+                        lineHeight: 1.1,
+                      }}
                     >
                       AI4E建智工坊
                     </div>
                     <div
                       style={{
-                        color: "rgba(255,255,255,0.6)",
-                        fontSize: "11px",
-                      }}
-                    >
-                      微信公众号
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={{
-                      color: "rgba(255,255,255,0.85)",
-                      fontSize: "12px",
-                      lineHeight: 1.5,
-                      marginBottom: "8px",
-                    }}
-                  >
-                    AI for Engineering — 工程智能化的实践笔记
-                  </div>
-                  <button
-                    onClick={() =>
-                      window.open("https://mp.weixin.qq.com/", "_blank")
-                    }
-                    className="btn-primary text-xs px-3 py-1.5 rounded-full"
-                    style={{ fontWeight: 600 }}
-                  >
-                    关注 →
-                  </button>
-                </div>
-              </div>
-
-              {/* Article preview cards */}
-              {featured.map((a, i) => (
-                <button
-                  key={a.id}
-                  onClick={onEnterBlog}
-                  className="rounded-3xl overflow-hidden text-left group"
-                  style={{
-                    width: "180px",
-                    minHeight: "150px",
-                    position: "relative",
-                    background: `url(${a.img}) center/cover`,
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
-                  }}
-                  aria-label={`阅读：${a.title}`}
-                >
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)",
-                    }}
-                  />
-                  <div
-                    className="absolute top-3 left-3 px-2 py-0.5 rounded-full text-[10px] font-semibold"
-                    style={{
-                      background: a.color,
-                      color: "#fff",
-                    }}
-                  >
-                    {a.tagLabel}
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <div
-                      style={{
-                        color: "#fff",
-                        fontWeight: 700,
+                        fontFamily: "'Imprima',sans-serif",
                         fontSize: "13px",
-                        lineHeight: 1.35,
-                        marginBottom: "4px",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
+                        color: "rgba(255,255,255,0.85)",
+                        marginTop: "4px",
                       }}
                     >
-                      {a.title}
-                    </div>
-                    <div
-                      style={{
-                        color: "rgba(255,255,255,0.7)",
-                        fontSize: "10px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                      }}
-                    >
-                      <span>#{String(a.id).padStart(2, "0")}</span>
-                      <span>·</span>
-                      <span>{computeReadTime(a.body)} 分钟</span>
+                      关注 →
                     </div>
                   </div>
                 </button>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Scroll cue */}
-        <div
-          className="absolute left-1/2 flex flex-col items-center gap-2.5"
-          style={{
-            zIndex: 20,
-            bottom: "32px",
-            transform: "translateX(-50%)",
-            opacity: uiVisible && entranceDone ? 1 : 0,
-            transition: "opacity 0.8s ease",
-            pointerEvents: "none",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "10px",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.6)",
-            }}
-          >
-            穿越门户
-          </span>
-          <div
-            style={{
-              width: "34px",
-              height: "34px",
-              borderRadius: "50%",
-              border: "1.5px solid rgba(255,255,255,0.5)",
-              display: "grid",
-              placeItems: "center",
-              animation: "bobUp 1.8s ease-in-out infinite",
-            }}
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="rgba(255,255,255,0.8)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+                {/* Article preview cards */}
+                {featured.map((a) => (
+                  <button
+                    key={a.id}
+                    onClick={onEnterBlog}
+                    aria-label={`阅读：${a.title}`}
+                    style={{
+                      width: "158px",
+                      height: "158px",
+                      borderRadius: "28px",
+                      background: `url(${a.img}) center/cover`,
+                      position: "relative",
+                      overflow: "hidden",
+                      boxShadow: "0 8px 32px rgba(0,0,0,0.45)",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                      textAlign: "left",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: "60%",
+                        background:
+                          "linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%)",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "12px",
+                        left: "12px",
+                        padding: "3px 9px",
+                        borderRadius: "999px",
+                        background: a.color,
+                        color: "#fff",
+                        fontFamily: "'Imprima',sans-serif",
+                        fontSize: "10px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {a.tagLabel}
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "12px",
+                        left: "12px",
+                        right: "12px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: "'Viaoda Libre',serif",
+                          fontSize: "16px",
+                          color: "#fff",
+                          lineHeight: 1.15,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {a.title}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "'Imprima',sans-serif",
+                          fontSize: "11px",
+                          color: "rgba(255,255,255,0.7)",
+                          marginTop: "4px",
+                        }}
+                      >
+                        #{String(a.id).padStart(2, "0")} ·{" "}
+                        {computeReadTime(a.body)}分钟
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile / tablet centered layout */}
+            <div
+              className="scene1-mobile"
+              style={{
+                display: "none",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "80px 24px 100px",
+                textAlign: "center",
+              }}
             >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
+              <div
+                style={{
+                  fontFamily: "'Viaoda Libre',serif",
+                  color: "#fff",
+                  textShadow: "0 2px 16px rgba(0,0,0,0.8)",
+                }}
+              >
+                <div
+                  style={{ fontSize: "clamp(26px,7vw,42px)", letterSpacing: "0.08em" }}
+                >
+                  AI <span style={{ color: "rgba(255,220,180,0.7)" }}>×</span>{" "}
+                  建造
+                </div>
+                <div
+                  style={{
+                    fontSize: "clamp(48px,15vw,76px)",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 0.9,
+                  }}
+                >
+                  重新定义工程
+                </div>
+              </div>
+              <p
+                style={{
+                  fontFamily: "'Imprima',sans-serif",
+                  fontSize: "14px",
+                  lineHeight: 1.7,
+                  color: "rgba(255,245,235,0.9)",
+                  maxWidth: "300px",
+                  marginTop: "18px",
+                  textShadow: "0 1px 10px rgba(0,0,0,0.8)",
+                }}
+              >
+                在代码、工程与智能之间，记录智能建造与能源工程的实践与思考。
+              </p>
+              <button
+                onClick={onEnterBlog}
+                style={{
+                  marginTop: "22px",
+                  background: "rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  color: "#fff",
+                  padding: "10px 24px",
+                  borderRadius: "999px",
+                  fontFamily: "'Imprima',sans-serif",
+                  fontSize: "12px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                }}
+              >
+                进入博客 →
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Scene 2: transition text */}
         <div
           ref={scene2Ref}
-          className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-          style={{ zIndex: 22, opacity: 0, pointerEvents: "none" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 46,
+            opacity: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: "12vh",
+            pointerEvents: "none",
+          }}
         >
           <div
             style={{
-              fontSize: "clamp(28px, 5vw, 60px)",
-              fontWeight: 800,
-              letterSpacing: "0.02em",
-              lineHeight: 1.1,
+              fontFamily: "'Viaoda Libre',serif",
+              fontSize: "clamp(38px,6.5vw,78px)",
+              letterSpacing: "0.03em",
+              lineHeight: 1.05,
               color: "#fff",
-              textShadow: "0 2px 24px rgba(0,0,0,0.5)",
-              marginBottom: "16px",
+              textShadow: "0 2px 20px rgba(0,0,0,0.4)",
             }}
           >
             进入知识世界
           </div>
           <p
             style={{
-              fontSize: "clamp(14px, 1.5vw, 18px)",
-              color: "rgba(255,255,255,0.7)",
-              maxWidth: "420px",
+              fontFamily: "'Imprima',sans-serif",
+              fontSize: "20px",
+              lineHeight: 1.6,
+              color: "rgba(255,255,255,0.82)",
+              maxWidth: "480px",
+              margin: "16px auto 0",
+              textAlign: "center",
             }}
           >
             12 篇关于 AI × 智能建造 × 能源工程的深度随笔，等你开启。
           </p>
         </div>
-      </div>
 
-      <style>{`@keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }`}</style>
+        {/* Responsive layout switch (CSS) */}
+        <style>{`
+          @media (max-width: 1099px) {
+            #portal-root .scene1-desktop { display: none !important; }
+            #portal-root .scene1-mobile { display: flex !important; }
+            #portal-root .nav-group-desktop { display: none !important; }
+          }
+        `}</style>
+      </div>
     </div>
-  );
-}
-
-// Small helper component to trigger curtain open via inline style after mount
-function CurtainTrigger({
-  curtainLRef,
-  curtainRRef,
-}: {
-  curtainLRef: React.RefObject<HTMLDivElement | null>;
-  curtainRRef: React.RefObject<HTMLDivElement | null>;
-}) {
-  useEffect(() => {
-    const t = setTimeout(() => {
-      if (curtainLRef.current)
-        curtainLRef.current.style.transform = "translateX(-62%)";
-      if (curtainRRef.current)
-        curtainRRef.current.style.transform = "translateX(62%)";
-    }, 120);
-    return () => clearTimeout(t);
-  }, [curtainLRef, curtainRRef]);
-  return null;
-}
-
-// Minimal portal nav (shown over the portal)
-function PortalNav({ onEnter }: { onEnter: () => void }) {
-  return (
-    <nav
-      className="absolute top-0 left-0 right-0 flex justify-between items-center px-6 md:px-12 py-5"
-      style={{ zIndex: 30 }}
-    >
-      <div
-        className="flex items-center gap-2.5 cursor-pointer"
-        onClick={onEnter}
-      >
-        <div
-          style={{
-            width: "34px",
-            height: "34px",
-            borderRadius: "9px",
-            background: "linear-gradient(135deg, #8b5cf6, #ec4899)",
-            display: "grid",
-            placeItems: "center",
-            color: "#fff",
-            fontWeight: 900,
-            fontSize: "13px",
-            boxShadow: "0 4px 16px rgba(139,92,246,0.5)",
-          }}
-        >
-          lz
-        </div>
-        <span
-          style={{
-            color: "#fff",
-            fontWeight: 800,
-            fontSize: "17px",
-            letterSpacing: "0.02em",
-          }}
-        >
-          lzsobig
-        </span>
-      </div>
-      <div className="hidden md:flex items-center gap-8">
-        {["首页", "关于", "文章", "订阅"].map((t) => (
-          <button
-            key={t}
-            onClick={onEnter}
-            style={{
-              color: "rgba(255,255,255,0.8)",
-              fontSize: "13px",
-              letterSpacing: "0.06em",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "#fff")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "rgba(255,255,255,0.8)")
-            }
-          >
-            {t}
-          </button>
-        ))}
-      </div>
-      <button
-        onClick={onEnter}
-        className="btn-primary px-5 py-2 rounded-full text-xs font-semibold hidden sm:block"
-      >
-        进入博客 →
-      </button>
-    </nav>
   );
 }
