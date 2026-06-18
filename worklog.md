@@ -146,3 +146,17 @@ Stage Summary:
 - Portal nav transparent & blended with scene (like original)
 - Title fits cleanly inside the portal opening
 - Cards sit a bit below the title (not on same line)
+
+---
+Task ID: 17
+Agent: main
+Task: Enlarge portal title (was too small after previous fix)
+
+Work Log:
+- Previous fix shrank title too much (32px/50px) — user said too small
+- Enlarged: "AI × 建造" 32→44px (clamp 26-44), "重新定义工程" 50→72px (clamp 40-72), subtitle 13→15px
+- Total heading height 129→176px, span 362-538 (still centered at 450, within arch opening ±88px)
+- Lint clean, VLM verified: title size appropriate with impact AND fully inside arch opening (no overflow)
+
+Stage Summary:
+- Title enlarged to readable/impactful size while still fitting cleanly inside the portal opening
