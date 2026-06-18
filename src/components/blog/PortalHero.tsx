@@ -657,6 +657,156 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                     </div>
                   </button>
                 ))}
+                {/* Number stat card (like original "32 World Patrons") */}
+                <button
+                  onClick={onEnterBlog}
+                  style={{
+                    width: "158px",
+                    height: "158px",
+                    borderRadius: "28px",
+                    background:
+                      "linear-gradient(135deg, rgba(139,92,246,0.85), rgba(236,72,153,0.7))",
+                    position: "relative",
+                    overflow: "hidden",
+                    boxShadow: "0 8px 32px rgba(139,92,246,0.35)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    cursor: "pointer",
+                    padding: 0,
+                    textAlign: "left",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "14px",
+                      right: "14px",
+                      width: "26px",
+                      height: "26px",
+                      borderRadius: "50%",
+                      border: "1.5px solid rgba(255,255,255,0.5)",
+                      display: "grid",
+                      placeItems: "center",
+                      fontFamily: "'Imprima',sans-serif",
+                      fontSize: "10px",
+                      color: "rgba(255,255,255,0.85)",
+                    }}
+                  >
+                    ✦
+                  </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "14px",
+                      left: "16px",
+                      right: "16px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "'Viaoda Libre',serif",
+                        fontSize: "40px",
+                        color: "#fff",
+                        lineHeight: 1,
+                      }}
+                    >
+                      12
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "'Imprima',sans-serif",
+                        fontSize: "13px",
+                        color: "rgba(255,255,255,0.85)",
+                        marginTop: "4px",
+                      }}
+                    >
+                      深度随笔
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Slider dots (bottom-left, like original) */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "40px",
+                left: "60px",
+                display: "flex",
+                gap: "6px",
+                alignItems: "center",
+                zIndex: 20,
+              }}
+            >
+              <div
+                style={{
+                  width: "28px",
+                  height: "4px",
+                  borderRadius: "2px",
+                  background: "rgba(255,255,255,0.9)",
+                }}
+              />
+              {[14, 14, 14].map((w, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: `${w}px`,
+                    height: "4px",
+                    borderRadius: "2px",
+                    background: "rgba(255,255,255,0.35)",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* DESCEND scroll cue (bottom-center, like original) */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "36px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "10px",
+                zIndex: 20,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Imprima',sans-serif",
+                  fontSize: "10px",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.6)",
+                }}
+              >
+                穿越门户
+              </span>
+              <div
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "50%",
+                  border: "1.5px solid rgba(255,255,255,0.5)",
+                  display: "grid",
+                  placeItems: "center",
+                  animation: "bobUp 1.8s ease-in-out infinite",
+                }}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.7)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
             </div>
 
@@ -730,7 +880,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
           </div>
         </div>
 
-        {/* Scene 2: transition text */}
+        {/* Scene 2: gateway into the knowledge world (enriched) */}
         <div
           ref={scene2Ref}
           style={{
@@ -741,35 +891,231 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingTop: "12vh",
+            justifyContent: "center",
+            padding: "0 24px",
             pointerEvents: "none",
           }}
         >
+          {/* Central glowing portal ring (we just passed through) */}
           <div
             style={{
-              fontFamily: "'Viaoda Libre',serif",
-              fontSize: "clamp(38px,6.5vw,78px)",
-              letterSpacing: "0.03em",
-              lineHeight: 1.05,
-              color: "#fff",
-              textShadow: "0 2px 20px rgba(0,0,0,0.4)",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "min(70vw, 560px)",
+              height: "min(70vw, 560px)",
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(236,72,153,0.18) 40%, transparent 70%)",
+              filter: "blur(20px)",
             }}
-          >
-            进入知识世界
-          </div>
-          <p
+          />
+          <div
             style={{
-              fontFamily: "'Imprima',sans-serif",
-              fontSize: "20px",
-              lineHeight: 1.6,
-              color: "rgba(255,255,255,0.82)",
-              maxWidth: "480px",
-              margin: "16px auto 0",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "min(50vw, 400px)",
+              height: "min(50vw, 400px)",
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              border: "1.5px solid rgba(255,255,255,0.25)",
+              boxShadow:
+                "0 0 60px rgba(139,92,246,0.4), inset 0 0 60px rgba(236,72,153,0.2)",
+            }}
+          />
+
+          {/* Decorative floating orbs */}
+          {[
+            { top: "22%", left: "16%", s: 8, c: "rgba(139,92,246,0.7)" },
+            { top: "28%", right: "20%", s: 6, c: "rgba(236,72,153,0.7)" },
+            { bottom: "26%", left: "22%", s: 5, c: "rgba(20,184,166,0.7)" },
+            { bottom: "22%", right: "16%", s: 9, c: "rgba(245,200,140,0.6)" },
+          ].map((o, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                ...o,
+                width: `${o.s * 2}px`,
+                height: `${o.s * 2}px`,
+                borderRadius: "50%",
+                background: o.c,
+                filter: "blur(1px)",
+                boxShadow: `0 0 ${o.s * 3}px ${o.c}`,
+                animation: `bobUp ${2.4 + i * 0.3}s ease-in-out infinite`,
+              } as React.CSSProperties}
+            />
+          ))}
+
+          {/* Content stack */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
               textAlign: "center",
+              maxWidth: "680px",
             }}
           >
-            12 篇关于 AI × 智能建造 × 能源工程的深度随笔，等你开启。
-          </p>
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                fontFamily: "'Imprima',sans-serif",
+                fontSize: "11px",
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.7)",
+                marginBottom: "18px",
+              }}
+            >
+              <span style={{ width: "28px", height: "1px", background: "rgba(255,255,255,0.4)" }} />
+              你已穿越门户
+              <span style={{ width: "28px", height: "1px", background: "rgba(255,255,255,0.4)" }} />
+            </div>
+
+            {/* Title */}
+            <div
+              style={{
+                fontFamily: "'Viaoda Libre',serif",
+                fontSize: "clamp(38px,6.5vw,78px)",
+                letterSpacing: "0.03em",
+                lineHeight: 1.05,
+                color: "#fff",
+                textShadow: "0 2px 24px rgba(0,0,0,0.5)",
+                marginBottom: "16px",
+              }}
+            >
+              进入<span style={{ color: "rgba(245,200,140,0.9)" }}>知识</span>世界
+            </div>
+
+            {/* Subtitle */}
+            <p
+              style={{
+                fontFamily: "'Imprima',sans-serif",
+                fontSize: "clamp(15px,1.6vw,19px)",
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.82)",
+                maxWidth: "460px",
+                margin: "0 0 30px",
+                textShadow: "0 1px 12px rgba(0,0,0,0.6)",
+              }}
+            >
+              12 篇关于 AI × 智能建造 × 能源工程的深度随笔，等你开启。
+            </p>
+
+            {/* Category chips row */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "10px",
+                justifyContent: "center",
+                marginBottom: "30px",
+              }}
+            >
+              {[
+                { icon: "🏗️", label: "智能建造", c: "#6366f1" },
+                { icon: "⚡", label: "能源工程", c: "#10b981" },
+                { icon: "🤖", label: "AI 应用", c: "#ec4899" },
+                { icon: "🚀", label: "前沿技术", c: "#0ea5e9" },
+              ].map((cat) => (
+                <div
+                  key={cat.label}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "8px 16px",
+                    borderRadius: "999px",
+                    background: "rgba(255,255,255,0.1)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    color: "#fff",
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "13px",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      background: cat.c,
+                      boxShadow: `0 0 8px ${cat.c}`,
+                    }}
+                  />
+                  {cat.label}
+                </div>
+              ))}
+            </div>
+
+            {/* CTA button */}
+            <button
+              onClick={onEnterBlog}
+              style={{
+                background: "linear-gradient(135deg, rgba(139,92,246,0.9), rgba(236,72,153,0.9))",
+                border: "1px solid rgba(255,255,255,0.3)",
+                color: "#fff",
+                padding: "14px 36px",
+                borderRadius: "999px",
+                fontFamily: "'Imprima',sans-serif",
+                fontSize: "14px",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                boxShadow: "0 12px 40px rgba(139,92,246,0.4)",
+                pointerEvents: "auto",
+              }}
+            >
+              开始阅读 →
+            </button>
+
+            {/* Mini stat row */}
+            <div
+              style={{
+                display: "flex",
+                gap: "32px",
+                marginTop: "32px",
+                fontFamily: "'Imprima',sans-serif",
+              }}
+            >
+              {[
+                { n: "12", l: "篇文章" },
+                { n: "5", l: "个分类" },
+                { n: "4+", l: "年写作" },
+              ].map((s) => (
+                <div key={s.l} style={{ textAlign: "center" }}>
+                  <div
+                    style={{
+                      fontFamily: "'Viaoda Libre',serif",
+                      fontSize: "26px",
+                      color: "#fff",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {s.n}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "rgba(255,255,255,0.6)",
+                      marginTop: "4px",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    {s.l}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Responsive layout switch (CSS) */}

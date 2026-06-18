@@ -80,3 +80,30 @@ Work Log:
 Stage Summary:
 - True direct concatenation: original Portal (faithful, real assets) + original LUMINA structure (3D carousel + all sections)
 - Only seam + content substitution done as requested (lzsobig branding, AI+建造/能源 articles, WeChat AI4E建智工坊)
+
+---
+Task ID: 14
+Agent: main
+Task: Enrich homepage Scene 1 + rebuild ugly Scene 2 transition page per user feedback (with VLM analysis of 2 reference images)
+
+Work Log:
+- VLM analyzed 2 user screenshots: image 1 = ugly empty "进入知识世界" transition; image 2 = original REVERIE start page (rich: title + multiple cards incl "32 World Patrons" number card + DESCEND cue + dots)
+- Scene 1 (portal homepage) enrichment:
+  * Added "12 深度随笔" number stat card (gradient purple-pink) to right card row — mirrors original "32 World Patrons"
+  * Added slider dots indicator (bottom-left) — restored from original
+  * Added "穿越门户" DESCEND scroll cue (bottom-center, bouncing chevron) — restored from original
+- Scene 2 (transition page) full rebuild — was just floating title+subtitle, now:
+  * Central glowing portal ring (radial gradient + bordered ring with glow) — "we just passed through"
+  * 4 decorative floating orbs (purple/pink/teal/amber, bobUp animation)
+  * Eyebrow "你已穿越门户" with divider lines
+  * Title "进入知识世界" (knowledge highlighted amber)
+  * Subtitle
+  * 4 category chips (智能建造/能源工程/AI应用/前沿技术) with colored glow dots
+  * "开始阅读 →" gradient CTA button
+  * Mini stat row (12篇文章 / 5个分类 / 4+年写作)
+- Lint clean, no console errors, Agent Browser + VLM verified both scenes rich & interactive
+
+Stage Summary:
+- Homepage Scene 1 now rich (5 cards + dots + DESCEND cue) like original REVERIE
+- Scene 2 transition page no longer empty/ugly — full gateway with ring, orbs, chips, CTA, stats
+- Both verified via VLM as "丰富,饱满且富有层次感"
