@@ -433,7 +433,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(26px,3.4vw,44px)",
+                    fontSize: "clamp(30px,4vw,52px)",
                     lineHeight: 1.05,
                     letterSpacing: "0.04em",
                   }}
@@ -444,7 +444,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(40px,5.8vw,72px)",
+                    fontSize: "clamp(48px,6.8vw,86px)",
                     lineHeight: 0.92,
                     letterSpacing: "-0.02em",
                     marginTop: "2px",
@@ -455,11 +455,11 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <p
                   style={{
                     fontFamily: "'Imprima',sans-serif",
-                    fontSize: "15px",
+                    fontSize: "16px",
                     lineHeight: 1.6,
                     color: "rgba(255,245,235,0.92)",
-                    maxWidth: "380px",
-                    margin: "14px auto 0",
+                    maxWidth: "400px",
+                    margin: "16px auto 0",
                     textShadow: "0 1px 12px rgba(0,0,0,0.9)",
                   }}
                 >
