@@ -1,0 +1,562 @@
+     1→     1→<!doctype html>
+     2→     2→<html lang="en">
+     3→     3→<head>
+     4→     4→  <meta charset="utf-8">
+     5→     5→  <meta name="viewport" content="width=device-width, initial-scale=1">
+     6→     6→  <title>Step Into Wonder</title>
+     7→     7→  <link rel="preconnect" href="https://fonts.googleapis.com">
+     8→     8→  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     9→     9→  <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&family=Imprima&display=swap" rel="stylesheet">
+    10→    10→  <style>
+    11→    11→    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    12→    12→    html, body {
+    13→    13→      width: 100%;
+    14→    14→      background: #0a0608;
+    15→    15→      color: #fff;
+    16→    16→      font-family: 'Imprima', sans-serif;
+    17→    17→      scrollbar-gutter: stable;
+    18→    18→      -webkit-font-smoothing: antialiased;
+    19→    19→    }
+    20→    20→    @keyframes bobUp {
+    21→    21→      0%, 100% { transform: translateY(0); }
+    22→    22→      50% { transform: translateY(-6px); }
+    23→    23→    }
+    24→    24→    @media (prefers-reduced-motion: reduce) {
+    25→    25→      *, *::before, *::after {
+    26→    26→        animation-duration: 0.01ms !important;
+    27→    27→        animation-iteration-count: 1 !important;
+    28→    28→        transition-duration: 0.01ms !important;
+    29→    29→      }
+    30→    30→    }
+    31→    31→    a:focus-visible, button:focus-visible {
+    32→    32→      outline: 2px solid rgba(255,255,255,0.8);
+    33→    33→      outline-offset: 3px;
+    34→    34→      border-radius: 4px;
+    35→    35→    }
+    36→    36→    #arc-slider > div {
+    37→    37→      transition: box-shadow 0.25s ease;
+    38→    38→      cursor: pointer;
+    39→    39→    }
+    40→    40→    #arc-slider > div:hover {
+    41→    41→      box-shadow: 0 12px 48px rgba(80,40,60,0.32);
+    42→    42→    }
+    43→    43→  </style>
+    44→    44→</head>
+    45→    45→<body>
+    46→    46→
+    47→    47→<div id="portal-root" style="height:480vh;position:relative;">
+    48→    48→  <div id="viewport" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#0a0608;">
+    49→    49→
+    50→    50→    <!-- Layer 1: World Background -->
+    51→    51→    <img id="world" src="https://plugin-assets.open-design.ai/plugins/dreamcore-landing/image_2_gkcdlx-5f252f.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%;z-index:0;">
+    52→    52→
+    53→    53→    <!-- Layer 2: Bottom Clouds -->
+    54→    54→    <img id="clouds" src="https://plugin-assets.open-design.ai/plugins/dreamcore-landing/bottom_clouds_xskut6-c56b42.webp" alt="" style="position:absolute;bottom:0;left:0;right:0;width:100%;height:auto;transform-origin:50% 100%;z-index:10;opacity:0.7;">
+    55→    55→
+    56→    56→    <!-- Layer 2.5: Arc Card Slider -->
+    57→    57→    <div id="arc-slider" style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);z-index:9;opacity:0;width:320px;height:260px;" data-mobile="true"></div>
+    58→    58→
+    59→    59→    <!-- Layer 3: Portal Frame -->
+    60→    60→    <img id="portal" src="https://plugin-assets.open-design.ai/plugins/dreamcore-landing/image_1_vdzwae-464f73.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:52% 38%;z-index:15;">
+    61→    61→
+    62→    62→    <!-- Bottom Fade -->
+    63→    63→    <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,transparent 100%);pointer-events:none;z-index:16;"></div>
+    64→    64→
+    65→    65→    <!-- Layer 4L: Curtain Left -->
+    66→    66→    <img id="curtainL" src="https://plugin-assets.open-design.ai/plugins/dreamcore-landing/curtain_left_znkmva-f9eb4c.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;transform-origin:left center;transform:translateX(0);transition:transform 1.8s cubic-bezier(0.16,1,0.3,1);z-index:16;">
+    67→    67→
+    68→    68→    <!-- Layer 4R: Curtain Right -->
+    69→    69→    <img id="curtainR" src="https://plugin-assets.open-design.ai/plugins/dreamcore-landing/curtain_right_paeyym-9fa947.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;transform-origin:right center;transform:translateX(0);transition:transform 1.8s cubic-bezier(0.16,1,0.3,1);z-index:16;">
+    70→    70→
+    71→    71→    <!-- Top Fade Gradient -->
+    72→    72→    <div style="position:absolute;top:0;left:0;right:0;height:42vh;background:linear-gradient(to bottom,rgba(0,0,0,0.45) 0%,transparent 100%);pointer-events:none;z-index:45;"></div>
+    73→    73→
+    74→    74→    <!-- Navigation -->
+    75→    75→    <nav style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;z-index:50;padding:22px 48px;">
+    76→    76→      <div class="nav-group-desktop" style="display:flex;gap:36px;">
+    77→    77→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Worlds</a>
+    78→    78→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Atelier</a>
+    79→    79→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Immersions</a>
+    80→    80→      </div>
+    81→    81→      <!-- Star Logo -->
+    82→    82→      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    83→    83→        <path d="M14 2l2.09 6.42H23l-5.45 3.96 2.09 6.42L14 14.84l-5.64 4.06 2.09-6.42L4.96 8.42h6.95L14 2z" fill="white" opacity="0.9"/>
+    84→    84→        <circle cx="14" cy="24" r="1.5" fill="white" opacity="0.6"/>
+    85→    85→        <circle cx="6" cy="6" r="1" fill="white" opacity="0.4"/>
+    86→    86→        <circle cx="22" cy="6" r="1" fill="white" opacity="0.4"/>
+    87→    87→      </svg>
+    88→    88→      <div class="nav-group-desktop" style="display:flex;gap:36px;">
+    89→    89→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Craft</a>
+    90→    90→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Codex</a>
+    91→    91→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Connect</a>
+    92→    92→      </div>
+    93→    93→      <!-- Mobile nav -->
+    94→    94→      <div class="nav-mobile" style="display:none;justify-content:space-between;align-items:center;width:100%;padding:18px 20px;position:absolute;top:0;left:0;">
+    95→    95→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Explore</a>
+    96→    96→        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    97→    97→          <path d="M14 2l2.09 6.42H23l-5.45 3.96 2.09 6.42L14 14.84l-5.64 4.06 2.09-6.42L4.96 8.42h6.95L14 2z" fill="white" opacity="0.9"/>
+    98→    98→          <circle cx="14" cy="24" r="1.5" fill="white" opacity="0.6"/>
+    99→    99→          <circle cx="6" cy="6" r="1" fill="white" opacity="0.4"/>
+   100→   100→          <circle cx="22" cy="6" r="1" fill="white" opacity="0.4"/>
+   101→   101→        </svg>
+   102→   102→        <a href="#" style="font-family:'Imprima',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#fff;opacity:0.9;text-decoration:none;">Connect</a>
+   103→   103→      </div>
+   104→   104→    </nav>
+   105→   105→
+   106→   106→    <!-- Scene 1 UI -->
+   107→   107→    <div id="scene1" style="position:absolute;inset:0;z-index:20;pointer-events:none;">
+   108→   108→      <div id="scene1-children" style="width:100%;height:100%;opacity:0;">
+   109→   109→
+   110→   110→      <!-- Mobile layout -->
+   111→   111→      <div class="scene1-mobile" style="display:flex;flex-direction:column;align-items:center;padding:80px 24px 100px;text-align:center;">
+   112→   112→        <div style="font-family:'Viaoda Libre',serif;color:#3b1a0a;">
+   113→   113→          <div style="font-size:clamp(26px,7vw,42px);letter-spacing:0.08em;">FALL <span style="color:#6b2e0e;font-size:0.8em;">›</span> <em>INTO</em></div>
+   114→   114→          <div style="font-size:clamp(52px,16vw,80px);letter-spacing:-0.02em;line-height:0.9;">REVERIE</div>
+   115→   115→        </div>
+   116→   116→        <p style="font-family:'Imprima',sans-serif;font-size:15px;line-height:1.7;color:#5c2d0e;max-width:280px;margin-top:20px;">Crafting boundless digital worlds where the edge between AI, vision, and living myth dissolves.</p>
+   117→   117→        <!-- Single card -->
+   118→   118→        <div style="margin-top:28px;width:140px;height:140px;border-radius:22px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160507_2ccbb4eb-1469-484f-af25-59168ad9a233-0c7429.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+   119→   119→          <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   120→   120→          <div style="position:absolute;bottom:0;left:0;right:0;height:44%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);"></div>
+   121→   121→          <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:8px;">
+   122→   122→            <button type="button" aria-label="View Reel" style="width:26px;height:26px;background:#fff;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;">
+   123→   123→              <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M0 0L10 6L0 12V0Z" fill="#1a1a1a"/></svg>
+   124→   124→            </button>
+   125→   125→            <span style="font-family:'Imprima',sans-serif;font-size:13px;color:#fff;">View Reel</span>
+   126→   126→          </div>
+   127→   127→        </div>
+   128→   128→      </div>
+   129→   129→
+   130→   130→      <!-- Tablet layout -->
+   131→   131→      <div class="scene1-tablet" style="display:none;flex-direction:column;align-items:center;gap:28px;padding:80px 32px 96px;">
+   132→   132→        <div style="font-family:'Viaoda Libre',serif;color:#3b1a0a;">
+   133→   133→          <div style="font-size:clamp(28px,5vw,44px);letter-spacing:0.08em;">FALL <span style="color:#6b2e0e;font-size:0.8em;">›</span> <em>INTO</em></div>
+   134→   134→          <div style="font-size:clamp(60px,12vw,86px);letter-spacing:-0.02em;line-height:0.9;">REVERIE</div>
+   135→   135→        </div>
+   136→   136→        <p style="font-family:'Imprima',sans-serif;font-size:16px;line-height:1.7;color:#5c2d0e;max-width:400px;">Crafting boundless digital worlds where the edge between AI, vision, and living myth dissolves.</p>
+   137→   137→        <div style="display:flex;gap:14px;">
+   138→   138→          <!-- Card 1: reel -->
+   139→   139→          <div style="width:140px;height:140px;border-radius:22px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160507_2ccbb4eb-1469-484f-af25-59168ad9a233-0c7429.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   140→   140→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   141→   141→            <div style="position:absolute;bottom:0;left:0;right:0;height:44%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);"></div>
+   142→   142→            <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:8px;">
+   143→   143→              <button type="button" aria-label="View Reel" style="width:26px;height:26px;background:#fff;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;">
+   144→   144→                <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M0 0L10 6L0 12V0Z" fill="#1a1a1a"/></svg>
+   145→   145→              </button>
+   146→   146→              <span style="font-family:'Imprima',sans-serif;font-size:13px;color:#fff;">View Reel</span>
+   147→   147→            </div>
+   148→   148→          </div>
+   149→   149→          <!-- Card 2: number -->
+   150→   150→          <div style="width:140px;height:140px;border-radius:22px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160644_072a7f68-a101-4ded-a332-7d37707dbdd1-bfae0e.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   151→   151→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   152→   152→            <div style="position:absolute;bottom:12px;left:12px;">
+   153→   153→              <div style="font-family:'Viaoda Libre',serif;font-size:28px;color:#fff;line-height:1;">32</div>
+   154→   154→              <div style="font-family:'Imprima',sans-serif;font-size:13px;color:rgba(255,255,255,0.8);">World Patrons</div>
+   155→   155→            </div>
+   156→   156→          </div>
+   157→   157→          <!-- Card 3: reel -->
+   158→   158→          <div style="width:140px;height:140px;border-radius:22px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160706_1c153d04-0dfb-4ac9-a4ef-e74f301c329c-8b9d4e.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   159→   159→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   160→   160→            <div style="position:absolute;bottom:0;left:0;right:0;height:44%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);"></div>
+   161→   161→            <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:8px;">
+   162→   162→              <button type="button" aria-label="View Reel" style="width:26px;height:26px;background:#fff;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;">
+   163→   163→                <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M0 0L10 6L0 12V0Z" fill="#1a1a1a"/></svg>
+   164→   164→              </button>
+   165→   165→              <span style="font-family:'Imprima',sans-serif;font-size:13px;color:#fff;">View Reel</span>
+   166→   166→            </div>
+   167→   167→          </div>
+   168→   168→        </div>
+   169→   169→      </div>
+   170→   170→
+   171→   171→      <!-- Desktop layout -->
+   172→   172→      <div class="scene1-desktop" style="display:none;">
+   173→   173→        <!-- Heading -->
+   174→   174→        <div style="position:absolute;top:46%;left:60px;max-width:440px;transform:translateY(-50%);color:#fff;text-shadow:0 2px 24px rgba(0,0,0,0.7),0 1px 4px rgba(0,0,0,0.9);">
+   175→   175→          <div style="font-family:'Viaoda Libre',serif;font-size:clamp(32px,4.5vw,54px);line-height:1.1;letter-spacing:0.04em;">
+   176→   176→            FALL <span style="color:rgba(255,220,180,0.7);">›</span> <em>INTO</em>
+   177→   177→          </div>
+   178→   178→          <div style="font-family:'Viaoda Libre',serif;font-size:clamp(50px,7.5vw,88px);line-height:0.9;letter-spacing:-0.02em;">REVERIE</div>
+   179→   179→          <p style="font-family:'Imprima',sans-serif;font-size:18px;line-height:1.7;color:rgba(255,245,235,0.88);max-width:300px;margin-top:24px;text-shadow:0 1px 12px rgba(0,0,0,0.8);">Crafting boundless digital worlds where the edge between AI, vision, and living myth dissolves.</p>
+   180→   180→        </div>
+   181→   181→        <!-- Cards -->
+   182→   182→        <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;gap:12px;">
+   183→   183→          <!-- Card 1 -->
+   184→   184→          <div style="width:158px;height:158px;border-radius:28px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160507_2ccbb4eb-1469-484f-af25-59168ad9a233-0c7429.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   185→   185→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   186→   186→            <div style="position:absolute;bottom:0;left:0;right:0;height:44%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);"></div>
+   187→   187→            <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:10px;">
+   188→   188→              <button type="button" aria-label="View Reel" style="width:30px;height:30px;background:#fff;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;">
+   189→   189→                <svg width="11" height="13" viewBox="0 0 10 12" fill="none"><path d="M0 0L10 6L0 12V0Z" fill="#1a1a1a"/></svg>
+   190→   190→              </button>
+   191→   191→              <span style="font-family:'Imprima',sans-serif;font-size:18px;color:#fff;">View Reel</span>
+   192→   192→            </div>
+   193→   193→          </div>
+   194→   194→          <!-- Card 2: number -->
+   195→   195→          <div style="width:158px;height:158px;border-radius:28px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160644_072a7f68-a101-4ded-a332-7d37707dbdd1-bfae0e.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   196→   196→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   197→   197→            <div style="position:absolute;bottom:12px;left:12px;">
+   198→   198→              <div style="font-family:'Viaoda Libre',serif;font-size:36px;color:#fff;line-height:1;">32</div>
+   199→   199→              <div style="font-family:'Imprima',sans-serif;font-size:18px;color:rgba(255,255,255,0.8);">World Patrons</div>
+   200→   200→            </div>
+   201→   201→          </div>
+   202→   202→          <!-- Card 3 -->
+   203→   203→          <div style="width:158px;height:158px;border-radius:28px;background:url('https://plugin-assets.open-design.ai/plugins/dreamcore-landing/hf_20260525_160706_1c153d04-0dfb-4ac9-a4ef-e74f301c329c-8b9d4e.webp&w=1280&q=85') center/cover;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
+   204→   204→            <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);"></div>
+   205→   205→            <div style="position:absolute;bottom:0;left:0;right:0;height:44%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 100%);"></div>
+   206→   206→            <div style="position:absolute;bottom:12px;left:12px;display:flex;align-items:center;gap:10px;">
+   207→   207→              <button type="button" aria-label="View Reel" style="width:30px;height:30px;background:#fff;border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0;">
+   208→   208→                <svg width="11" height="13" viewBox="0 0 10 12" fill="none"><path d="M0 0L10 6L0 12V0Z" fill="#1a1a1a"/></svg>
+   209→   209→              </button>
+   210→   210→              <span style="font-family:'Imprima',sans-serif;font-size:18px;color:#fff;">View Reel</span>
+   211→   211→            </div>
+   212→   212→          </div>
+   213→   213→        </div>
+   214→   214→      </div>
+   215→   215→
+   216→   216→      <!-- Slider dots -->
+   217→   217→      <div id="dots" style="position:absolute;bottom:40px;left:60px;display:flex;gap:6px;align-items:center;">
+   218→   218→        <div style="width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.9);"></div>
+   219→   219→        <div style="width:14px;height:4px;border-radius:2px;background:rgba(255,255,255,0.35);"></div>
+   220→   220→        <div style="width:14px;height:4px;border-radius:2px;background:rgba(255,255,255,0.35);"></div>
+   221→   221→        <div style="width:14px;height:4px;border-radius:2px;background:rgba(255,255,255,0.35);"></div>
+   222→   222→      </div>
+   223→   223→
+   224→   224→      <!-- Scroll cue (desktop only) -->
+   225→   225→      <div class="scroll-cue" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;">
+   226→   226→        <span style="font-family:'Imprima',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.6);">DESCEND</span>
+   227→   227→        <div style="width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.5);display:grid;place-items:center;animation:bobUp 1.8s ease-in-out infinite;">
+   228→   228→          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+   229→   229→        </div>
+   230→   230→      </div>
+   231→   231→    </div><!-- /scene1-children -->
+   232→   232→    </div><!-- /scene1 -->
+   233→   233→
+   234→   234→    <!-- Scene 2 UI -->
+   235→   235→    <div id="scene2" style="position:absolute;inset:0;z-index:46;opacity:0;display:flex;flex-direction:column;align-items:center;padding-top:8vh;pointer-events:none;">
+   236→   236→      <div class="s2-mobile-text" style="text-align:center;">
+   237→   237→        <div style="font-family:'Viaoda Libre',serif;font-size:clamp(28px,8vw,44px);letter-spacing:0.03em;line-height:1.05;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.4);">FORGE BEYOND THE REAL</div>
+   238→   238→        <p style="font-family:'Imprima',sans-serif;font-size:14px;line-height:1.6;letter-spacing:-0.01em;color:rgba(255,255,255,0.82);max-width:260px;margin:16px auto 0;">Singular voyages to astonishing destinations, shaped for those who seek beauty beyond the ordinary and the known.</p>
+   239→   239→      </div>
+   240→   240→      <div class="s2-desktop-text" style="display:none;text-align:center;">
+   241→   241→        <div style="font-family:'Viaoda Libre',serif;font-size:clamp(38px,6.5vw,78px);letter-spacing:0.03em;line-height:1.05;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.4);">FORGE BEYOND THE REAL</div>
+   242→   242→        <p style="font-family:'Imprima',sans-serif;font-size:20px;line-height:1.6;letter-spacing:-0.01em;color:rgba(255,255,255,0.82);max-width:480px;margin:16px auto 0;">Singular voyages to astonishing destinations, shaped for those who seek beauty beyond the ordinary and the known.</p>
+   243→   243→      </div>
+   244→   244→    </div>
+   245→   245→
+   246→   246→  </div><!-- /viewport -->
+   247→   247→</div><!-- /portal-root -->
+   248→   248→
+   249→   249→<script>
+   250→   250→(function() {
+   251→   251→  var CARD_DATA = [
+   252→   252→    { title: 'Hidden Realms',  desc: 'Luminous sanctuaries unseen by wandering eyes',  color: '#f3cdd6' },
+   253→   253→    { title: 'Wild Solitudes', desc: 'Dissolve into untamed horizons and deep calm',   color: '#dcedc2' },
+   254→   254→    { title: 'Silent Havens',  desc: 'Remote escapes far beyond ordinary reach',       color: '#c3e3f4' },
+   255→   255→    { title: 'Bespoke Quests', desc: 'Journeys shaped around your vision and soul',    color: '#f0e4c0' },
+   256→   256→    { title: 'Vivid Drifts',   desc: 'Surreal passages through breathtaking terrain',  color: '#dcd2f2' },
+   257→   257→    { title: 'Mystic Crests',  desc: 'Timeless ridgelines wrapped in cloud and myth',  color: '#f3cdd6' },
+   258→   258→    { title: 'Deep Currents',  desc: 'Glowing depths alive with uncharted wonder',     color: '#c3e3f4' },
+   259→   259→    { title: 'Gilded Dusk',    desc: 'Amber horizons that stretch past all reason',    color: '#f0e4c0' },
+   260→   260→    { title: 'Glassy Tides',   desc: 'Calm waters holding skies of pure stillness',    color: '#dcedc2' }
+   261→   261→  ];
+   262→   262→
+   263→   263→  // DOM refs
+   264→   264→  var container = document.getElementById('portal-root');
+   265→   265→  var viewport = document.getElementById('viewport');
+   266→   266→  var world = document.getElementById('world');
+   267→   267→  var clouds = document.getElementById('clouds');
+   268→   268→  var portal = document.getElementById('portal');
+   269→   269→  var curtainL = document.getElementById('curtainL');
+   270→   270→  var curtainR = document.getElementById('curtainR');
+   271→   271→  var scene1 = document.getElementById('scene1');
+   272→   272→  var scene2 = document.getElementById('scene2');
+   273→   273→  var arcSlider = document.getElementById('arc-slider');
+   274→   274→
+   275→   275→  var isMobile = window.matchMedia('(max-width: 767px)').matches;
+   276→   276→  var isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1099px)').matches;
+   277→   277→  var isDesktop = window.matchMedia('(min-width: 1100px)').matches;
+   278→   278→
+   279→   279→  // Show correct layout
+   280→   280→  var s1m = scene1.querySelector('.scene1-mobile');
+   281→   281→  var s1t = scene1.querySelector('.scene1-tablet');
+   282→   282→  var s1d = scene1.querySelector('.scene1-desktop');
+   283→   283→  var scrollCue = scene1.querySelector('.scroll-cue');
+   284→   284→  var dots = document.getElementById('dots');
+   285→   285→
+   286→   286→  if (isDesktop) {
+   287→   287→    s1d.style.display = 'block';
+   288→   288→    scrollCue.style.display = 'flex';
+   289→   289→    dots.style.left = '60px';
+   290→   290→    dots.style.bottom = '40px';
+   291→   291→    dots.style.position = 'absolute';
+   292→   292→  } else if (isTablet) {
+   293→   293→    s1t.style.display = 'flex';
+   294→   294→    scrollCue.style.display = 'none';
+   295→   295→    dots.style.left = '50%';
+   296→   296→    dots.style.transform = 'translateX(-50%)';
+   297→   297→    dots.style.bottom = '28px';
+   298→   298→    dots.style.position = 'absolute';
+   299→   299→  } else {
+   300→   300→    s1m.style.display = 'flex';
+   301→   301→    scrollCue.style.display = 'none';
+   302→   302→    dots.style.left = '50%';
+   303→   303→    dots.style.transform = 'translateX(-50%)';
+   304→   304→    dots.style.bottom = '28px';
+   305→   305→    dots.style.position = 'absolute';
+   306→   306→  }
+   307→   307→
+   308→   308→  // Responsive nav
+   309→   309→  var navDesktop = document.querySelectorAll('.nav-group-desktop');
+   310→   310→  var navMobile = document.querySelector('.nav-mobile');
+   311→   311→  if (!isDesktop) {
+   312→   312→    navDesktop.forEach(function(n) { n.style.display = 'none'; });
+   313→   313→    navMobile.style.display = 'flex';
+   314→   314→  }
+   315→   315→
+   316→   316→  // Responsive Scene 2 text
+   317→   317→  var s2Mobile = scene2.querySelector('.s2-mobile-text');
+   318→   318→  var s2Desktop = scene2.querySelector('.s2-desktop-text');
+   319→   319→  if (isDesktop) {
+   320→   320→    s2Mobile.style.display = 'none';
+   321→   321→    s2Desktop.style.display = 'block';
+   322→   322→  }
+   323→   323→
+   324→   324→  // Build arc slider cards
+   325→   325→  var centerIndex = Math.floor(CARD_DATA.length / 2);
+   326→   326→  var cardSpacingDeg = isMobile ? 12 : 9;
+   327→   327→  var arcRadius = isMobile ? 700 : 1100;
+   328→   328→  var cardW = isMobile ? 160 : 220;
+   329→   329→  var cardH = isMobile ? 175 : 230;
+   330→   330→  var sliderH = isMobile ? 260 : 360;
+   331→   331→
+   332→   332→  arcSlider.style.width = cardW + 'px';
+   333→   333→  arcSlider.style.height = sliderH + 'px';
+   334→   334→
+   335→   335→  CARD_DATA.forEach(function(card, i) {
+   336→   336→    var el = document.createElement('div');
+   337→   337→    el.style.cssText = 'position:absolute;width:' + cardW + 'px;height:' + cardH + 'px;border-radius:' + (isMobile ? 18 : 26) + 'px;background:' + card.color + ';box-shadow:0 8px 40px rgba(80,40,60,0.18);overflow:hidden;';
+   338→   338→    el.innerHTML =
+   339→   339→      '<div style="position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(80,50,60,0.3);display:grid;place-items:center;font-family:Imprima,sans-serif;font-size:10px;color:rgba(80,50,60,0.6);">' + String(i+1).padStart(2,'0') + '</div>' +
+   340→   340→      '<div style="position:absolute;bottom:12px;left:12px;right:12px;">' +
+   341→   341→        '<div style="font-family:Viaoda Libre,serif;font-size:' + (isMobile ? 22 : 30) + 'px;color:#3a2530;line-height:1.1;">' + card.title + '</div>' +
+   342→   342→        '<div style="font-family:Imprima,sans-serif;font-size:' + (isMobile ? 12 : 15) + 'px;color:rgba(58,37,48,0.65);margin-top:4px;">' + card.desc + '</div>' +
+   343→   343→      '</div>';
+   344→   344→    el.dataset.idx = i;
+   345→   345→    arcSlider.appendChild(el);
+   346→   346→  });
+   347→   347→
+   348→   348→  // Helpers
+   349→   349→  function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+   350→   350→  function lerp(a, b, t) { return a + (b - a) * t; }
+   351→   351→  function clamp(v, mn, mx) { return Math.max(mn, Math.min(mx, v)); }
+   352→   352→
+   353→   353→  // Mouse parallax
+   354→   354→  var mx = 0, my = 0, mxL = 0, myL = 0;
+   355→   355→  var MAG = { world: 6, clouds: 9, portal: 7, curtainL: 14, curtainR: 14 };
+   356→   356→  var speed = 0.07;
+   357→   357→
+   358→   358→  document.addEventListener('mousemove', function(e) {
+   359→   359→    mx = (e.clientX / window.innerWidth - 0.5) * 2;
+   360→   360→    my = (e.clientY / window.innerHeight - 0.5) * 2;
+   361→   361→  });
+   362→   362→
+   363→   363→  // Entrance sequence
+   364→   364→  var curtainsOpen = false;
+   365→   365→  var uiVisible = false;
+   366→   366→  var entranceDone = false;
+   367→   367→
+   368→   368→  var scene1Children = document.getElementById('scene1-children');
+   369→   369→  var s1Heading = scene1.querySelector('.scene1-mobile') || scene1.querySelector('.scene1-tablet') || scene1.querySelector('.scene1-desktop');
+   370→   370→  var s1Cards = scene1.querySelector('.scene1-mobile div:last-child') || scene1.querySelector('.scene1-tablet > div:last-child') || scene1.querySelector('.scene1-desktop > div:last-child');
+   371→   371→  // Get all three layout groups for stagger
+   372→   372→  var s1Mobile = scene1.querySelector('.scene1-mobile');
+   373→   373→  var s1Tablet = scene1.querySelector('.scene1-tablet');
+   374→   374→  var s1Desktop = scene1.querySelector('.scene1-desktop');
+   375→   375→
+   376→   376→  setTimeout(function() {
+   377→   377→    curtainsOpen = true;
+   378→   378→    curtainL.style.transform = 'translateX(-62%)';
+   379→   379→    curtainR.style.transform = 'translateX(62%)';
+   380→   380→  }, 100);
+   381→   381→
+   382→   382→  setTimeout(function() {
+   383→   383→    uiVisible = true;
+   384→   384→    // Enable transitions on scene1-children (entrance fade)
+   385→   385→    scene1Children.style.transition = 'opacity 0.9s ease';
+   386→   386→    scene1Children.style.opacity = '0.9';
+   387→   387→    scene1.style.pointerEvents = 'auto';
+   388→   388→
+   389→   389→    // Stagger children: heading 0.3s, cards 0.55s, dots 0.8s, scroll cue 0.9s
+   390→   390→    var staggerEls = [
+   391→   391→      { el: s1Mobile, delay: '0.3s' },
+   392→   392→      { el: s1Tablet, delay: '0.3s' },
+   393→   393→      { el: s1Desktop, delay: '0.3s' },
+   394→   394→      { el: dots, delay: '0.8s' },
+   395→   395→      { el: scrollCue, delay: '0.9s' }
+   396→   396→    ];
+   397→   397→    staggerEls.forEach(function(item) {
+   398→   398→      if (!item.el) return;
+   399→   399→      item.el.style.transition = 'opacity 0.9s ease ' + item.delay + ', transform 0.9s ease ' + item.delay;
+   400→   400→      item.el.style.opacity = '0';
+   401→   401→      item.el.style.transform = 'translateY(12px)';
+   402→   402→      // Force reflow then animate
+   403→   403→      void item.el.offsetHeight;
+   404→   404→      item.el.style.opacity = '1';
+   405→   405→      item.el.style.transform = 'translateY(0)';
+   406→   406→    });
+   407→   407→
+   408→   408→    // Cards inside desktop layout have separate 0.55s delay
+   409→   409→    if (s1Desktop) {
+   410→   410→      var deskCards = s1Desktop.querySelector('div[style*="position:absolute;right"]');
+   411→   411→      if (deskCards) {
+   412→   412→        deskCards.style.transition = 'opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s';
+   413→   413→        deskCards.style.opacity = '0';
+   414→   414→        deskCards.style.transform = deskCards.style.transform + ' translateY(12px)';
+   415→   415→        void deskCards.offsetHeight;
+   416→   416→        deskCards.style.opacity = '1';
+   417→   417→        deskCards.style.transform = deskCards.style.transform.replace(' translateY(12px)', '');
+   418→   418→      }
+   419→   419→    }
+   420→   420→    // Cards inside tablet layout
+   421→   421→    if (s1Tablet) {
+   422→   422→      var tabCards = s1Tablet.querySelector('div[style*="display:flex"]');
+   423→   423→      if (tabCards) {
+   424→   424→        tabCards.style.transition = 'opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s';
+   425→   425→        tabCards.style.opacity = '0';
+   426→   426→        tabCards.style.transform = 'translateY(12px)';
+   427→   427→        void tabCards.offsetHeight;
+   428→   428→        tabCards.style.opacity = '1';
+   429→   429→        tabCards.style.transform = 'translateY(0)';
+   430→   430→      }
+   431→   431→    }
+   432→   432→    // Single card inside mobile layout
+   433→   433→    if (s1Mobile) {
+   434→   434→      var mobCard = s1Mobile.querySelector('div[style*="border-radius:22px"]');
+   435→   435→      if (mobCard) {
+   436→   436→        mobCard.style.transition = 'opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s';
+   437→   437→        mobCard.style.opacity = '0';
+   438→   438→        mobCard.style.transform = 'translateY(12px)';
+   439→   439→        void mobCard.offsetHeight;
+   440→   440→        mobCard.style.opacity = '1';
+   441→   441→        mobCard.style.transform = 'translateY(0)';
+   442→   442→      }
+   443→   443→    }
+   444→   444→  }, 600);
+   445→   445→
+   446→   446→  setTimeout(function() {
+   447→   447→    entranceDone = true;
+   448→   448→    curtainL.style.transition = 'none';
+   449→   449→    curtainR.style.transition = 'none';
+   450→   450→    // Remove entrance transitions so scroll handler can drive opacity directly
+   451→   451→    scene1Children.style.transition = 'none';
+   452→   452→  }, 2200);
+   453→   453→
+   454→   454→  // Scroll + render loop
+   455→   455→  function onScroll() {
+   456→   456→    var scrollY = window.scrollY || window.pageYOffset;
+   457→   457→    var maxScroll = container.scrollHeight - window.innerHeight;
+   458→   458→    var sp = clamp(scrollY / maxScroll, 0, 1);
+   459→   459→    var ep = easeInOut(sp);
+   460→   460→
+   461→   461→    // Mouse lerp
+   462→   462→    mxL = lerp(mxL, mx, speed);
+   463→   463→    myL = lerp(myL, my, speed);
+   464→   464→
+   465→   465→    // World background
+   466→   466→    var worldS = lerp(1, 1.18, ep);
+   467→   467→    var worldMx = isDesktop ? -mxL * MAG.world : 0;
+   468→   468→    var worldMy = isDesktop ? -myL * MAG.world : 0;
+   469→   469→    world.style.transform = 'translate(' + worldMx + 'px,' + worldMy + 'px) scale(' + worldS + ')';
+   470→   470→
+   471→   471→    // Clouds
+   472→   472→    var cloudsS = lerp(1, 1.4, ep);
+   473→   473→    var cloudsMx = isDesktop ? -mxL * MAG.clouds : 0;
+   474→   474→    var cloudsMy = isDesktop ? -myL * MAG.clouds * 0.4 : 0;
+   475→   475→    clouds.style.transform = 'translate(' + cloudsMx + 'px,' + cloudsMy + 'px) scale(' + cloudsS + ')';
+   476→   476→    clouds.style.opacity = clamp(lerp(0.7, 1, sp / 0.05), 0.7, 1);
+   477→   477→
+   478→   478→    // Portal
+   479→   479→    var portalS = lerp(1, 7.5, ep);
+   480→   480→    var portalMx = isDesktop ? -mxL * MAG.portal : 0;
+   481→   481→    var portalMy = isDesktop ? -myL * MAG.portal : 0;
+   482→   482→    portal.style.transform = 'translate(' + portalMx + 'px,' + portalMy + 'px) scale(' + portalS + ')';
+   483→   483→    portal.style.opacity = sp <= 0.65 ? 1 : clamp(1 - (sp - 0.65) / 0.20, 0, 1);
+   484→   484→
+   485→   485→    // Curtains (after entrance)
+   486→   486→    if (entranceDone) {
+   487→   487→      var curtainExtra = lerp(0, 150, ep);
+   488→   488→      var curtainS = lerp(1, 1.3, ep);
+   489→   489→      var cLMx = isDesktop ? -mxL * MAG.curtainL : 0;
+   490→   490→      var cLMy = isDesktop ? -myL * MAG.curtainL * 0.3 : 0;
+   491→   491→      var cRMx = isDesktop ? -mxL * MAG.curtainR : 0;
+   492→   492→      var cRMy = isDesktop ? -myL * MAG.curtainR * 0.3 : 0;
+   493→   493→      curtainL.style.transform = 'translate(' + (-62 - curtainExtra + cLMx) + '%,' + cLMy + 'px) scale(' + curtainS + ')';
+   494→   494→      curtainR.style.transform = 'translate(' + (62 + curtainExtra + cRMx) + '%,' + cRMy + 'px) scale(' + curtainS + ')';
+   495→   495→    }
+   496→   496→
+   497→   497→    // Scene 1 opacity
+   498→   498→    var s1o = clamp(1 - sp / 0.22, 0, 1);
+   499→   499→    if (uiVisible) {
+   500→   500→      scene1.style.opacity = s1o;
+   501→   501→    }
+   502→   502→
+   503→   503→    // Scene 2 opacity
+   504→   504→    var s2o = clamp((sp - 0.68) / 0.16, 0, 1);
+   505→   505→    scene2.style.opacity = s2o;
+   506→   506→    scene2.style.paddingTop = isMobile ? '8vh' : '12vh';
+   507→   507→
+   508→   508→    // Arc card slider
+   509→   509→    if (s2o > 0) {
+   510→   510→      arcSlider.style.opacity = s2o;
+   511→   511→      var arcSweepDeg = (CARD_DATA.length - 1) * 10;
+   512→   512→      var rotationOffset = lerp(0, arcSweepDeg, clamp((sp - 0.70) / 0.30, 0, 1));
+   513→   513→
+   514→   514→      var cards = arcSlider.querySelectorAll('[data-idx]');
+   515→   515→      cards.forEach(function(card) {
+   516→   516→        var i = parseInt(card.dataset.idx, 10);
+   517→   517→        var baseDeg = (i - centerIndex) * cardSpacingDeg;
+   518→   518→        var deg = baseDeg - rotationOffset + (centerIndex * cardSpacingDeg);
+   519→   519→        var rad = deg * Math.PI / 180;
+   520→   520→        var x = Math.sin(rad) * arcRadius;
+   521→   521→        var y = arcRadius - Math.cos(rad) * arcRadius;
+   522→   522→        var halfW = cardW / 2;
+   523→   523→        card.style.left = 'calc(50% + ' + (x - halfW) + 'px)';
+   524→   524→        card.style.bottom = (-y + (isMobile ? 140 : 200)) + 'px';
+   525→   525→        card.style.transform = 'rotate(' + deg + 'deg)';
+   526→   526→        card.style.transformOrigin = halfW + 'px ' + arcRadius + 'px';
+   527→   527→      });
+   528→   528→    }
+   529→   529→  }
+   530→   530→
+   531→   531→  // RAF loop — only ticks while entrance is running or mouse is moving
+   532→   532→  var rafActive = true;
+   533→   533→  function tick() {
+   534→   534→    onScroll();
+   535→   535→    if (rafActive) requestAnimationFrame(tick);
+   536→   536→  }
+   537→   537→  // Keep RAF alive during entrance
+   538→   538→  setTimeout(function() { rafActive = false; }, 2500);
+   539→   539→  // Re-activate on mouse move (parallax needs continuous update)
+   540→   540→  document.addEventListener('mousemove', function() {
+   541→   541→    if (!rafActive) {
+   542→   542→      rafActive = true;
+   543→   543→      requestAnimationFrame(tick);
+   544→   544→    }
+   545→   545→  });
+   546→   546→  // Re-activate on scroll
+   547→   547→  window.addEventListener('scroll', function() {
+   548→   548→    if (!rafActive) {
+   549→   549→      rafActive = true;
+   550→   550→      requestAnimationFrame(tick);
+   551→   551→    }
+   552→   552→  }, { passive: true });
+   553→   553→
+   554→   554→  window.addEventListener('scroll', onScroll, { passive: true });
+   555→   555→  onScroll();
+   556→   556→  tick();
+   557→   557→})();
+   558→   558→</script>
+   559→   559→
+   560→   560→</body>
+   561→   561→</html>
+   562→   562→

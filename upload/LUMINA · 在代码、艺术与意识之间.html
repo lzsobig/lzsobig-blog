@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060) -->
+<html lang="zh-CN" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMINA · 在代码、艺术与意识之间</title>
+<meta name="description" content="LUMINA 的个人博客 — 一个数字艺术家与创意工程师的写作空间。">
+<meta name="author" content="LUMINA">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="LUMINA · 在代码、艺术与意识之间">
+<meta property="og:description" content="一位数字艺术家与创意工程师的个人写作空间。">
+<meta property="og:image" content="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&amp;w=1200&amp;auto=format&amp;fit=crop">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon (inline SVG) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 100 100&#39;%3E%3Cdefs%3E%3ClinearGradient id=&#39;g&#39; x1=&#39;0&#39; y1=&#39;0&#39; x2=&#39;1&#39; y2=&#39;1&#39;%3E%3Cstop offset=&#39;0&#39; stop-color=&#39;%236366f1&#39;/%3E%3Cstop offset=&#39;1&#39; stop-color=&#39;%23ec4899&#39;/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=&#39;100&#39; height=&#39;100&#39; rx=&#39;24&#39; fill=&#39;url(%23g)&#39;/%3E%3Ctext x=&#39;50&#39; y=&#39;72&#39; font-family=&#39;Outfit,sans-serif&#39; font-size=&#39;60&#39; font-weight=&#39;900&#39; fill=&#39;white&#39; text-anchor=&#39;middle&#39;%3EL%3C/text%3E%3C/svg%3E">
+
+<script src="./LUMINA · 在代码、艺术与意识之间_files/saved_resource"></script>
+<link href="./LUMINA · 在代码、艺术与意识之间_files/css2" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'brand-dark': '#0a0a14',
+        'brand-deep': '#050505',
+        'brand-accent': '#6366f1',
+        'brand-accent2': '#ec4899',
+        'brand-mint': '#10b981',
+      },
+      fontFamily: {
+        sans: ['Outfit', 'Noto Serif SC', 'sans-serif'],
+        serif: ['"Noto Serif SC"', 'serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
+    }
+  }
+}
+</script>
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "LUMINA",
+  "description": "一位数字艺术家与创意工程师的个人写作空间",
+  "url": "https://lumina.blog",
+  "author": {
+    "@type": "Person",
+    "name": "LUMINA",
+    "jobTitle": "Creative Engineer"
+  }
+}
+</script>
+
+<style>
+:root {
+  --bg: #050505;
+  --bg-soft: #0a0a14;
+  --fg: #f5f5f7;
+  --fg-soft: #a1a1aa;
+  --fg-muted: #71717a;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.16);
+  --glass: rgba(20,20,30,0.55);
+  --accent: #6366f1;
+  --accent2: #ec4899;
+  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --code-bg: #0d0d18;
+}
+
+[data-theme="light"] {
+  --bg: #f7f7fb;
+  --bg-soft: #ffffff;
+  --fg: #0a0a14;
+  --fg-soft: #3f3f46;
+  --fg-muted: #71717a;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.16);
+  --glass: rgba(255,255,255,0.7);
+  --accent: #4f46e5;
+  --accent2: #db2777;
+  --shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+  --code-bg: #1a1a2e;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Outfit', 'Noto Serif SC', sans-serif;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.18) 0%, transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.10) 0%, transparent 35%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.10) 0%, transparent 30%),
+    radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 35%);
+}
+
+/* Skip to content */
+.skip-link {
+  position: absolute; top: -40px; left: 0; z-index: 999;
+  background: var(--accent); color: white; padding: 8px 16px;
+  border-radius: 0 0 8px 0; font-size: 14px; transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* Reading progress bar */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 100; transition: width 0.1s linear;
+  box-shadow: 0 0 12px var(--accent);
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .hero-section {
+    padding-top: 70px;
+    min-height: auto;
+    padding-bottom: 20px;
+  }
+}
+
+/* 3D Scene */
+.scene {
+  width: 100%; height: 60vh; max-height: 500px;
+  display: flex; align-items: center; justify-content: center;
+  perspective: 1400px;
+  position: relative;
+  margin-bottom: 60px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .scene {
+    height: 50vh;
+    max-height: 400px;
+    margin-bottom: 50px;
+  }
+}
+
+.carousel {
+  position: relative;
+  width: 260px; height: 360px;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .carousel { width: 320px; height: 420px; }
+}
+
+@media (max-width: 480px) {
+  .carousel { width: 220px; height: 300px; }
+}
+
+.card {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 24px; overflow: hidden;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 50px rgba(99, 102, 241, 0.45), var(--shadow);
+}
+
+.card-image {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform 0.8s ease, opacity 0.4s ease;
+  opacity: 0.85;
+}
+
+.card:hover .card-image { transform: scale(1.08); opacity: 1; }
+
+.card-content {
+  position: relative; z-index: 10; padding: 22px;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+  transform: translateY(8px); transition: transform 0.4s ease;
+}
+
+.card:hover .card-content { transform: translateY(0); }
+
+.card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card.is-active {
+  border-color: rgba(255,255,255,0.5);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.55), var(--shadow);
+}
+
+/* Controls */
+.control-btn {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 50;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-strong);
+  color: var(--fg);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.4);
+}
+
+.prev-btn { left: calc(50% - 220px); }
+.next-btn { right: calc(50% - 220px); }
+
+@media (min-width: 768px) {
+  .prev-btn { left: calc(50% - 250px); }
+  .next-btn { right: calc(50% - 250px); }
+}
+
+@media (max-width: 767px) {
+  .control-btn { width: 40px; height: 40px; }
+  .prev-btn { left: 10px; }
+  .next-btn { right: 10px; }
+}
+
+/* Particles */
+.particle {
+  position: absolute; border-radius: 50%;
+  background: white; opacity: 0.25; pointer-events: none;
+  animation: floatParticle 14s infinite ease-in-out;
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -40px); }
+  50% { transform: translate(-20px, -80px); }
+  75% { transform: translate(-50px, -30px); }
+}
+
+/* Navigation */
+.nav-blur {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+  position: relative; transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -6px;
+  width: 0; height: 2px; background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover { color: var(--accent); }
+.nav-link:hover::after { width: 100%; }
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; transition: all 0.3s ease;
+  box-shadow: 0 10px 30px -8px rgba(99, 102, 241, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px -8px rgba(99, 102, 241, 0.7);
+}
+
+.btn-ghost {
+  background: var(--glass);
+  border: 1px solid var(--border-strong);
+  color: var(--fg); transition: all 0.25s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* Article Card */
+.article-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.article-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.article-card .cover {
+  position: relative; aspect-ratio: 16/10; overflow: hidden;
+  background: var(--bg-soft);
+}
+
+.article-card .cover img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.article-card:hover .cover img { transform: scale(1.08); }
+
+.article-card .cover::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+}
+
+/* Bookmark badge on card */
+.bookmark-badge {
+  position: absolute; top: 10px; right: 10px; z-index: 12;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent2); font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Tag chip */
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  background: var(--glass); border: 1px solid var(--border-strong);
+  color: var(--fg-soft); transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.tag-chip:hover { color: var(--fg); border-color: var(--accent); }
+.tag-chip.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; border-color: transparent;
+}
+
+/* Reader modal */
+.reader-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(20px);
+  display: none; align-items: stretch; justify-content: center;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+
+.reader-overlay.open { display: flex; opacity: 1; }
+
+.reader-panel {
+  width: 100%; max-width: 1100px; height: 100%;
+  background: var(--bg-soft); border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  overflow-y: auto; transform: translateY(40px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+.reader-overlay.open .reader-panel { transform: translateY(0); }
+
+.reader-panel::-webkit-scrollbar { width: 8px; }
+.reader-panel::-webkit-scrollbar-track { background: transparent; }
+.reader-panel::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+/* Reader progress — ABOVE header so it's always visible */
+.reader-progress {
+  position: sticky; top: 0; z-index: 20; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+/* Reader header — sits BELOW progress bar */
+.reader-header {
+  position: sticky; top: 3px; z-index: 15;
+  background: color-mix(in srgb, var(--bg-soft) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Article typography */
+.prose-content { color: var(--fg); line-height: 1.85; font-size: 17px; }
+.prose-content h2 {
+  font-size: 28px; font-weight: 700; margin: 56px 0 20px;
+  color: var(--fg); letter-spacing: -0.01em;
+  scroll-margin-top: 80px;
+}
+.prose-content h3 {
+  font-size: 22px; font-weight: 600; margin: 40px 0 14px;
+  color: var(--fg);
+  scroll-margin-top: 80px;
+}
+.prose-content p { margin: 18px 0; color: var(--fg-soft); }
+.prose-content blockquote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px;
+  margin: 28px 0; color: var(--fg); font-style: italic;
+  font-family: 'Noto Serif SC', serif;
+}
+.prose-content code:not(pre code) {
+  background: var(--glass); padding: 2px 8px; border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  color: var(--accent2); border: 1px solid var(--border);
+}
+.prose-content pre {
+  background: var(--code-bg) !important; border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; overflow-x: auto;
+  margin: 24px 0; font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; line-height: 1.6; position: relative;
+}
+.prose-content pre code { color: #e2e8f0; display: block; }
+
+/* Code syntax tokens */
+.tok-key { color: #c084fc; }
+.tok-str { color: #86efac; }
+.tok-num { color: #fbbf24; }
+.tok-com { color: #64748b; font-style: italic; }
+.tok-fn  { color: #60a5fa; }
+
+/* Copy code button */
+.copy-code-btn {
+  position: absolute; top: 10px; right: 10px;
+  padding: 4px 10px; border-radius: 6px;
+  background: rgba(255,255,255,0.1); color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  cursor: pointer; opacity: 0; transition: opacity 0.2s, background 0.2s;
+  z-index: 2; display: flex; align-items: center; gap: 5px;
+}
+.prose-content pre:hover .copy-code-btn { opacity: 1; }
+.copy-code-btn:hover { background: rgba(255,255,255,0.2); }
+.copy-code-btn.copied { background: rgba(16,185,129,0.3); color: #86efac; }
+
+/* Image zoom */
+.prose-content img.zoomable { cursor: zoom-in; transition: transform 0.3s; }
+
+.image-zoom-overlay {
+  position: fixed; inset: 0; z-index: 350;
+  background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 40px; cursor: zoom-out;
+}
+.image-zoom-overlay.open { display: flex; }
+.image-zoom-overlay img {
+  max-width: 95%; max-height: 95%; border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+/* TOC */
+.toc-link {
+  display: block; padding: 6px 0 6px 12px;
+  border-left: 2px solid var(--border);
+  color: var(--fg-muted); font-size: 13px; line-height: 1.5;
+  transition: all 0.2s ease; cursor: pointer;
+}
+.toc-link:hover { color: var(--fg); border-color: var(--accent); }
+.toc-link.active { color: var(--accent); border-color: var(--accent); font-weight: 500; }
+
+/* Mobile TOC toggle */
+.mobile-toc-btn {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .mobile-toc-btn { display: inline-flex; }
+}
+.mobile-toc-panel {
+  display: none; padding: 12px 16px; margin-bottom: 16px;
+  background: var(--glass); border: 1px solid var(--border); border-radius: 12px;
+}
+.mobile-toc-panel.open { display: block; }
+
+/* Search modal */
+.search-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding-top: 12vh; opacity: 0; transition: opacity 0.25s ease;
+}
+.search-overlay.open { display: flex; opacity: 1; }
+
+.search-panel {
+  width: 92%; max-width: 640px;
+  background: var(--bg-soft); border: 1px solid var(--border-strong);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+  transform: scale(0.96); transition: transform 0.25s ease;
+}
+.search-overlay.open .search-panel { transform: scale(1); }
+
+.search-input {
+  width: 100%; background: transparent; border: none; outline: none;
+  padding: 20px 24px; font-size: 16px; color: var(--fg);
+  border-bottom: 1px solid var(--border);
+}
+
+.search-result {
+  padding: 12px 24px; cursor: pointer; transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+}
+.search-result:hover, .search-result.selected {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.search-result:last-child { border-bottom: none; }
+.search-result mark {
+  background: rgba(99,102,241,0.3); color: var(--fg); padding: 0 2px; border-radius: 2px;
+}
+
+/* Keyboard help modal */
+.help-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.help-overlay.open { display: flex; opacity: 1; }
+.help-panel {
+  width: 92%; max-width: 480px;
+  background: var(--bg-soft); border: 1px solid var(--border-strong);
+  border-radius: 16px; padding: 28px;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+}
+.help-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.help-row:last-child { border-bottom: none; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--bg-soft); border: 1px solid var(--border-strong);
+  color: var(--fg); padding: 12px 20px; border-radius: 12px;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+  z-index: 400; opacity: 0; transition: all 0.3s ease;
+  display: flex; align-items: center; gap: 10px; font-size: 14px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* Back to top */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 80;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--glass); backdrop-filter: blur(12px);
+  border: 1px solid var(--border-strong); color: var(--fg);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; pointer-events: none;
+  transition: all 0.3s ease;
+}
+.back-to-top.show { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { background: var(--accent); transform: translateY(-3px); }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Hero text */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+[data-theme="light"] .gradient-text {
+  background: linear-gradient(135deg, #0a0a14 0%, #6366f1 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* Kbd */
+kbd {
+  display: inline-block; padding: 2px 7px; border-radius: 5px;
+  background: var(--glass); border: 1px solid var(--border-strong);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--fg-soft); box-shadow: 0 2px 0 var(--border-strong);
+}
+
+/* Hide scrollbars for indicators */
+.indicators-row::-webkit-scrollbar { display: none; }
+.indicators-row { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Mobile nav menu */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 90;
+  background: var(--bg); backdrop-filter: blur(20px);
+  display: none; flex-direction: column; align-items: center; justify-content: center;
+  gap: 24px; font-size: 24px;
+}
+.mobile-menu.open { display: flex; }
+
+/* Selection */
+::selection { background: var(--accent); color: white; }
+
+/* Related articles */
+.related-card {
+  display: flex; gap: 14px; padding: 14px; border-radius: 14px;
+  background: var(--glass); border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.3s ease;
+}
+.related-card:hover {
+  border-color: var(--accent); transform: translateX(4px);
+}
+.related-card img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+
+/* Bookmark nav button */
+.bookmark-nav-btn { position: relative; }
+.bookmark-count {
+  position: absolute; top: -4px; right: -4px;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  background: var(--accent2); color: white;
+  border-radius: 8px; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+.bookmark-count:empty { display: none; }
+
+/* Bookmark list panel */
+.bookmark-panel {
+  position: fixed; top: 70px; right: 16px; z-index: 60;
+  width: 320px; max-height: 70vh; overflow-y: auto;
+  background: var(--bg-soft); border: 1px solid var(--border-strong);
+  border-radius: 16px; padding: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  display: none;
+}
+.bookmark-panel.open { display: block; }
+.bookmark-item {
+  display: flex; gap: 10px; padding: 10px; border-radius: 10px;
+  cursor: pointer; transition: background 0.2s;
+}
+.bookmark-item:hover { background: var(--glass); }
+.bookmark-item img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .particle { display: none; }
+}
+
+/* ===== Print styles ===== */
+@media print {
+  .nav-blur, .mobile-menu, .reader-overlay, .search-overlay, .help-overlay,
+  .image-zoom-overlay, .back-to-top, #progress-bar, #particles,
+  .control-btn, .autoplay-toggle, .scroll-hint, .bookmark-panel,
+  .copy-code-btn { display: none !important; }
+  body { background: white !important; color: black !important; }
+  .prose-content pre { background: #f5f5f5 !important; color: black !important; border: 1px solid #ddd; }
+  .prose-content pre code { color: black !important; }
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Custom Cursor */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  will-change: left, top;
+}
+
+.cursor-ring.hover {
+  width: 50px;
+  height: 50px;
+  border-color: var(--accent);
+  opacity: 0.6;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+[data-theme="light"] .cursor-dot { background: var(--accent); }
+[data-theme="light"] .cursor-ring { border-color: var(--accent); }
+[data-theme="light"] .cursor-ring.hover { background: rgba(79, 70, 229, 0.08); }
+
+/* Hide cursor when reader is open */
+.reader-overlay.open ~ .cursor-dot,
+.reader-overlay.open ~ .cursor-ring { opacity: 0; }
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+  a, button, .card, .article-card, .tag-chip, .nav-link, [role="button"] { cursor: none !important; }
+}
+
+/* Smooth scroll for anchor links */
+html { scroll-behavior: smooth; }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+</style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Outfit, Noto Serif SC, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:"JetBrains Mono", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.pointer-events-auto{pointer-events:auto}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.-bottom-20{bottom:-5rem}.-bottom-5{bottom:-1.25rem}.-left-20{left:-5rem}.-right-20{right:-5rem}.-right-5{right:-1.25rem}.-top-20{top:-5rem}.bottom-20{bottom:5rem}.bottom-6{bottom:1.5rem}.left-0{left:0px}.left-1\/2{left:50%}.right-6{right:1.5rem}.top-0{top:0px}.top-20{top:5rem}.bottom-3{bottom:0.75rem}.left-3{left:0.75rem}.right-3{right:0.75rem}.top-3{top:0.75rem}.top-24{top:6rem}.z-0{z-index:0}.z-10{z-index:10}.z-20{z-index:20}.z-30{z-index:30}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-10{margin-bottom:2.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.ml-1{margin-left:0.25rem}.ml-2{margin-left:0.5rem}.mr-1{margin-right:0.25rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.mb-2{margin-bottom:0.5rem}.mt-1{margin-top:0.25rem}.mb-1{margin-bottom:0.25rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mt-12{margin-top:3rem}.mt-16{margin-top:4rem}.line-clamp-2{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-square{aspect-ratio:1 / 1}.aspect-\[16\/9\]{aspect-ratio:16/9}.h-1\.5{height:0.375rem}.h-10{height:2.5rem}.h-2\.5{height:0.625rem}.h-60{height:15rem}.h-8{height:2rem}.h-9{height:2.25rem}.h-full{height:100%}.h-2{height:0.5rem}.max-h-\[60vh\]{max-height:60vh}.w-1\.5{width:0.375rem}.w-10{width:2.5rem}.w-2\.5{width:0.625rem}.w-60{width:15rem}.w-8{width:2rem}.w-9{width:2.25rem}.w-full{width:100%}.w-2{width:0.5rem}.w-6{width:1.5rem}.min-w-0{min-width:0px}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.max-w-7xl{max-width:80rem}.max-w-\[90\%\]{max-width:90%}.max-w-md{max-width:28rem}.max-w-xl{max-width:36rem}.max-w-none{max-width:none}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes bounce{0%, 100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}.animate-bounce{animation:bounce 1s infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-\[1fr_220px\]{grid-template-columns:1fr 220px}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.gap-1{gap:0.25rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.self-start{align-self:flex-start}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.whitespace-nowrap{white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-t{border-top-width:1px}.bg-green-400{--tw-bg-opacity:1;background-color:rgb(74 222 128 / var(--tw-bg-opacity, 1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.from-brand-accent{--tw-gradient-from:#6366f1 var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-brand-accent2{--tw-gradient-to:#ec4899 var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-10{padding:2.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-5{padding:1.25rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[10px\]{font-size:10px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-brand-accent2{--tw-text-opacity:1;color:rgb(236 72 153 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-white\/80{color:rgb(255 255 255 / 0.8)}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.group:hover .group-hover\:-translate-x-1{--tw-translate-x:-0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:inline{display:inline}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:top-24{top:6rem}.md\:col-span-2{grid-column:span 2 / span 2}.md\:col-span-3{grid-column:span 3 / span 3}.md\:mt-5{margin-top:1.25rem}.md\:block{display:block}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:grid-cols-5{grid-template-columns:repeat(5, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-end{align-items:flex-end}.md\:justify-between{justify-content:space-between}.md\:p-14{padding:3.5rem}.md\:px-12{padding-left:3rem;padding-right:3rem}.md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:grid{display:grid}.lg\:hidden{display:none}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:px-20{padding-left:5rem;padding-right:5rem}}</style></head>
+<body class="antialiased" style="">
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<a href="#articles" class="skip-link">跳到正文</a>
+
+<!-- Reading progress bar -->
+<div id="progress-bar" style="width: 0%;"></div>
+
+<!-- Ambient particles -->
+<div id="particles" class="fixed inset-0 pointer-events-none z-0"><div class="particle" style="width: 3.57561px; height: 3.57561px; left: 23.1595%; top: 45.7256%; animation-delay: 0.460957s; animation-duration: 10.5879s; background: rgb(236, 72, 153); opacity: 0.342876;"></div><div class="particle" style="width: 2.04482px; height: 2.04482px; left: 68.0758%; top: 27.2642%; animation-delay: 1.49446s; animation-duration: 18.1265s; background: rgb(236, 72, 153); opacity: 0.445108;"></div><div class="particle" style="width: 2.40161px; height: 2.40161px; left: 84.5832%; top: 11.1101%; animation-delay: 0.966423s; animation-duration: 19.2445s; background: rgb(99, 102, 241); opacity: 0.132994;"></div><div class="particle" style="width: 2.20349px; height: 2.20349px; left: 37.5156%; top: 37.4178%; animation-delay: 1.75459s; animation-duration: 17.0622s; background: rgb(99, 102, 241); opacity: 0.380789;"></div><div class="particle" style="width: 4.58432px; height: 4.58432px; left: 9.33361%; top: 0.566328%; animation-delay: 1.37378s; animation-duration: 12.8331s; background: rgb(236, 72, 153); opacity: 0.166422;"></div><div class="particle" style="width: 1.41125px; height: 1.41125px; left: 51.4678%; top: 33.711%; animation-delay: 0.344613s; animation-duration: 16.0768s; background: rgb(236, 72, 153); opacity: 0.297737;"></div><div class="particle" style="width: 2.85033px; height: 2.85033px; left: 58.9012%; top: 27.2603%; animation-delay: 1.92018s; animation-duration: 10.26s; background: rgb(99, 102, 241); opacity: 0.499219;"></div><div class="particle" style="width: 3.63113px; height: 3.63113px; left: 21.3162%; top: 60.0123%; animation-delay: 3.21353s; animation-duration: 10.6804s; background: rgb(99, 102, 241); opacity: 0.25798;"></div><div class="particle" style="width: 1.13132px; height: 1.13132px; left: 88.0824%; top: 35.0678%; animation-delay: 2.05536s; animation-duration: 16.5391s; background: rgb(236, 72, 153); opacity: 0.344229;"></div><div class="particle" style="width: 3.05912px; height: 3.05912px; left: 71.5005%; top: 64.1369%; animation-delay: 0.635438s; animation-duration: 15.6661s; background: rgb(236, 72, 153); opacity: 0.142153;"></div><div class="particle" style="width: 4.78326px; height: 4.78326px; left: 53.9644%; top: 32.0899%; animation-delay: 4.50149s; animation-duration: 16.9404s; background: rgb(236, 72, 153); opacity: 0.109842;"></div><div class="particle" style="width: 2.4292px; height: 2.4292px; left: 71.9209%; top: 47.7281%; animation-delay: 0.617397s; animation-duration: 10.2728s; background: rgb(236, 72, 153); opacity: 0.233878;"></div><div class="particle" style="width: 1.60122px; height: 1.60122px; left: 63.748%; top: 85.6733%; animation-delay: 2.73649s; animation-duration: 12.5636s; background: rgb(236, 72, 153); opacity: 0.331831;"></div><div class="particle" style="width: 2.77625px; height: 2.77625px; left: 52.4027%; top: 36.6645%; animation-delay: 3.78608s; animation-duration: 12.8198s; background: rgb(236, 72, 153); opacity: 0.338305;"></div><div class="particle" style="width: 1.87565px; height: 1.87565px; left: 0.276606%; top: 49.2316%; animation-delay: 3.59513s; animation-duration: 10.107s; background: rgb(236, 72, 153); opacity: 0.38698;"></div><div class="particle" style="width: 4.7654px; height: 4.7654px; left: 88.2066%; top: 71.3031%; animation-delay: 1.23896s; animation-duration: 13.9224s; background: rgb(236, 72, 153); opacity: 0.244453;"></div><div class="particle" style="width: 3.18221px; height: 3.18221px; left: 94.1838%; top: 40.528%; animation-delay: 1.64837s; animation-duration: 16.2731s; background: rgb(99, 102, 241); opacity: 0.158258;"></div><div class="particle" style="width: 4.55729px; height: 4.55729px; left: 63.0299%; top: 39.9117%; animation-delay: 2.3819s; animation-duration: 15.5561s; background: rgb(236, 72, 153); opacity: 0.474689;"></div><div class="particle" style="width: 1.94276px; height: 1.94276px; left: 39.9029%; top: 19.782%; animation-delay: 3.86544s; animation-duration: 19.5314s; background: rgb(99, 102, 241); opacity: 0.208616;"></div><div class="particle" style="width: 3.27822px; height: 3.27822px; left: 32.7286%; top: 34.746%; animation-delay: 3.12409s; animation-duration: 19.1792s; background: rgb(99, 102, 241); opacity: 0.341321;"></div><div class="particle" style="width: 4.77621px; height: 4.77621px; left: 75.9807%; top: 92.9695%; animation-delay: 4.89996s; animation-duration: 10.2316s; background: rgb(236, 72, 153); opacity: 0.275748;"></div><div class="particle" style="width: 1.01988px; height: 1.01988px; left: 67.0012%; top: 34.7578%; animation-delay: 0.824949s; animation-duration: 11.591s; background: rgb(236, 72, 153); opacity: 0.144134;"></div><div class="particle" style="width: 3.92663px; height: 3.92663px; left: 0.101431%; top: 13.9783%; animation-delay: 1.33978s; animation-duration: 10.4803s; background: rgb(236, 72, 153); opacity: 0.489204;"></div><div class="particle" style="width: 1.94535px; height: 1.94535px; left: 23.238%; top: 80.2077%; animation-delay: 3.68007s; animation-duration: 19.1117s; background: rgb(236, 72, 153); opacity: 0.338614;"></div><div class="particle" style="width: 4.49872px; height: 4.49872px; left: 69.8736%; top: 20.0503%; animation-delay: 3.79443s; animation-duration: 19.2646s; background: rgb(99, 102, 241); opacity: 0.256305;"></div><div class="particle" style="width: 4.53296px; height: 4.53296px; left: 98.4955%; top: 27.8375%; animation-delay: 1.03003s; animation-duration: 13.7143s; background: rgb(99, 102, 241); opacity: 0.375402;"></div><div class="particle" style="width: 1.86447px; height: 1.86447px; left: 90.905%; top: 71.3226%; animation-delay: 0.778649s; animation-duration: 16.0175s; background: rgb(99, 102, 241); opacity: 0.262896;"></div><div class="particle" style="width: 3.78488px; height: 3.78488px; left: 91.8099%; top: 89.2256%; animation-delay: 1.70255s; animation-duration: 17.1324s; background: rgb(236, 72, 153); opacity: 0.460856;"></div><div class="particle" style="width: 3.31719px; height: 3.31719px; left: 40.0722%; top: 73.4164%; animation-delay: 4.80305s; animation-duration: 12.928s; background: rgb(99, 102, 241); opacity: 0.481186;"></div><div class="particle" style="width: 3.62306px; height: 3.62306px; left: 45.9178%; top: 55.4147%; animation-delay: 1.42394s; animation-duration: 13.2569s; background: rgb(99, 102, 241); opacity: 0.277377;"></div></div>
+
+<!-- ===== Navigation ===== -->
+<nav class="nav-blur fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-4 flex justify-between items-center" aria-label="主导航">
+  <a href="#hero" class="flex items-center gap-2 group" aria-label="LUMINA 首页">
+    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-accent to-brand-accent2 flex items-center justify-center font-black text-white shadow-lg group-hover:scale-110 transition-transform">L</div>
+    <span class="text-xl font-bold tracking-tight">LUMINA</span>
+  </a>
+
+  <div class="hidden md:flex items-center gap-8 text-sm font-medium absolute left-1/2 -translate-x-1/2" style="color: var(--fg-soft);">
+    <a href="#hero" class="nav-link">首页</a>
+    <a href="#about" class="nav-link">关于</a>
+    <a href="#articles" class="nav-link">文章</a>
+    <a href="#newsletter" class="nav-link">订阅</a>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <button id="search-trigger" class="btn-ghost px-3 py-2 rounded-lg text-sm flex items-center gap-2" title="搜索 (Ctrl+K)" aria-label="搜索文章">
+      <i class="fa-solid fa-magnifying-glass text-xs"></i>
+      <span class="hidden sm:inline">搜索</span>
+      <kbd class="hidden sm:inline">⌘K</kbd>
+    </button>
+    <button id="bookmark-toggle" class="bookmark-nav-btn btn-ghost w-10 h-10 rounded-lg flex items-center justify-center" title="收藏的文章" aria-label="收藏的文章">
+      <i class="fa-regular fa-bookmark"></i>
+      <span class="bookmark-count" id="bookmark-count"></span>
+    </button>
+    <button id="theme-toggle" class="btn-ghost w-10 h-10 rounded-lg flex items-center justify-center" title="切换主题" aria-label="切换深浅主题">
+      <i class="fa-solid fa-moon" id="theme-icon"></i>
+    </button>
+    <button id="help-trigger" class="btn-ghost w-10 h-10 rounded-lg flex items-center justify-center" title="快捷键帮助 (?)" aria-label="快捷键帮助">
+      <i class="fa-solid fa-keyboard"></i>
+    </button>
+    <button id="mobile-menu-btn" class="btn-ghost w-10 h-10 rounded-lg flex items-center justify-center md:hidden" title="菜单" aria-label="打开菜单">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Bookmark panel -->
+<div class="bookmark-panel" id="bookmark-panel" role="dialog" aria-label="收藏的文章">
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="font-bold text-sm flex items-center gap-2"><i class="fa-solid fa-bookmark text-brand-accent2"></i> 我的收藏</h3>
+    <button id="bookmark-clear" class="text-xs" style="color: var(--fg-muted);">清空</button>
+  </div>
+  <div id="bookmark-list"><p class="text-sm text-center py-6" style="color: var(--fg-muted);">还没有收藏的文章<br><span class="text-xs">阅读时按 <kbd>B</kbd> 或点击书签图标收藏</span></p></div>
+</div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="移动端菜单">
+  <a href="#hero" class="mobile-link">首页</a>
+  <a href="#about" class="mobile-link">关于</a>
+  <a href="#articles" class="mobile-link">文章</a>
+  <a href="#newsletter" class="mobile-link">订阅</a>
+  <button id="mobile-menu-close" class="btn-ghost px-5 py-2 rounded-lg mt-8">关闭</button>
+</div>
+
+<main id="main-content">
+
+<!-- ===== Hero with 3D Carousel ===== -->
+<section id="hero" class="hero-section relative">
+
+  <!-- Hero Text — Above Carousel -->
+  <div class="text-center px-6 md:px-12 z-20 mb-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase" style="background: var(--glass); border: 1px solid var(--border-strong); color: var(--fg-soft);">
+      <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+      正在写作 · 2026
+    </div>
+    <h1 class="mt-3 text-3xl md:text-5xl lg:text-6xl font-black tracking-tight gradient-text leading-tight">
+      在代码、艺术与<br>意识之间书写
+    </h1>
+    <p class="hidden md:block mt-3 text-base md:text-lg max-w-xl mx-auto" style="color: var(--fg-soft);">
+      LUMINA 是一位数字艺术家与创意工程师的个人写作空间。这里收藏关于生成艺术、Web 技术、城市游荡与思维实验的随笔。
+    </p>
+  </div>
+
+  <!-- 3D Carousel -->
+  <div class="scene z-10">
+
+    <button class="control-btn prev-btn group" id="prevBtn" aria-label="上一张">
+      <i class="fa-solid fa-chevron-left text-lg group-hover:-translate-x-1 transition-transform"></i>
+    </button>
+
+    <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="精选文章" style="transform: translateZ(-450px) rotateY(-9585deg);"><div class="card" role="group" aria-label="Neon Genesis · 用代码构建世界 (第 1 张，共 8 张)" style="transform: rotateY(0deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1550684848-fac1c5b4e853" alt="Neon Genesis · 用代码构建世界" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #6366f1; box-shadow: 0 0 8px #6366f1;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">艺术 · 4 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Neon Genesis · 用代码构建世界</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">赛博朋克美学在当代数字艺术中的回响与重构。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Abstract Flow · 时间的流体 (第 2 张，共 8 张)" style="transform: rotateY(45deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1541701494587-cb58502866ab" alt="Abstract Flow · 时间的流体" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #ec4899; box-shadow: 0 0 8px #ec4899;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">艺术 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Abstract Flow · 时间的流体</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">流体动力学在生成艺术中的诗意表达。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Geometric Soul · 混沌中的秩序 (第 3 张，共 8 张)" style="transform: rotateY(90deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1557672172-298e090bd0f1" alt="Geometric Soul · 混沌中的秩序" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">艺术 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Geometric Soul · 混沌中的秩序</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">关于几何与噪声的对话。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Urban Solitude · 凌晨三点的东京 (第 4 张，共 8 张)" style="transform: rotateY(135deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1514565131-fce0801e5785" alt="Urban Solitude · 凌晨三点的东京" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">旅行 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Urban Solitude · 凌晨三点的东京</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">混凝土丛林中的寂静与回响。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Ethereal Light · 数字时代的精神性 (第 5 张，共 8 张)" style="transform: rotateY(180deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1504333638930-c8787321eee0" alt="Ethereal Light · 数字时代的精神性" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #8b5cf6; box-shadow: 0 0 8px #8b5cf6;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">思考 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Ethereal Light · 数字时代的精神性</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">穿透黑暗的光，是一种关于存在的隐喻。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card is-active" role="group" aria-label="Deep Ocean · 深入 WebGL 着色器 (第 6 张，共 8 张)" style="transform: rotateY(225deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1682687220742-aba13b6e50ba" alt="Deep Ocean · 深入 WebGL 着色器" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #0ea5e9; box-shadow: 0 0 8px #0ea5e9;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">科技 · 4 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Deep Ocean · 深入 WebGL 着色器</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">从片元到顶点，一段下潜之旅。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Desert Mirage · 一周离线实验 (第 7 张，共 8 张)" style="transform: rotateY(270deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1473580044384-7ba9967e16a0" alt="Desert Mirage · 一周离线实验" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #f97316; box-shadow: 0 0 8px #f97316;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">旅行 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Desert Mirage · 一周离线实验</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">热浪与无尽地平线上的思考。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div><div class="card" role="group" aria-label="Crystal Structure · 思想的几何 (第 8 张，共 8 张)" style="transform: rotateY(315deg) translateZ(450px);">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1515462277126-2dd0c162007a" alt="Crystal Structure · 思想的几何" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: #06b6d4; box-shadow: 0 0 8px #06b6d4;"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">科技 · 3 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">Crystal Structure · 思想的几何</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">自然界完美几何的启示。</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    </div></div>
+
+    <button class="control-btn next-btn group" id="nextBtn" aria-label="下一张">
+      <i class="fa-solid fa-chevron-right text-lg group-hover:translate-x-1 transition-transform"></i>
+    </button>
+
+    <!-- Indicators -->
+    <div class="absolute bottom-4 left-0 w-full flex justify-center z-30 pointer-events-none">
+      <div class="flex space-x-2 pointer-events-auto px-4 py-2 rounded-full indicators-row overflow-x-auto max-w-[90%]" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 1px solid var(--border);" id="indicators" role="tablist"><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 1 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 2 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 3 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 4 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 5 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-6 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 6 张" style="background: linear-gradient(90deg, rgb(99, 102, 241), rgb(236, 72, 153)); box-shadow: rgb(99, 102, 241) 0px 0px 10px;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 7 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button><button class="w-2 h-2 rounded-full transition-all duration-300 shrink-0" role="tab" aria-label="跳到第 8 张" style="background: rgba(150, 150, 160, 0.5); box-shadow: none;"></button></div>
+    </div>
+
+  </div>
+
+  <!-- Auto-play indicator -->
+  <div class="autoplay-toggle absolute bottom-4 right-6 z-30 hidden md:flex items-center gap-2 text-xs" style="color: var(--fg-muted);">
+    <button id="autoplay-toggle" class="btn-ghost px-3 py-1.5 rounded-full text-xs flex items-center gap-2">
+      <i class="fa-solid fa-pause" id="autoplay-icon"></i>
+      <span id="autoplay-text">自动播放</span>
+    </button>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint flex justify-center py-4 z-20 hidden md:flex flex-col items-center gap-2 text-xs" style="color: var(--fg-muted);">
+    <span class="tracking-widest uppercase">向下滚动</span>
+    <i class="fa-solid fa-chevron-down animate-bounce"></i>
+  </div>
+</section>
+
+<!-- ===== Stats band ===== -->
+<section class="py-16 md:py-20 px-6 md:px-12 relative z-10">
+  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 reveal visible">
+    <div class="text-center p-6 rounded-2xl" style="background: var(--glass); border: 1px solid var(--border);">
+      <div class="text-4xl md:text-5xl font-black gradient-text" data-counter="86">86</div>
+      <div class="mt-2 text-xs uppercase tracking-widest" style="color: var(--fg-muted);">已发布文章</div>
+    </div>
+    <div class="text-center p-6 rounded-2xl" style="background: var(--glass); border: 1px solid var(--border);">
+      <div class="text-4xl md:text-5xl font-black gradient-text" data-counter="142">142</div>
+      <div class="mt-2 text-xs uppercase tracking-widest" style="color: var(--fg-muted);">千次阅读</div>
+    </div>
+    <div class="text-center p-6 rounded-2xl" style="background: var(--glass); border: 1px solid var(--border);">
+      <div class="text-4xl md:text-5xl font-black gradient-text" data-counter="3200">3,200</div>
+      <div class="mt-2 text-xs uppercase tracking-widest" style="color: var(--fg-muted);">订阅读者</div>
+    </div>
+    <div class="text-center p-6 rounded-2xl" style="background: var(--glass); border: 1px solid var(--border);">
+      <div class="text-4xl md:text-5xl font-black gradient-text" data-counter="7">7</div>
+      <div class="mt-2 text-xs uppercase tracking-widest" style="color: var(--fg-muted);">写作年数</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== About ===== -->
+<section id="about" class="py-20 px-6 md:px-12 relative z-10">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-center">
+    <div class="md:col-span-2 reveal visible">
+      <div class="relative">
+        <div class="aspect-square rounded-3xl overflow-hidden border" style="border-color: var(--border-strong);">
+          <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1535713875002-d1d0cf377fde" alt="LUMINA 头像" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-5 -right-5 px-4 py-3 rounded-2xl flex items-center gap-3" style="background: var(--bg-soft); border: 1px solid var(--border-strong); box-shadow: var(--shadow);">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+          <span class="text-xs font-medium">在线写作中</span>
+        </div>
+      </div>
+    </div>
+    <div class="md:col-span-3 reveal visible">
+      <div class="text-xs uppercase tracking-[0.3em] mb-3" style="color: var(--accent);">关于作者</div>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+        你好，我是 <span class="gradient-text">LUMINA</span>
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed" style="color: var(--fg-soft);">
+        我是一名独立创意工程师，热衷于在代码与图像之间寻找诗意的边界。白天写前端架构，夜里画生成艺术，周末则背着相机走街串巷。这个博客是我整理思绪、记录实验、与世界对话的小空间。
+      </p>
+      <p class="mt-4 leading-relaxed" style="color: var(--fg-soft);">
+        我相信技术不应仅仅是工具，它是表达情感的媒介；艺术也不仅仅是装饰，它是思考世界的方式。在这里你会读到关于 WebGL 着色器的硬核拆解，也会读到关于凌晨三点东京街头的随笔。
+      </p>
+
+      <div class="mt-8 grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl" style="background: var(--glass); border: 1px solid var(--border);">
+          <div class="flex items-center gap-2 text-sm font-semibold"><i class="fa-solid fa-code" style="color: var(--accent);"></i> 代码与系统</div>
+          <p class="mt-2 text-xs" style="color: var(--fg-muted);">WebGL · Three.js · React · 创意编程</p>
+        </div>
+        <div class="p-4 rounded-xl" style="background: var(--glass); border: 1px solid var(--border);">
+          <div class="flex items-center gap-2 text-sm font-semibold"><i class="fa-solid fa-palette" style="color: var(--accent2);"></i> 艺术与设计</div>
+          <p class="mt-2 text-xs" style="color: var(--fg-muted);">生成艺术 · 视觉设计 · 摄影叙事</p>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#articles" class="btn-primary px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+          阅读文章 <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+        <a href="mailto:hello@lumina.blog" class="btn-ghost px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-envelope text-xs"></i> 联系我
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Articles ===== -->
+<section id="articles" class="py-20 px-6 md:px-12 relative z-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 reveal visible">
+      <div>
+        <div class="text-xs uppercase tracking-[0.3em] mb-3" style="color: var(--accent);">文章库</div>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight">最近的<span class="gradient-text">书写</span></h2>
+        <p class="mt-3 text-base" style="color: var(--fg-soft);">点击任意卡片进入阅读模式，支持键盘左右切换与 Esc 关闭。</p>
+      </div>
+      <div class="flex flex-wrap gap-2" id="tag-filter" role="tablist">
+        <button class="tag-chip active" data-tag="all" role="tab"><i class="fa-solid fa-layer-group text-[10px]"></i> 全部</button>
+        <button class="tag-chip" data-tag="code" role="tab"><i class="fa-solid fa-code text-[10px]"></i> 代码</button>
+        <button class="tag-chip" data-tag="art" role="tab"><i class="fa-solid fa-palette text-[10px]"></i> 艺术</button>
+        <button class="tag-chip" data-tag="travel" role="tab"><i class="fa-solid fa-map text-[10px]"></i> 旅行</button>
+        <button class="tag-chip" data-tag="philosophy" role="tab"><i class="fa-solid fa-feather text-[10px]"></i> 思考</button>
+        <button class="tag-chip" data-tag="tech" role="tab"><i class="fa-solid fa-microchip text-[10px]"></i> 科技</button>
+      </div>
+    </div>
+
+    <div id="articles-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"><article class="article-card reveal visible" style="transition-delay: 0ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1550684848-fac1c5b4e853" alt="Neon Genesis · 用代码构建世界" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #6366f1; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#6366f1"></span>
+            艺术
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 4 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年6月12日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Neon Genesis · 用代码构建世界</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">赛博朋克美学在当代数字艺术中的回响与重构。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#01</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 60ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1541701494587-cb58502866ab" alt="Abstract Flow · 时间的流体" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #ec4899; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#ec4899"></span>
+            艺术
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年6月5日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Abstract Flow · 时间的流体</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">流体动力学在生成艺术中的诗意表达。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#02</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 120ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1557672172-298e090bd0f1" alt="Geometric Soul · 混沌中的秩序" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #10b981; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#10b981"></span>
+            艺术
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年5月28日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Geometric Soul · 混沌中的秩序</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">关于几何与噪声的对话。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#03</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 180ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1514565131-fce0801e5785" alt="Urban Solitude · 凌晨三点的东京" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #f59e0b; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#f59e0b"></span>
+            旅行
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年5月20日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Urban Solitude · 凌晨三点的东京</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">混凝土丛林中的寂静与回响。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#04</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 240ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1504333638930-c8787321eee0" alt="Ethereal Light · 数字时代的精神性" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #8b5cf6; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#8b5cf6"></span>
+            思考
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年5月12日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Ethereal Light · 数字时代的精神性</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">穿透黑暗的光，是一种关于存在的隐喻。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#05</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 300ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1682687220742-aba13b6e50ba" alt="Deep Ocean · 深入 WebGL 着色器" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #0ea5e9; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#0ea5e9"></span>
+            科技
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 4 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年5月4日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Deep Ocean · 深入 WebGL 着色器</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">从片元到顶点，一段下潜之旅。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#06</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 360ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1473580044384-7ba9967e16a0" alt="Desert Mirage · 一周离线实验" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #f97316; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#f97316"></span>
+            旅行
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年4月22日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Desert Mirage · 一周离线实验</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">热浪与无尽地平线上的思考。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#07</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 420ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1515462277126-2dd0c162007a" alt="Crystal Structure · 思想的几何" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #06b6d4; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#06b6d4"></span>
+            科技
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年4月15日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">Crystal Structure · 思想的几何</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">自然界完美几何的启示。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#08</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 480ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1633356122544-f134324a6cee" alt="React 19 的编译器时代" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #6366f1; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#6366f1"></span>
+            代码
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年4月8日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">React 19 的编译器时代</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">从运行时优化到编译时革命。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#09</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 540ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1555066931-4365d14bab8c" alt="TypeScript 类型体操入门" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #3b82f6; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#3b82f6"></span>
+            代码
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年3月30日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">TypeScript 类型体操入门</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">让编译器替你思考的艺术。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#10</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 600ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1499750310107-5fef28a66643" alt="论注意力经济下的自我保存" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #a855f7; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#a855f7"></span>
+            思考
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年3月18日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">论注意力经济下的自我保存</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">在算法的洪流里游泳的技术。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#11</span>
+        </div>
+      </div>
+    </article><article class="article-card reveal visible" style="transition-delay: 660ms;">
+      
+      <div class="cover">
+        <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1507003211169-0a1dd7228f2d" alt="CSS 容器查询实战" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: #22c55e; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:#22c55e"></span>
+            代码
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> 3 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">2026年3月10日</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">CSS 容器查询实战</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">让组件真正独立于视口。</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#12</span>
+        </div>
+      </div>
+    </article></div>
+
+    <div id="no-results" class="hidden text-center py-20" style="color: var(--fg-muted);">
+      <i class="fa-solid fa-folder-open text-4xl mb-4"></i>
+      <p>该分类下暂无文章</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Newsletter ===== -->
+<section id="newsletter" class="py-20 px-6 md:px-12 relative z-10">
+  <div class="max-w-4xl mx-auto p-10 md:p-14 rounded-3xl relative overflow-hidden reveal visible" style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(236,72,153,0.12)); border: 1px solid var(--border-strong);">
+    <div class="absolute -top-20 -right-20 w-60 h-60 rounded-full" style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.3;"></div>
+    <div class="absolute -bottom-20 -left-20 w-60 h-60 rounded-full" style="background: radial-gradient(circle, var(--accent2) 0%, transparent 70%); opacity: 0.3;"></div>
+
+    <div class="relative z-10 text-center">
+      <div class="text-xs uppercase tracking-[0.3em] mb-3" style="color: var(--accent);">订阅信件</div>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight">每月一封，写给同样的你</h2>
+      <p class="mt-4 text-base md:text-lg max-w-xl mx-auto" style="color: var(--fg-soft);">
+        我会在每月的第一个周末寄出一封信，分享当月的创作笔记、读到的书、听到的音乐，以及一些只发给订阅者的实验性作品。无广告，可随时退订。
+      </p>
+
+      <form id="newsletter-form" class="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" id="newsletter-email" required="" placeholder="your@email.com" class="flex-1 px-5 py-3 rounded-full outline-none text-sm" style="background: var(--bg-soft); border: 1px solid var(--border-strong); color: var(--fg);" aria-label="邮箱地址">
+        <button type="submit" class="btn-primary px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 whitespace-nowrap">
+          订阅 <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+      <p class="mt-3 text-xs" style="color: var(--fg-muted);">
+        <i class="fa-solid fa-shield-halved mr-1"></i> 你的邮箱不会被分享给任何第三方
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="py-12 px-6 md:px-12 border-t relative z-10" style="border-color: var(--border);">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-accent to-brand-accent2 flex items-center justify-center font-black text-white text-sm">L</div>
+      <span class="font-bold">LUMINA</span>
+      <span class="text-xs ml-2" style="color: var(--fg-muted);">© 2026 · 用心写作</span>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:text-white" style="background: var(--glass); border: 1px solid var(--border-strong); color: var(--fg-soft);" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:text-white" style="background: var(--glass); border: 1px solid var(--border-strong); color: var(--fg-soft);" title="Twitter" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:text-white" style="background: var(--glass); border: 1px solid var(--border-strong); color: var(--fg-soft);" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:text-white" style="background: var(--glass); border: 1px solid var(--border-strong); color: var(--fg-soft);" title="RSS" aria-label="RSS"><i class="fa-solid fa-rss"></i></a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ===== Article Reader Modal ===== -->
+<div class="reader-overlay" id="reader-overlay" role="dialog" aria-modal="true" aria-label="文章阅读">
+  <div class="reader-panel" id="reader-panel">
+    <div class="reader-progress" id="reader-progress" style="width: 13.9567%;"></div>
+    <div class="reader-header px-6 md:px-12 lg:px-20 py-3 flex items-center justify-between">
+      <button id="reader-close" class="btn-ghost px-4 py-2 rounded-full text-sm flex items-center gap-2" aria-label="返回">
+        <i class="fa-solid fa-arrow-left text-xs"></i> 返回
+        <kbd class="ml-1">Esc</kbd>
+      </button>
+      <div class="flex items-center gap-2">
+        <button id="reader-bookmark" class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" title="收藏 (B)" aria-label="收藏文章"><i class="fa-regular fa-bookmark"></i></button>
+        <button id="reader-prev" class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" title="上一篇 (Shift+←)" aria-label="上一篇文章"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+        <button id="reader-next" class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" title="下一篇 (Shift+→)" aria-label="下一篇文章"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+        <button id="reader-share" class="btn-ghost px-3 py-2 rounded-full text-sm flex items-center gap-2" title="分享" aria-label="分享文章"><i class="fa-solid fa-share-nodes text-xs"></i></button>
+      </div>
+    </div>
+    <div class="px-6 md:px-12 lg:px-20 py-8" id="reader-body">
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-4 flex-wrap">
+        <span class="tag-chip" style="border-color: #06b6d4; color: #06b6d4;">
+          <span class="w-1.5 h-1.5 rounded-full" style="background:#06b6d4"></span>
+          科技
+        </span>
+        <span class="text-xs" style="color: var(--fg-muted);">2026年4月15日 · 3 分钟阅读</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Crystal Structure · 思想的几何</h1>
+      <p class="mt-4 text-lg" style="color: var(--fg-soft);">自然界完美几何的启示。</p>
+    </div>
+
+    <div class="rounded-2xl overflow-hidden mb-10 aspect-[16/9]">
+      <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1515462277126-2dd0c162007a" alt="Crystal Structure · 思想的几何" class="w-full h-full object-cover zoomable">
+    </div>
+
+    
+      <button class="mobile-toc-btn tag-chip mb-4" id="mobile-toc-toggle">
+        <i class="fa-solid fa-list-ul text-[10px]"></i> 目录
+      </button>
+      <div class="mobile-toc-panel" id="mobile-toc-panel">
+        <div class="text-xs uppercase tracking-widest mb-2" style="color: var(--fg-muted);">目录</div>
+        <nav><a class="toc-link" data-target="sec-1">为什么晶体是几何的</a><a class="toc-link" data-target="sec-2">用代码模拟晶体生长</a><a class="toc-link " data-target="sec-3">结语</a></nav>
+      </div>
+
+      <div class="hidden lg:grid grid-cols-[1fr_220px] gap-12">
+        <div class="prose-content max-w-none">
+<p>晶体的几何是宇宙给我们的一个暗示：原来完美是可以长出来的。一颗盐粒在显微镜下是立方体，一片雪花是六重对称，一束石英是六棱柱。这些形状不是被设计的，而是被"生长"出来的。</p>
+<h2 id="sec-1">为什么晶体是几何的</h2>
+<p>答案藏在原子层面。当原子以最低能量状态排列时，它们会自然形成周期性结构，而周期性结构在宏观上就表现为规则的几何形状。</p>
+<blockquote>完美不是被画出来的，它是被允许发生的。</blockquote>
+<h2 id="sec-2">用代码模拟晶体生长</h2>
+<pre><button class="copy-code-btn" type="button" aria-label="复制代码"><i class="fa-regular fa-copy"></i> 复制</button><code><span class="tok-num">0</span>
+<span class="tok-key">const</span> grid = Array(<span class="tok-num">100</span>).fill(<span class="tok-num">0</span>).map(() =&gt; Array(<span class="tok-num">100</span>).fill(<span class="tok-num">0</span>));
+grid[<span class="tok-num">50</span>][<span class="tok-num">50</span>] = <span class="tok-num">1</span>; <span class="tok-num">1</span>
+
+<span class="tok-key">for</span> (<span class="tok-key">let</span> <span class="tok-fn">step</span> = <span class="tok-num">0</span>; <span class="tok-fn">step</span> &lt; <span class="tok-num">500</span>; <span class="tok-fn">step</span>++) {
+  <span class="tok-key">for</span> (<span class="tok-key">let</span> x = <span class="tok-num">1</span>; x &lt; <span class="tok-num">99</span>; x++) {
+    <span class="tok-key">for</span> (<span class="tok-key">let</span> y = <span class="tok-num">1</span>; y &lt; <span class="tok-num">99</span>; y++) {
+      <span class="tok-key">if</span> (grid[x][y] === <span class="tok-num">0</span>) {
+        <span class="tok-key">const</span> n = grid[x-<span class="tok-num">1</span>][y] + grid[x+<span class="tok-num">1</span>][y] + grid[x][y-<span class="tok-num">1</span>] + grid[x][y+<span class="tok-num">1</span>];
+        <span class="tok-key">if</span> (n &gt; <span class="tok-num">0</span> &amp;&amp; <span class="tok-fn">Math</span>.random() &lt; <span class="tok-num">0.3</span>) grid[x][y] = <span class="tok-num">1</span>;
+      }
+    }
+  }
+}</code></pre>
+<p>这段代码用最朴素的"邻居感染"逻辑生成晶体状的结构。改变 <code>0.3</code> 这个概率，你会得到从尖锐雪花到密实晶簇的不同形态。</p>
+<h2 id="sec-3">结语</h2>
+<p>做创意编程的人，经常会迷失在"我要做出什么形状"的问题里。也许答案不是去想，而是去定义规则，然后让规则自己生长。晶体如是，好作品亦然。</p>
+</div>
+        <aside class="sticky top-24 self-start">
+          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--fg-muted);">目录</div>
+          <nav id="toc-nav">
+            <a class="toc-link" data-target="sec-1">为什么晶体是几何的</a><a class="toc-link" data-target="sec-2">用代码模拟晶体生长</a><a class="toc-link " data-target="sec-3">结语</a>
+          </nav>
+          <div class="mt-8 p-4 rounded-xl" style="background: var(--glass); border: 1px solid var(--border);">
+            <div class="text-xs uppercase tracking-widest mb-2" style="color: var(--fg-muted);">分享</div>
+            <div class="flex gap-2">
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="twitter" aria-label="分享到 Twitter"><i class="fa-brands fa-x-twitter text-xs"></i></button>
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="weibo" aria-label="分享到微博"><i class="fa-brands fa-weibo text-xs"></i></button>
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="copy" aria-label="复制链接"><i class="fa-solid fa-link text-xs"></i></button>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <div class="lg:hidden prose-content">
+<p>晶体的几何是宇宙给我们的一个暗示：原来完美是可以长出来的。一颗盐粒在显微镜下是立方体，一片雪花是六重对称，一束石英是六棱柱。这些形状不是被设计的，而是被"生长"出来的。</p>
+<h2 id="sec-1">为什么晶体是几何的</h2>
+<p>答案藏在原子层面。当原子以最低能量状态排列时，它们会自然形成周期性结构，而周期性结构在宏观上就表现为规则的几何形状。</p>
+<blockquote>完美不是被画出来的，它是被允许发生的。</blockquote>
+<h2 id="sec-2">用代码模拟晶体生长</h2>
+<pre><button class="copy-code-btn" type="button" aria-label="复制代码"><i class="fa-regular fa-copy"></i> 复制</button><code><span class="tok-num">0</span>
+<span class="tok-key">const</span> grid = Array(<span class="tok-num">100</span>).fill(<span class="tok-num">0</span>).map(() =&gt; Array(<span class="tok-num">100</span>).fill(<span class="tok-num">0</span>));
+grid[<span class="tok-num">50</span>][<span class="tok-num">50</span>] = <span class="tok-num">1</span>; <span class="tok-num">1</span>
+
+<span class="tok-key">for</span> (<span class="tok-key">let</span> <span class="tok-fn">step</span> = <span class="tok-num">0</span>; <span class="tok-fn">step</span> &lt; <span class="tok-num">500</span>; <span class="tok-fn">step</span>++) {
+  <span class="tok-key">for</span> (<span class="tok-key">let</span> x = <span class="tok-num">1</span>; x &lt; <span class="tok-num">99</span>; x++) {
+    <span class="tok-key">for</span> (<span class="tok-key">let</span> y = <span class="tok-num">1</span>; y &lt; <span class="tok-num">99</span>; y++) {
+      <span class="tok-key">if</span> (grid[x][y] === <span class="tok-num">0</span>) {
+        <span class="tok-key">const</span> n = grid[x-<span class="tok-num">1</span>][y] + grid[x+<span class="tok-num">1</span>][y] + grid[x][y-<span class="tok-num">1</span>] + grid[x][y+<span class="tok-num">1</span>];
+        <span class="tok-key">if</span> (n &gt; <span class="tok-num">0</span> &amp;&amp; <span class="tok-fn">Math</span>.random() &lt; <span class="tok-num">0.3</span>) grid[x][y] = <span class="tok-num">1</span>;
+      }
+    }
+  }
+}</code></pre>
+<p>这段代码用最朴素的"邻居感染"逻辑生成晶体状的结构。改变 <code>0.3</code> 这个概率，你会得到从尖锐雪花到密实晶簇的不同形态。</p>
+<h2 id="sec-3">结语</h2>
+<p>做创意编程的人，经常会迷失在"我要做出什么形状"的问题里。也许答案不是去想，而是去定义规则，然后让规则自己生长。晶体如是，好作品亦然。</p>
+</div>
+    
+
+    
+    <div class="mt-16 pt-8 border-t" style="border-color: var(--border);">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 相关文章</h3>
+      <div class="grid sm:grid-cols-3 gap-3">
+        
+          <div class="related-card" data-id="6">
+            <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1682687220742-aba13b6e50ba" alt="Deep Ocean · 深入 WebGL 着色器">
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] uppercase tracking-wider mb-1" style="color: #0ea5e9;">科技 · 4分钟</div>
+              <div class="font-semibold text-sm leading-tight line-clamp-2">Deep Ocean · 深入 WebGL 着色器</div>
+            </div>
+          </div>
+        
+          <div class="related-card" data-id="1">
+            <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1550684848-fac1c5b4e853" alt="Neon Genesis · 用代码构建世界">
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] uppercase tracking-wider mb-1" style="color: #6366f1;">艺术 · 4分钟</div>
+              <div class="font-semibold text-sm leading-tight line-clamp-2">Neon Genesis · 用代码构建世界</div>
+            </div>
+          </div>
+        
+          <div class="related-card" data-id="2">
+            <img src="./LUMINA · 在代码、艺术与意识之间_files/photo-1541701494587-cb58502866ab" alt="Abstract Flow · 时间的流体">
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] uppercase tracking-wider mb-1" style="color: #ec4899;">艺术 · 3分钟</div>
+              <div class="font-semibold text-sm leading-tight line-clamp-2">Abstract Flow · 时间的流体</div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+
+    <div class="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color: var(--border);">
+      <div class="text-sm" style="color: var(--fg-muted);">
+        <i class="fa-regular fa-calendar mr-2"></i>2026年4月15日
+      </div>
+      <div class="flex gap-2">
+        <button id="reader-prev-btn" class="btn-ghost px-4 py-2 rounded-full text-sm flex items-center gap-2">
+          <i class="fa-solid fa-chevron-left text-xs"></i> 上一篇
+        </button>
+        <button id="reader-next-btn" class="btn-primary px-4 py-2 rounded-full text-sm flex items-center gap-2">
+          下一篇 <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ===== Search Modal (Cmd+K) ===== -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="搜索">
+  <div class="search-panel">
+    <div class="flex items-center gap-3 px-6">
+      <i class="fa-solid fa-magnifying-glass" style="color: var(--fg-muted);"></i>
+      <input type="text" id="search-input" class="search-input" placeholder="搜索文章、标签、关键词..." autocomplete="off" aria-label="搜索关键词">
+      <kbd>Esc</kbd>
+    </div>
+    <div id="search-results" class="max-h-[60vh] overflow-y-auto"></div>
+    <div class="px-6 py-3 text-xs flex items-center justify-between" style="color: var(--fg-muted); border-top: 1px solid var(--border);">
+      <div class="flex items-center gap-3">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 导航</span>
+        <span><kbd>↵</kbd> 打开</span>
+      </div>
+      <span>共 <span id="search-count">0</span> 条结果</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Keyboard Help Modal ===== -->
+<div class="help-overlay" id="help-overlay" role="dialog" aria-modal="true" aria-label="快捷键帮助">
+  <div class="help-panel">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-keyboard" style="color: var(--accent);"></i> 键盘快捷键</h3>
+      <button id="help-close" class="btn-ghost w-8 h-8 rounded-full flex items-center justify-center" aria-label="关闭"><i class="fa-solid fa-xmark text-xs"></i></button>
+    </div>
+    <div class="help-row"><span>搜索文章</span><span><kbd>⌘</kbd> <kbd>K</kbd></span></div>
+    <div class="help-row"><span>切换卡片（首页）</span><span><kbd>←</kbd> <kbd>→</kbd></span></div>
+    <div class="help-row"><span>上/下一篇（阅读时）</span><span><kbd>Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd></span></div>
+    <div class="help-row"><span>收藏当前文章</span><span><kbd>B</kbd></span></div>
+    <div class="help-row"><span>打开快捷键帮助</span><span><kbd>?</kbd></span></div>
+    <div class="help-row"><span>关闭弹窗</span><span><kbd>Esc</kbd></span></div>
+  </div>
+</div>
+
+<!-- ===== Image Zoom Overlay ===== -->
+<div class="image-zoom-overlay" id="image-zoom-overlay" role="dialog" aria-label="图片放大">
+  <img id="image-zoom-img" src="" alt="">
+</div>
+
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <i class="fa-solid fa-palette" style="color: var(--brand-mint);"></i>
+  <span id="toast-msg">已切换至深色模式</span>
+</div>
+
+<!-- ===== Back to top ===== -->
+<button class="back-to-top" id="back-to-top" title="回到顶部" aria-label="回到顶部">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<script>
+/* ============================================================
+   LUMINA Blog v2 - 数据 + 交互
+   修复: 代码块HTML腐蚀、高亮器嵌套、进度条遮挡、监听器泄漏、
+         hash路由、移动端布局；新增: 复制代码、相关文章、收藏、
+         快捷键帮助、焦点陷阱、图片放大、移动端TOC、系统主题、
+         减弱动效、打印样式、OG/JSON-LD、真实分享URL
+   ============================================================ */
+
+// ===== 工具函数 =====
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeRegExp(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ===== 文章数据 =====
+const articles = [
+  {
+    id: 1, tag: 'art', tagLabel: '艺术',
+    title: 'Neon Genesis · 用代码构建世界',
+    desc: '赛博朋克美学在当代数字艺术中的回响与重构。',
+    img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop',
+    color: '#6366f1',
+    date: '2026-06-12', featured: true,
+    body: `
+<p>霓虹的光，从不只是光。它是城市夜晚的脉搏，是技术对人的低语，是一种将赛博朋克从纸上搬入现实的隐秘编码。当我们谈论 Neon Genesis——一场"霓虹的创世"——我们其实在谈论一种新的视觉语法如何在数字艺术中诞生，又如何反过来重塑我们对城市的感知。</p>
+<h2 id="sec-1">从街头到屏幕</h2>
+<p>最早的霓虹诞生于二十世纪初的实验室，却被香港、东京、上海的夜市收养成为城市身份的一部分。今天，那些物理的玻璃管正在被拆除，取而代之的是 LED 与投影。但奇怪的是，它们反而以更纯粹的形态出现在数字艺术里——没有热量、没有电流声，只有像素在黑色背景上发出的冷光。</p>
+<blockquote>霓虹在物理世界死去，却在屏幕上获得了永生。</blockquote>
+<p>这种迁移并不只是材料的替换。它意味着一种原本属于"街角偶遇"的体验，现在可以被艺术家在 TouchDesigner、Notch、p5.js 里精确地复现、变形、放大。光线不再需要依赖玻璃管的弯曲工艺，它服从于代码的几何。</p>
+<h2 id="sec-2">三种赛博朋克语法</h2>
+<h3>1. 高对比饱和色</h3>
+<p>品红与青色是赛博朋克的默认调色板。但真正让这种配色有力量的，不是颜色本身，而是它们与近黑背景之间形成的极低明度差。人眼被迫调整瞳孔，于是每一道光都像被高亮选中。</p>
+<h3>2. 故障与残影</h3>
+<p>Glitch 不再是 bug，而是一种修辞。RGB 分离、扫描线、像素抖动，这些"错误"在视觉上模拟了信号传输的不稳定——一种数字时代的雨夜车窗。</p>
+<h3>3. 反射与湿润感</h3>
+<p>赛博朋克的城市永远是湿的。雨水让柏油路变成一面镜子，把头顶的霓虹翻倍地铺到脚下。在 Three.js 里，这意味着你需要一个粗糙度极低的 PBR 材质，配上立方体贴图与环境光遮蔽。</p>
+<h2 id="sec-3">用代码生成一片霓虹</h2>
+<p>下面是一个用 GLSL 片段着色器生成动态霓虹条纹的最小示例。关键在于用 <code>fract</code> 制造周期，用 <code>smoothstep</code> 控制边缘：</p>
+<pre><code>// Neon stripes fragment shader
+uniform float uTime;
+uniform vec2  uResolution;
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / uResolution.xy;
+  float stripe = fract(uv.y * 8.0 - uTime * 0.5);
+  float glow = smoothstep(0.0, 0.5, stripe) - smoothstep(0.5, 1.0, stripe);
+
+  vec3 magenta = vec3(1.0, 0.0, 0.6);
+  vec3 cyan    = vec3(0.0, 0.9, 1.0);
+  vec3 col = mix(magenta, cyan, uv.x);
+
+  gl_FragColor = vec4(col * glow, 1.0);
+}</code></pre>
+<p>这段代码的核心思路是：先在垂直方向上生成一组移动的条纹，再用横向坐标做色彩插值，最后用 <code>glow</code> 把条纹"激活"成发光带。你可以在此基础上加入噪声扰动，让边缘呼吸起来。</p>
+<h2 id="sec-4">结语 · 霓虹作为一种态度</h2>
+<p>我们这一代人是在屏幕的光里长大的。霓虹对我们的意义，远不止美学——它是一种关于"在黑暗中依然能发光"的隐喻。当你在代码里写下第一行 <code>vec3 col = vec3(1.0, 0.0, 0.6)</code> 时，你已经在重写这座城市。</p>
+<p>下一篇文章，我们会聊聊如何把这种霓虹美学带入到交互式 Web 体验里，让它不只是被看，而是被触摸、被滚动、被悬停。</p>
+`
+  },
+  {
+    id: 2, tag: 'art', tagLabel: '艺术',
+    title: 'Abstract Flow · 时间的流体',
+    desc: '流体动力学在生成艺术中的诗意表达。',
+    img: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1000&auto=format&fit=crop',
+    color: '#ec4899',
+    date: '2026-06-05', featured: true,
+    body: `
+<p>流体是时间最诚实的形状。当一滴墨落入水中，它展开的方式既不可重复，又遵循着 Navier-Stokes 方程的严格约束。这种"约束中的自由"，正是生成艺术最着迷的地方。</p>
+<h2 id="sec-1">为什么是流体？</h2>
+<p>静态的图像会让人停止观看，但流动的图像会让人继续凝视。从字面意义上说，流体的不可预测性给了观众一个永远新鲜的画面——每一帧都不会重复，每一次刷新都是一次孤本。</p>
+<blockquote>流体艺术不是关于"画了什么"，而是关于"不画什么"。</blockquote>
+<p>当艺术家放弃对每一根线条的控制，转而设计一套规则系统，让规则自己去演化——这时，作品就从"被完成"变成了"在生长"。</p>
+<h2 id="sec-2">技术栈选择</h2>
+<p>实现流体效果有几条主流路径：</p>
+<ul>
+<li><strong>Canvas 2D + Perlin Noise</strong>：最轻量，适合做背景动效。性能友好，但视觉层次有限。</li>
+<li><strong>WebGL + Noise GLSL</strong>：在 GPU 上跑 fbm（分形布朗运动），可以做出非常细腻的烟雾与云。</li>
+<li><strong>Fluid Simulation (Stam 算法)</strong>：真正的流体求解，能模拟速度场、压力场。计算量大，但视觉冲击最强。</li>
+</ul>
+<h2 id="sec-3">一个最小的 fbm 着色器</h2>
+<pre><code>float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1,0)), u.x),
+             mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), u.x), u.y);
+}
+
+float fbm(vec2 p) {
+  float v = 0.0, a = 0.5;
+  for (int i = 0; i &lt; 6; i++) {
+    v += a * noise(p);
+    p *= 2.0; a *= 0.5;
+  }
+  return v;
+}</code></pre>
+<p>把 <code>fbm</code> 喂给一个随时间偏移的 UV 坐标，你就能得到一片永不停止的"墨水海洋"。再叠加上色彩渐变和柔光混合，效果会立刻提升一个档次。</p>
+<h2 id="sec-4">结语</h2>
+<p>做流体艺术的人，常常会被问到"这表达了什么"。我的回答是：它表达的是"流动本身"。在一个被静止图像淹没的时代，能够让人停下来看一段不会重复的视频，已经是一种抵抗。</p>
+`
+  },
+  {
+    id: 3, tag: 'art', tagLabel: '艺术',
+    title: 'Geometric Soul · 混沌中的秩序',
+    desc: '关于几何与噪声的对话。',
+    img: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000&auto=format&fit=crop',
+    color: '#10b981',
+    date: '2026-05-28', featured: true,
+    body: `
+<p>几何是宇宙的语法，噪声是它的口音。当严谨的圆、三角、正多边形被随机扰动，它们就不再是抽象的数学对象，而变成了有体温的存在。</p>
+<h2 id="sec-1">完美 vs 不完美</h2>
+<p>Bauhaus 教会了我们几何的力量，但真正的灵魂出现在你打破它的那一刻。一个完美的圆是冷的；一个被噪声轻微扭曲的圆，是会呼吸的。</p>
+<blockquote>秩序让人安心，但只有打破秩序，才能让人记住。</blockquote>
+<h2 id="sec-2">实例 · 扰动的多边形</h2>
+<pre><code>function drawNoisyPolygon(ctx, cx, cy, r, sides) {
+  ctx.beginPath();
+  for (let i = 0; i &lt;= sides; i++) {
+    const a = (i / sides) * Math.PI * 2;
+    const noise = (Math.random() - 0.5) * r * 0.15;
+    const x = cx + Math.cos(a) * (r + noise);
+    const y = cy + Math.sin(a) * (r + noise);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}</code></pre>
+<p>把 <code>sides</code> 从 3 一路调到 60，你会看到一个从三角到接近圆的演化。每一步都加入少量噪声，最终得到的不是圆，而是"被生活磨过的圆"。</p>
+<h2 id="sec-3">结语</h2>
+<p>几何给我们骨架，噪声给我们皮肤。一个好的生成艺术家，要懂得在哪一帧让秩序说话，在哪一帧让混沌出场。</p>
+`
+  },
+  {
+    id: 4, tag: 'travel', tagLabel: '旅行',
+    title: 'Urban Solitude · 凌晨三点的东京',
+    desc: '混凝土丛林中的寂静与回响。',
+    img: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=1000&auto=format&fit=crop',
+    color: '#f59e0b',
+    date: '2026-05-20', featured: true,
+    body: `
+<p>凌晨三点的东京比白天更真实。白天的城市被通勤、会议、便利店的扫码声填满，到了凌晨，它终于摘下面具，露出作为一座巨型混凝土丛林的本来面目。</p>
+<h2 id="sec-1">新宿的雨</h2>
+<p>我从歌舞伎町的入口往里走，霓虹在湿地上铺成彩色地毯。一个穿西装的男人靠在便利店门口抽烟，烟雾与蒸腾的雨气混在一起。他没有看我，我也没有看他。这种"互不干涉的共处"，是东京教我的第一课。</p>
+<blockquote>在大城市里，孤独不是一种缺失，而是一种空间。</blockquote>
+<h2 id="sec-2">涩谷的空十字路口</h2>
+<p>白天有三万人同时过马路的涩谷，凌晨只有我和一只猫。猫看着我，我看着猫，我们都觉得对方不该出现在这里。红绿灯依然在循环，但已经没有人在等。这座城市的机械节律不会因为你不在而停止——这是一种很奇怪的被需要感。</p>
+<h2 id="sec-3">深夜食堂与便利店的哲学</h2>
+<p>在东京的最后一个晚上，我在一家只有八个座位的小店吃了一碗亲子丼。老板全程没说话，只是在合适的时间把饭推到我面前。这种沉默的体贴，比任何寒暄都更接近"被照顾"的本质。</p>
+<p>而便利店则是另一种存在。Lawson 的蓝色招牌在凌晨比月亮还亮，店员用一种近乎机械的礼貌问你要不要袋子。这种"被规训的温柔"，是日本都市给我的最深印象。</p>
+<h2 id="sec-4">回到酒店</h2>
+<p>凌晨四点半回到酒店，窗户对着一条空无一人的高架。出租车的尾灯在玻璃上拉成一条红线，像一条缓慢的心电图。我打开笔记本写下这些字，然后关灯，让东京独自继续它的夜。</p>
+`
+  },
+  {
+    id: 5, tag: 'philosophy', tagLabel: '思考',
+    title: 'Ethereal Light · 数字时代的精神性',
+    desc: '穿透黑暗的光，是一种关于存在的隐喻。',
+    img: 'https://images.unsplash.com/photo-1504333638930-c8787321eee0?q=80&w=1000&auto=format&fit=crop',
+    color: '#8b5cf6',
+    date: '2026-05-12', featured: true,
+    body: `
+<p>光在物理上是电磁波，但在人的体验里，它从来不只是物理。每一种光都对应一种心境——晨光是希望，黄昏是告别，霓虹是欲望，而穿透黑暗的一束单光，是关于存在的隐喻。</p>
+<h2 id="sec-1">为什么我们被"穿透黑暗的光"打动</h2>
+<p>从教堂彩窗到电影里的舞台聚光，从游戏里的god rays到摄影里的逆光剪影——这种意象在所有视觉媒介里反复出现。它打动我们的原因，可能在于它同时包含了两个对立面：黑暗（无）与光（有），而光主动选择了"穿过"黑暗。</p>
+<blockquote>光不是因为黑暗才存在，但黑暗因为光而有了形状。</blockquote>
+<h2 id="sec-2">数字时代的精神焦虑</h2>
+<p>我们这一代人，被信息流淹没，却越来越难以感受到"被照亮"。算法推送的内容像均匀的环境光，照得到处都亮，但什么都看不清。我们缺的不是信息，而是一束能穿透的光——一种让我们停下来、被某一件事物击中的体验。</p>
+<h2 id="sec-3">在代码里造一束光</h2>
+<pre><code>// Volumetric light shaft (god rays) - simplified
+vec3 godRays(vec2 uv, vec2 lightPos, sampler2D scene) {
+  vec3 col = vec3(0.0);
+  const int SAMPLES = 64;
+  for (int i = 0; i &lt; SAMPLES; i++) {
+    float t = float(i) / float(SAMPLES);
+    vec2 p = mix(uv, lightPos, t * 0.9);
+    col += texture2D(scene, p).rgb * 0.02;
+  }
+  return col;
+}</code></pre>
+<p>这段代码做的是"径向采样累加"——从当前像素向光源位置采样多次，把沿途的亮度累加起来。它模拟的不是真实物理，而是我们"感知到光束"的心理过程。</p>
+<h2 id="sec-4">结语</h2>
+<p>也许做艺术的人，本质上都是想造光的人。我们写代码、画图、拍照、写字，其实都是在试图穿透某种黑暗——可能是无知、可能是孤独、可能是时代的喧嚣。希望你的下一件作品，也能成为一束这样的光。</p>
+`
+  },
+  {
+    id: 6, tag: 'tech', tagLabel: '科技',
+    title: 'Deep Ocean · 深入 WebGL 着色器',
+    desc: '从片元到顶点，一段下潜之旅。',
+    img: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?q=80&w=1000&auto=format&fit=crop',
+    color: '#0ea5e9',
+    date: '2026-05-04', featured: true,
+    body: `
+<p>学习 WebGL 着色器，像是在海底潜水。一开始你只看到表面的波光（Canvas 2D），下潜一段后开始遇到珊瑚和鱼群（基础 GLSL），再深一些就进入黑暗区域，那里有发光的奇怪生物（高级技巧）。这篇文章是一次深潜的笔记。</p>
+<h2 id="sec-1">理解渲染管线</h2>
+<p>WebGL 的渲染管线可以用一句话概括：<strong>顶点着色器决定形状，片元着色器决定颜色</strong>。但在这一句话背后，藏着光栅化、插值、深度测试、混合等十几个步骤。</p>
+<blockquote>着色器不是程序，它是流水线上的两个工人。</blockquote>
+<h2 id="sec-2">顶点着色器的本质</h2>
+<p>顶点着色器（Vertex Shader）每个顶点运行一次。它的工作是把模型空间的三维坐标变换到裁剪空间，最后被 GPU 用来光栅化。最简单的顶点着色器：</p>
+<pre><code>attribute vec3 aPosition;
+uniform mat4 uProjection;
+uniform mat4 uView;
+uniform mat4 uModel;
+
+void main() {
+  gl_Position = uProjection * uView * uModel * vec4(aPosition, 1.0);
+}</code></pre>
+<p>这里的关键是理解三个矩阵的层次：<code>uModel</code> 把模型放到世界，<code>uView</code> 把世界对齐到相机，<code>uProjection</code> 把三维压成二维。</p>
+<h2 id="sec-3">片元着色器的诗</h2>
+<p>片元着色器（Fragment Shader）每个像素运行一次。这是真正发生"创作"的地方。下面是一个能渲染体积感的简单光照模型：</p>
+<pre><code>uniform vec3 uLightDir;
+uniform vec3 uColor;
+
+varying vec3 vNormal;
+
+void main() {
+  vec3 N = normalize(vNormal);
+  vec3 L = normalize(uLightDir);
+  float diff = max(dot(N, L), 0.0);
+  vec3 ambient = uColor * 0.2;
+  vec3 col = ambient + uColor * diff;
+  gl_FragColor = vec4(col, 1.0);
+}</code></pre>
+<p>这只是一个 Lambert 漫反射模型。当你加上镜面高光（Phong）、环境反射（IBL）、阴影贴图（ShadowMap），画面就会一层层变得立体起来。</p>
+<h2 id="sec-4">调试的小窍门</h2>
+<p>着色器不像 JS，没有 <code>console.log</code>。常用的调试技巧：</p>
+<ul>
+<li><strong>把数值可视化</strong>：<code>gl_FragColor = vec4(vNormal * 0.5 + 0.5, 1.0)</code> 把法线当颜色看。</li>
+<li><strong>红绿测试</strong>：把 UV 映射到红色绿色通道，确认 UV 是否正确。</li>
+<li><strong>Spector.js</strong>：浏览器扩展，能截取一帧 WebGL 调用，看到所有 uniform 和纹理。</li>
+</ul>
+<h2 id="sec-5">结语</h2>
+<p>写着色器是一种很特殊的体验。你不再是告诉电脑"做什么"，而是设计一个让 GPU 并行亿万次的小函数。每一次保存运行，都是在向一片看不见的海里投一颗石子，然后等涟漪回来。</p>
+`
+  },
+  {
+    id: 7, tag: 'travel', tagLabel: '旅行',
+    title: 'Desert Mirage · 一周离线实验',
+    desc: '热浪与无尽地平线上的思考。',
+    img: 'https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=1000&auto=format&fit=crop',
+    color: '#f97316',
+    date: '2026-04-22', featured: true,
+    body: `
+<p>把手机关机的那一刻，沙漠才真正开始。前三天我像被切掉了一条胳膊，第四天我开始听见风，第七天我已经不记得密码是什么。这是一次关于"没有互联网的自己是谁"的实验。</p>
+<h2 id="sec-1">第一天 · 戒断</h2>
+<p>到达莫哈维沙漠的时候是下午两点，气温 41 度。我把手机关机塞进背包最深处，然后走进那间没有 WiFi 的小木屋。第一个晚上的失眠不是因为热，而是因为手指不自觉地在床单上滑动。</p>
+<blockquote>我们对手机的依赖，不是信息依赖，而是动作依赖。</blockquote>
+<h2 id="sec-2">第三天 · 风开始有名字</h2>
+<p>第三天早上，我第一次能分辨出几种不同的风。早上的风是干燥的、硬的；中午的热风带着沙；傍晚的风则有一种奇怪的凉意，像是从远处的山头赶来。我开始给风起名字，这是我在城市里七年没做过的事。</p>
+<h2 id="sec-3">第五天 · 时间变慢</h2>
+<p>没有时钟，没有日程，太阳成了唯一的时间参照。一天变得很长——长得足够我看完一整本书、画完一张速写、煮三顿饭、还在天黑前走两公里去看一棵 Joshua Tree。在城市里，这两天的事会被压缩进三个小时的"效率时间"。</p>
+<h2 id="sec-4">第七天 · 回归</h2>
+<p>开机的那一刻，屏幕亮起，二十几条通知排队等我。我感到一种奇怪的疏离——这些人是谁？这些事真的那么重要吗？我删掉了三个 App，关掉了所有通知，只留下电话和短信。</p>
+<p>沙漠没有教我"放下手机"这种陈词滥调。它教我的是：你不是你的通知。你是一个能听见风、能看见星空、能在 41 度里安静地走两公里的生物。这一点，互联网永远无法告诉你。</p>
+`
+  },
+  {
+    id: 8, tag: 'tech', tagLabel: '科技',
+    title: 'Crystal Structure · 思想的几何',
+    desc: '自然界完美几何的启示。',
+    img: 'https://images.unsplash.com/photo-1515462277126-2dd0c162007a?q=80&w=1000&auto=format&fit=crop',
+    color: '#06b6d4',
+    date: '2026-04-15', featured: true,
+    body: `
+<p>晶体的几何是宇宙给我们的一个暗示：原来完美是可以长出来的。一颗盐粒在显微镜下是立方体，一片雪花是六重对称，一束石英是六棱柱。这些形状不是被设计的，而是被"生长"出来的。</p>
+<h2 id="sec-1">为什么晶体是几何的</h2>
+<p>答案藏在原子层面。当原子以最低能量状态排列时，它们会自然形成周期性结构，而周期性结构在宏观上就表现为规则的几何形状。</p>
+<blockquote>完美不是被画出来的，它是被允许发生的。</blockquote>
+<h2 id="sec-2">用代码模拟晶体生长</h2>
+<pre><code>// 简化的元胞自动机晶体生长
+const grid = Array(100).fill(0).map(() =&gt; Array(100).fill(0));
+grid[50][50] = 1; // 种子
+
+for (let step = 0; step &lt; 500; step++) {
+  for (let x = 1; x &lt; 99; x++) {
+    for (let y = 1; y &lt; 99; y++) {
+      if (grid[x][y] === 0) {
+        const n = grid[x-1][y] + grid[x+1][y] + grid[x][y-1] + grid[x][y+1];
+        if (n &gt; 0 && Math.random() &lt; 0.3) grid[x][y] = 1;
+      }
+    }
+  }
+}</code></pre>
+<p>这段代码用最朴素的"邻居感染"逻辑生成晶体状的结构。改变 <code>0.3</code> 这个概率，你会得到从尖锐雪花到密实晶簇的不同形态。</p>
+<h2 id="sec-3">结语</h2>
+<p>做创意编程的人，经常会迷失在"我要做出什么形状"的问题里。也许答案不是去想，而是去定义规则，然后让规则自己生长。晶体如是，好作品亦然。</p>
+`
+  },
+  {
+    id: 9, tag: 'code', tagLabel: '代码',
+    title: 'React 19 的编译器时代',
+    desc: '从运行时优化到编译时革命。',
+    img: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000&auto=format&fit=crop',
+    color: '#6366f1',
+    date: '2026-04-08', featured: false,
+    body: `
+<p>React 19 带来的不只是几个新 Hook，而是把"运行时"的优化任务交给了"编译时"。这意味着我们写代码的方式不需要改变，但运行效率会大幅提升。这是一次悄无声息的革命。</p>
+<h2 id="sec-1">编译器在做什么</h2>
+<p>React Compiler 的核心，是在编译阶段分析你的组件，自动插入 <code>useMemo</code>、<code>useCallback</code> 等优化。你不再需要手动写这些 Hook，编译器替你做。</p>
+<blockquote>最好的抽象，是你感受不到它的存在。</blockquote>
+<h2 id="sec-2">规则-of-Hooks 的进化</h2>
+<p>编译器要求你的组件是"纯函数"——同样的输入产生同样的输出，没有副作用。这其实是 React 一直想要的状态，只是之前靠开发者自觉，现在靠编译器强制。</p>
+<h2 id="sec-3">实战 · 一个被优化的组件</h2>
+<pre><code>function ProductList({ products, filter }) {
+  // 编译器会自动 memo 这一行
+  const filtered = products.filter(p =&gt; p.category === filter);
+
+  return (
+    &lt;ul&gt;
+      {filtered.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+<p>过去你需要：<code>const filtered = useMemo(() =&gt; products.filter(...), [products, filter])</code>。现在直接写，编译器替你处理。</p>
+<h2 id="sec-4">迁移建议</h2>
+<p>不要一上来就全量启用编译器。建议先在新的、小的、纯函数式的组件上尝试，等团队习惯了"纯函数思维"再推广到旧代码。否则你会被一堆 lint 错误淹没。</p>
+`
+  },
+  {
+    id: 10, tag: 'code', tagLabel: '代码',
+    title: 'TypeScript 类型体操入门',
+    desc: '让编译器替你思考的艺术。',
+    img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop',
+    color: '#3b82f6',
+    date: '2026-03-30', featured: false,
+    body: `
+<p>类型体操（Type Gymnastics）是 TypeScript 社区里一种特殊的写作风格——用类型系统本身来表达逻辑，让编译器在编译期完成原本需要运行时才能完成的检查。它不是炫技，而是一种让代码"更难写错"的方法。</p>
+<h2 id="sec-1">从 mapped types 开始</h2>
+<pre><code>type Readonly&lt;T&gt; = {
+  readonly [K in keyof T]: T[K];
+};</code></pre>
+<p>这是 TypeScript 内置 <code>Readonly</code> 的简化实现。它用 <code>keyof</code> 拿到所有键，再用 <code>in</code> 遍历，把每个键标记为 <code>readonly</code>。这就是类型体操的基本范式。</p>
+<h2 id="sec-2">条件类型 · 类型的 if-else</h2>
+<pre><code>type IsString&lt;T&gt; = T extends string ? true : false;
+
+type A = IsString&lt;"hello"&gt;; // true
+type B = IsString&lt;42&gt;;       // false</code></pre>
+<p>条件类型让你可以在类型层面做判断。配合 <code>infer</code>，你还能从类型中"提取"出子类型。</p>
+<h2 id="sec-3">实战 · 提取函数返回类型</h2>
+<pre><code>type ReturnType&lt;T&gt; =
+  T extends (...args: any[]) =&gt; infer R ? R : never;
+
+function getUser() { return { name: "L", age: 26 }; }
+type User = ReturnType&lt;typeof getUser&gt;;
+// User = { name: string; age: number }</code></pre>
+<p>这种"从已有类型推导新类型"的能力，是 TypeScript 类型系统的精髓。</p>
+<h2 id="sec-4">何时不该用</h2>
+<p>类型体操不是越复杂越好。如果你的类型定义超过 5 行，或者需要写注释才能解释——大概率你应该把它拆开，或者干脆用 <code>any</code> 然后加运行时检查。可读性永远比聪明更重要。</p>
+`
+  },
+  {
+    id: 11, tag: 'philosophy', tagLabel: '思考',
+    title: '论注意力经济下的自我保存',
+    desc: '在算法的洪流里游泳的技术。',
+    img: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1000&auto=format&fit=crop',
+    color: '#a855f7',
+    date: '2026-03-18', featured: false,
+    body: `
+<p>注意力是新时代的石油，而我们每个人都是被开采的油田。算法工程师们用最先进的机器学习模型，只为争夺你停留的每一秒。在这场不对称的战争里，普通人该如何自保？</p>
+<h2 id="sec-1">认识你的对手</h2>
+<p>推荐算法不是中立的。它的目标函数是"停留时长"和"互动率"，这意味着它会被设计成不断给你制造情绪——愤怒、惊讶、共鸣、焦虑。你越情绪化，它越赚钱。</p>
+<blockquote>免费的产品里，你就是被卖的产品。</blockquote>
+<h2 id="sec-2">三道防线</h2>
+<h3>1. 关闭所有非必要通知</h3>
+<p>除了电话、短信、日历，其他 App 的通知都应该关闭。让信息来找你的成本变高，你主动找信息的成本变低——这是恢复主动权的第一步。</p>
+<h3>2. 用 RSS 替代推荐流</h3>
+<p>RSS 是一种"我决定看什么"的协议。你订阅你信任的源，按时间顺序阅读，没有算法插队。它不刺激，但它让你重新拥有阅读的节奏。</p>
+<h3>3. 建立"信息断食日"</h3>
+<p>每周选一天，完全不接触新闻和社交媒体。第一天会很难受，第二周开始你会发现：你并没有错过任何重要的事，世界依然在转。</p>
+<h2 id="sec-3">更深的问题</h2>
+<p>但即使你做到了以上三点，问题依然存在：你的注意力已经被训练得"短"了。读完一篇长文都困难，更别说读完一本书。恢复注意力的长度，需要的不只是技巧，而是耐心——一种被算法刻意剥夺的能力。</p>
+<p>我没有什么速成方案。我自己也还在练习。也许，写这篇博客、读到这里没有划走的你，已经比 99% 的人走得更远了。</p>
+`
+  },
+  {
+    id: 12, tag: 'code', tagLabel: '代码',
+    title: 'CSS 容器查询实战',
+    desc: '让组件真正独立于视口。',
+    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop',
+    color: '#22c55e',
+    date: '2026-03-10', featured: false,
+    body: `
+<p>响应式设计的旧范式是"视口查询"——根据浏览器窗口大小决定布局。但这有个根本问题：组件不知道自己被放在哪里。一个卡片组件在侧边栏里和在主内容区里，需要的布局完全不同，但视口是一样的。容器查询解决了这个问题。</p>
+<h2 id="sec-1">基本用法</h2>
+<pre><code>.sidebar {
+  container-type: inline-size;
+  container-name: sidebar;
+}
+
+@container sidebar (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+  }
+}</code></pre>
+<p>这段代码的意思是：当 <code>.sidebar</code> 这个容器的宽度大于 400px 时，里面的 <code>.card</code> 就用网格布局。</p>
+<h2 id="sec-2">为什么这是革命</h2>
+<p>组件第一次真正"独立"了。你写的卡片组件可以在任何容器里工作，不需要调用者去关心布局适配。这是组件化设计的最后一块拼图。</p>
+<h2 id="sec-3">浏览器支持</h2>
+<p>截至 2026 年，所有主流浏览器都已支持容器查询。如果你还在用 <code>@media</code> 做组件级响应式，是时候迁移了。</p>
+`
+  }
+];
+
+// ===== 自动计算阅读时间 (基于正文字数) =====
+articles.forEach(a => {
+  const text = a.body.replace(/<[^>]+>/g, '');
+  const charCount = text.length;
+  // 中文 ~400字/分钟, 英文 ~200词/分钟, 取混合 350字/分钟
+  a.readTime = Math.max(3, Math.round(charCount / 350));
+});
+
+/* ============================================================
+   3D Carousel
+   ============================================================ */
+const featuredArticles = articles.filter(a => a.featured);
+const radius = 450;
+const cardCount = featuredArticles.length;
+const theta = 360 / cardCount;
+let currIndex = 0;
+let autoplayTimer = null;
+let autoplayEnabled = true;
+let dragOccurred = false; // 防止拖拽后误触发 click
+
+const carousel = document.getElementById('carousel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const indicatorsContainer = document.getElementById('indicators');
+const particlesContainer = document.getElementById('particles');
+
+function createCards() {
+  featuredArticles.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-label', `${item.title} (第 ${index + 1} 张，共 ${cardCount} 张)`);
+    const angle = theta * index;
+    card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.title}" class="card-image" loading="lazy">
+      <div class="card-content">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-1.5 h-1.5 rounded-full" style="background-color: ${item.color}; box-shadow: 0 0 8px ${item.color};"></span>
+          <span class="text-[10px] uppercase tracking-widest text-gray-300">${item.tagLabel} · ${item.readTime} 分钟</span>
+        </div>
+        <h3 class="text-xl font-bold leading-tight text-white">${item.title}</h3>
+        <p class="text-xs text-gray-300 mt-1 line-clamp-2">${item.desc}</p>
+        <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>点击阅读</span>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', (e) => {
+      if (dragOccurred) { e.preventDefault(); return; }
+      e.stopPropagation();
+      const normalized = ((currIndex % cardCount) + cardCount) % cardCount;
+      if (index === normalized) {
+        openReader(item.id);
+      } else {
+        let diff = index - normalized;
+        if (diff > cardCount / 2) diff -= cardCount;
+        if (diff < -cardCount / 2) diff += cardCount;
+        rotateCarousel(diff);
+      }
+    });
+
+    carousel.appendChild(card);
+  });
+}
+
+function createIndicators() {
+  featuredArticles.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.className = 'w-2 h-2 rounded-full transition-all duration-300 shrink-0';
+    dot.style.background = 'rgba(150,150,160,0.5)';
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `跳到第 ${index + 1} 张`);
+    dot.addEventListener('click', () => {
+      const normalized = ((currIndex % cardCount) + cardCount) % cardCount;
+      let diff = index - normalized;
+      if (diff > cardCount / 2) diff -= cardCount;
+      if (diff < -cardCount / 2) diff += cardCount;
+      rotateCarousel(diff);
+    });
+    indicatorsContainer.appendChild(dot);
+  });
+}
+
+function createParticles() {
+  // 尊重 prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${Math.random() * 100}%`;
+    p.style.top = `${Math.random() * 100}%`;
+    p.style.animationDelay = `${Math.random() * 5}s`;
+    p.style.animationDuration = `${Math.random() * 10 + 10}s`;
+    p.style.background = Math.random() > 0.5 ? '#6366f1' : '#ec4899';
+    p.style.opacity = Math.random() * 0.4 + 0.1;
+    particlesContainer.appendChild(p);
+  }
+}
+
+function rotateCarousel(direction) {
+  currIndex += direction;
+  updateCarousel();
+  resetAutoplay();
+}
+
+function updateCarousel() {
+  const angle = theta * currIndex;
+  carousel.style.transform = `translateZ(-${radius}px) rotateY(${-angle}deg)`;
+
+  const normalized = ((currIndex % cardCount) + cardCount) % cardCount;
+
+  const dots = indicatorsContainer.children;
+  for (let i = 0; i < dots.length; i++) {
+    if (i === normalized) {
+      dots[i].className = 'w-6 h-2 rounded-full transition-all duration-300 shrink-0';
+      dots[i].style.background = 'linear-gradient(90deg, #6366f1, #ec4899)';
+      dots[i].style.boxShadow = '0 0 10px #6366f1';
+    } else {
+      dots[i].className = 'w-2 h-2 rounded-full transition-all duration-300 shrink-0';
+      dots[i].style.background = 'rgba(150,150,160,0.5)';
+      dots[i].style.boxShadow = 'none';
+    }
+  }
+
+  const cards = carousel.querySelectorAll('.card');
+  cards.forEach((c, i) => {
+    c.classList.toggle('is-active', i === normalized);
+  });
+}
+
+function startAutoplay() {
+  if (!autoplayEnabled) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  autoplayTimer = setInterval(() => rotateCarousel(1), 5000);
+}
+function stopAutoplay() {
+  if (autoplayTimer) clearInterval(autoplayTimer);
+  autoplayTimer = null;
+}
+function resetAutoplay() {
+  stopAutoplay();
+  startAutoplay();
+}
+
+document.getElementById('autoplay-toggle').addEventListener('click', () => {
+  autoplayEnabled = !autoplayEnabled;
+  const icon = document.getElementById('autoplay-icon');
+  const text = document.getElementById('autoplay-text');
+  if (autoplayEnabled) {
+    icon.className = 'fa-solid fa-pause';
+    text.textContent = '自动播放';
+    startAutoplay();
+    showToast('已开启自动播放', 'play');
+  } else {
+    icon.className = 'fa-solid fa-play';
+    text.textContent = '已暂停';
+    stopAutoplay();
+    showToast('已暂停自动播放', 'pause');
+  }
+});
+
+createCards();
+createIndicators();
+createParticles();
+updateCarousel();
+startAutoplay();
+
+prevBtn.addEventListener('click', () => rotateCarousel(-1));
+nextBtn.addEventListener('click', () => rotateCarousel(1));
+
+document.querySelector('.scene').addEventListener('mouseenter', stopAutoplay);
+document.querySelector('.scene').addEventListener('mouseleave', () => { if (autoplayEnabled) startAutoplay(); });
+
+// 拖拽/滑动 — 防止拖拽后误触发 click
+let startX = 0, isDragging = false;
+document.querySelector('.scene').addEventListener('mousedown', (e) => {
+  if (e.target.closest('.card') || e.target.closest('button')) return;
+  startX = e.clientX; isDragging = true; dragOccurred = false;
+});
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const diff = e.clientX - startX;
+  if (Math.abs(diff) > 10) dragOccurred = true;
+});
+document.addEventListener('mouseup', (e) => {
+  if (!isDragging) return;
+  const diff = e.clientX - startX;
+  if (Math.abs(diff) > 50) rotateCarousel(diff > 0 ? -1 : 1);
+  isDragging = false;
+  setTimeout(() => { dragOccurred = false; }, 100);
+});
+
+let touchStartX = 0;
+document.querySelector('.scene').addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+document.querySelector('.scene').addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 50) rotateCarousel(diff > 0 ? -1 : 1);
+});
+
+/* ============================================================
+   Articles Grid
+   ============================================================ */
+const articlesGrid = document.getElementById('articles-grid');
+const tagFilter = document.getElementById('tag-filter');
+const noResults = document.getElementById('no-results');
+
+function renderArticles(tag = 'all') {
+  const list = tag === 'all' ? articles : articles.filter(a => a.tag === tag);
+  articlesGrid.innerHTML = '';
+
+  if (list.length === 0) {
+    noResults.classList.remove('hidden');
+    return;
+  }
+  noResults.classList.add('hidden');
+
+  list.forEach((item, index) => {
+    const card = document.createElement('article');
+    card.className = 'article-card reveal';
+    card.style.transitionDelay = `${index * 60}ms`;
+
+    const dateObj = new Date(item.date);
+    const dateStr = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
+    const isBookmarked = bookmarks.includes(item.id);
+
+    card.innerHTML = `
+      ${isBookmarked ? `<div class="bookmark-badge"><i class="fa-solid fa-bookmark"></i></div>` : ''}
+      <div class="cover">
+        <img src="${item.img}" alt="${item.title}" loading="lazy">
+        <div class="absolute top-3 left-3 z-10">
+          <span class="tag-chip" style="background: rgba(0,0,0,0.5); border-color: ${item.color}; color: white;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background:${item.color}"></span>
+            ${item.tagLabel}
+          </span>
+        </div>
+        <div class="absolute bottom-3 right-3 z-10 text-xs text-white/80 flex items-center gap-1">
+          <i class="fa-regular fa-clock"></i> ${item.readTime} 分钟
+        </div>
+      </div>
+      <div class="p-5">
+        <div class="text-xs mb-2" style="color: var(--fg-muted);">${dateStr}</div>
+        <h3 class="text-lg font-bold leading-tight mb-2">${item.title}</h3>
+        <p class="text-sm leading-relaxed line-clamp-2" style="color: var(--fg-soft);">${item.desc}</p>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-xs font-medium flex items-center gap-1" style="color: var(--accent);">
+            阅读全文 <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </span>
+          <span class="text-xs" style="color: var(--fg-muted);">#${String(item.id).padStart(2,'0')}</span>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => openReader(item.id));
+    articlesGrid.appendChild(card);
+  });
+
+  setTimeout(() => {
+    articlesGrid.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }, 50);
+}
+
+tagFilter.addEventListener('click', (e) => {
+  const btn = e.target.closest('.tag-chip');
+  if (!btn) return;
+  tagFilter.querySelectorAll('.tag-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderArticles(btn.dataset.tag);
+});
+
+/* ============================================================
+   Safe Syntax Highlighter
+   - 输入: 已实体编码的代码文本 (&lt; 表示 <)
+   - 先保护 注释/字符串，再高亮 关键字/数字/函数，最后还原
+   - 不会腐蚀 HTML 结构
+   ============================================================ */
+function highlightCode(code) {
+  // code 已经是实体编码的（&lt; &gt; &amp;），直接处理不会产生真实标签
+  const slots = [];
+  const stash = (text, type) => {
+    slots.push(`<span class="tok-${type}">${text}</span>`);
+    return `\x00${slots.length - 1}\x00`;
+  };
+
+  let out = code;
+  // 1) 保护注释 //...
+  out = out.replace(/(\/\/[^\n]*)/g, (m) => stash(m, 'com'));
+  // 2) 保护字符串 "..." 和 '...'
+  out = out.replace(/("[^"]*"|'[^']*')/g, (m) => stash(m, 'str'));
+
+  // 3) 高亮关键字
+  const keywords = ['uniform','varying','attribute','void','return','float','vec2','vec3','vec4','mat2','mat3','mat4','const','for','if','else','in','out','function','let','var','type','extends','infer','readonly','new','class','sampler2D','int','bool','true','false','this','typeof','instanceof'];
+  out = out.replace(new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g'), '<span class="tok-key">$1</span>');
+
+  // 4) 高亮数字
+  out = out.replace(/\b(\d+\.?\d*)\b/g, '<span class="tok-num">$1</span>');
+
+  // 5) 高亮内置函数/全局
+  out = out.replace(/\b(gl_FragColor|gl_Position|gl_FragCoord|Math|console|document|window|texture2D|texture|normalize|dot|cross|mix|smoothstep|step|clamp|fract|floor|ceil|sin|cos|tan|pow|sqrt|abs|min|max|reflect|refract)\b/g, '<span class="tok-fn">$1</span>');
+
+  // 6) 还原注释/字符串
+  out = out.replace(/\x00(\d+)\x00/g, (m, i) => slots[parseInt(i)]);
+
+  return out;
+}
+
+/* ============================================================
+   Article Reader Modal
+   ============================================================ */
+const readerOverlay = document.getElementById('reader-overlay');
+const readerBody = document.getElementById('reader-body');
+const readerProgress = document.getElementById('reader-progress');
+const readerPanel = document.getElementById('reader-panel');
+const readerBookmarkBtn = document.getElementById('reader-bookmark');
+let currentReaderId = null;
+let readerOpen = false;
+let readerScrollHandler = null; // 单一引用，避免监听器泄漏
+
+function buildTOC(body) {
+  const temp = document.createElement('div');
+  temp.innerHTML = body;
+  const headings = temp.querySelectorAll('h2, h3');
+  const toc = [];
+  headings.forEach((h, i) => {
+    if (!h.id) h.id = `heading-${i}`;
+    toc.push({ id: h.id, text: h.textContent, level: h.tagName.toLowerCase() });
+  });
+  return { toc, html: temp.innerHTML };
+}
+
+function processCodeBlocks(html) {
+  // 不再解码实体 — 代码块里的 &lt; 会原样渲染为 <，不会变成真实标签
+  // 仅添加语法高亮 + 复制按钮
+  return html.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, (m, code) => {
+    const highlighted = highlightCode(code);
+    return `<pre><button class="copy-code-btn" type="button" aria-label="复制代码"><i class="fa-regular fa-copy"></i> 复制</button><code>${highlighted}</code></pre>`;
+  });
+}
+
+function getRelatedArticles(article) {
+  // 同标签优先，其次同日期范围，最多3篇，排除当前
+  const sameTag = articles.filter(a => a.tag === article.tag && a.id !== article.id);
+  const others = articles.filter(a => a.tag !== article.tag && a.id !== article.id);
+  return [...sameTag, ...others].slice(0, 3);
+}
+
+function openReader(id) {
+  const article = articles.find(a => a.id === id);
+  if (!article) return;
+  currentReaderId = id;
+
+  // 移除旧的滚动监听器（修复内存泄漏）
+  if (readerScrollHandler) {
+    readerPanel.removeEventListener('scroll', readerScrollHandler);
+  }
+
+  const { toc, html } = buildTOC(article.body);
+  const dateObj = new Date(article.date);
+  const dateStr = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
+  const processedHtml = processCodeBlocks(html);
+  const related = getRelatedArticles(article);
+  const isBookmarked = bookmarks.includes(article.id);
+
+  readerBody.innerHTML = `
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-4 flex-wrap">
+        <span class="tag-chip" style="border-color: ${article.color}; color: ${article.color};">
+          <span class="w-1.5 h-1.5 rounded-full" style="background:${article.color}"></span>
+          ${article.tagLabel}
+        </span>
+        <span class="text-xs" style="color: var(--fg-muted);">${dateStr} · ${article.readTime} 分钟阅读</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">${article.title}</h1>
+      <p class="mt-4 text-lg" style="color: var(--fg-soft);">${article.desc}</p>
+    </div>
+
+    <div class="rounded-2xl overflow-hidden mb-10 aspect-[16/9]">
+      <img src="${article.img}" alt="${article.title}" class="w-full h-full object-cover zoomable">
+    </div>
+
+    ${toc.length > 2 ? `
+      <button class="mobile-toc-btn tag-chip mb-4" id="mobile-toc-toggle">
+        <i class="fa-solid fa-list-ul text-[10px]"></i> 目录
+      </button>
+      <div class="mobile-toc-panel" id="mobile-toc-panel">
+        <div class="text-xs uppercase tracking-widest mb-2" style="color: var(--fg-muted);">目录</div>
+        <nav>${toc.map(t => `<a class="toc-link ${t.level === 'h3' ? 'pl-4' : ''}" data-target="${t.id}">${t.text}</a>`).join('')}</nav>
+      </div>
+
+      <div class="hidden lg:grid grid-cols-[1fr_220px] gap-12">
+        <div class="prose-content max-w-none">${processedHtml}</div>
+        <aside class="sticky top-24 self-start">
+          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--fg-muted);">目录</div>
+          <nav id="toc-nav">
+            ${toc.map(t => `<a class="toc-link ${t.level === 'h3' ? 'pl-4' : ''}" data-target="${t.id}">${t.text}</a>`).join('')}
+          </nav>
+          <div class="mt-8 p-4 rounded-xl" style="background: var(--glass); border: 1px solid var(--border);">
+            <div class="text-xs uppercase tracking-widest mb-2" style="color: var(--fg-muted);">分享</div>
+            <div class="flex gap-2">
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="twitter" aria-label="分享到 Twitter"><i class="fa-brands fa-x-twitter text-xs"></i></button>
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="weibo" aria-label="分享到微博"><i class="fa-brands fa-weibo text-xs"></i></button>
+              <button class="btn-ghost w-9 h-9 rounded-full flex items-center justify-center" data-share="copy" aria-label="复制链接"><i class="fa-solid fa-link text-xs"></i></button>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <div class="lg:hidden prose-content">${processedHtml}</div>
+    ` : `<div class="prose-content max-w-3xl mx-auto">${processedHtml}</div>`}
+
+    ${related.length > 0 ? `
+    <div class="mt-16 pt-8 border-t" style="border-color: var(--border);">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group" style="color: var(--accent);"></i> 相关文章</h3>
+      <div class="grid sm:grid-cols-3 gap-3">
+        ${related.map(r => `
+          <div class="related-card" data-id="${r.id}">
+            <img src="${r.img}" alt="${r.title}">
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] uppercase tracking-wider mb-1" style="color: ${r.color};">${r.tagLabel} · ${r.readTime}分钟</div>
+              <div class="font-semibold text-sm leading-tight line-clamp-2">${r.title}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    ` : ''}
+
+    <div class="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4" style="border-color: var(--border);">
+      <div class="text-sm" style="color: var(--fg-muted);">
+        <i class="fa-regular fa-calendar mr-2"></i>${dateStr}
+      </div>
+      <div class="flex gap-2">
+        <button id="reader-prev-btn" class="btn-ghost px-4 py-2 rounded-full text-sm flex items-center gap-2">
+          <i class="fa-solid fa-chevron-left text-xs"></i> 上一篇
+        </button>
+        <button id="reader-next-btn" class="btn-primary px-4 py-2 rounded-full text-sm flex items-center gap-2">
+          下一篇 <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+      </div>
+    </div>
+  `;
+
+  readerOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  readerOpen = true;
+  readerPanel.scrollTop = 0;
+
+  // 更新收藏按钮状态
+  updateReaderBookmarkBtn();
+
+  // 更新 URL hash (统一格式 #article-{id})
+  history.replaceState(null, '', `#article-${article.id}`);
+
+  // 绑定 TOC 点击
+  readerBody.querySelectorAll('.toc-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = document.getElementById(link.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // 移动端点击后收起 TOC
+      const mobilePanel = document.getElementById('mobile-toc-panel');
+      if (mobilePanel) mobilePanel.classList.remove('open');
+    });
+  });
+
+  // 移动端 TOC 切换
+  const mobileTocToggle = document.getElementById('mobile-toc-toggle');
+  if (mobileTocToggle) {
+    mobileTocToggle.addEventListener('click', () => {
+      document.getElementById('mobile-toc-panel').classList.toggle('open');
+    });
+  }
+
+  // 上一篇 / 下一篇
+  document.getElementById('reader-prev-btn').addEventListener('click', () => navigateReader(-1));
+  document.getElementById('reader-next-btn').addEventListener('click', () => navigateReader(1));
+
+  // 分享按钮 (真实 URL)
+  readerBody.querySelectorAll('[data-share]').forEach(btn => {
+    btn.addEventListener('click', () => handleShare(btn.dataset.share, article));
+  });
+
+  // 复制代码按钮
+  readerBody.querySelectorAll('.copy-code-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const codeEl = btn.parentElement.querySelector('code');
+      const text = codeEl.textContent;
+      navigator.clipboard?.writeText(text).then(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已复制';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i> 复制';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => showToast('复制失败，请手动选择', 'check'));
+    });
+  });
+
+  // 图片放大
+  readerBody.querySelectorAll('.zoomable').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('image-zoom-img').src = img.src;
+      document.getElementById('image-zoom-overlay').classList.add('open');
+    });
+  });
+
+  // 滚动监听 (单一引用，避免泄漏)
+  readerScrollHandler = () => onReaderScroll();
+  readerPanel.addEventListener('scroll', readerScrollHandler, { passive: true });
+  updateReaderProgress();
+
+  // 焦点管理
+  setTimeout(() => {
+    document.getElementById('reader-close').focus();
+  }, 300);
+}
+
+function navigateReader(direction) {
+  const idx = articles.findIndex(a => a.id === currentReaderId);
+  if (idx === -1) return;
+  const next = (idx + direction + articles.length) % articles.length;
+  openReader(articles[next].id);
+}
+
+function closeReader() {
+  readerOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  readerOpen = false;
+  currentReaderId = null;
+  if (readerScrollHandler) {
+    readerPanel.removeEventListener('scroll', readerScrollHandler);
+    readerScrollHandler = null;
+  }
+  // 清理 hash
+  if (window.location.hash.startsWith('#article-')) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+}
+
+function updateReaderProgress() {
+  const max = readerPanel.scrollHeight - readerPanel.clientHeight;
+  const pct = max > 0 ? (readerPanel.scrollTop / max) * 100 : 0;
+  readerProgress.style.width = pct + '%';
+}
+
+function onReaderScroll() {
+  updateReaderProgress();
+  const headings = readerBody.querySelectorAll('h2, h3');
+  let activeId = null;
+  for (const h of headings) {
+    const rect = h.getBoundingClientRect();
+    if (rect.top > 100) break;
+    activeId = h.id;
+  }
+  readerBody.querySelectorAll('.toc-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.target === activeId);
+  });
+}
+
+function handleShare(type, article) {
+  const url = window.location.origin + window.location.pathname + `#article-${article.id}`;
+  const text = `${article.title} · LUMINA`;
+  if (type === 'twitter') {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  } else if (type === 'weibo') {
+    window.open(`https://service.weibo.com/share/share.php?title=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+  } else if (type === 'copy') {
+    navigator.clipboard?.writeText(url).then(() => {
+      showToast('链接已复制到剪贴板', 'check');
+    }).catch(() => showToast('复制失败', 'check'));
+  }
+}
+
+document.getElementById('reader-close').addEventListener('click', closeReader);
+document.getElementById('reader-prev').addEventListener('click', () => navigateReader(-1));
+document.getElementById('reader-next').addEventListener('click', () => navigateReader(1));
+document.getElementById('reader-share').addEventListener('click', () => {
+  if (currentReaderId) {
+    const article = articles.find(a => a.id === currentReaderId);
+    if (article) handleShare('copy', article);
+  }
+});
+readerBookmarkBtn.addEventListener('click', () => {
+  if (currentReaderId) toggleBookmark(currentReaderId);
+});
+
+readerOverlay.addEventListener('click', (e) => {
+  if (e.target === readerOverlay) closeReader();
+});
+
+/* ============================================================
+   Image zoom overlay
+   ============================================================ */
+const imageZoomOverlay = document.getElementById('image-zoom-overlay');
+imageZoomOverlay.addEventListener('click', () => {
+  imageZoomOverlay.classList.remove('open');
+});
+
+/* ============================================================
+   Search Modal (Ctrl+K)
+   ============================================================ */
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchCount = document.getElementById('search-count');
+let searchOpen = false;
+let selectedIdx = 0;
+let currentResults = [];
+
+function openSearch() {
+  searchOverlay.classList.add('open');
+  searchOpen = true;
+  searchInput.value = '';
+  setTimeout(() => searchInput.focus(), 100);
+  renderSearchResults('');
+}
+
+function closeSearch() {
+  searchOverlay.classList.remove('open');
+  searchOpen = false;
+}
+
+function highlightMatch(text, query) {
+  if (!query) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  const re = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+  return escaped.replace(re, '<mark>$1</mark>');
+}
+
+function renderSearchResults(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    searchResults.innerHTML = `
+      <div class="p-8 text-center text-sm" style="color: var(--fg-muted);">
+        <i class="fa-solid fa-keyboard text-2xl mb-3"></i>
+        <p>输入关键词搜索全部 ${articles.length} 篇文章</p>
+        <div class="mt-4 flex flex-wrap justify-center gap-2">
+          ${['代码', '艺术', '旅行', '思考', '科技'].map(t => `<button class="tag-chip" data-quick="${t}">${t}</button>`).join('')}
+        </div>
+      </div>
+    `;
+    searchCount.textContent = '0';
+    currentResults = [];
+    searchResults.querySelectorAll('[data-quick]').forEach(b => {
+      b.addEventListener('click', () => {
+        searchInput.value = b.dataset.quick;
+        renderSearchResults(b.dataset.quick);
+      });
+    });
+    return;
+  }
+
+  currentResults = articles.filter(a =>
+    a.title.toLowerCase().includes(q) ||
+    a.desc.toLowerCase().includes(q) ||
+    a.tagLabel.includes(q) ||
+    a.body.toLowerCase().includes(q)
+  );
+
+  if (currentResults.length === 0) {
+    searchResults.innerHTML = `
+      <div class="p-8 text-center text-sm" style="color: var(--fg-muted);">
+        <i class="fa-solid fa-magnifying-glass-minus text-2xl mb-3"></i>
+        <p>未找到与"${escapeHtml(query)}"相关的文章</p>
+      </div>
+    `;
+    searchCount.textContent = '0';
+    return;
+  }
+
+  selectedIdx = 0;
+  searchResults.innerHTML = currentResults.map((a, i) => `
+    <div class="search-result ${i === 0 ? 'selected' : ''}" data-idx="${i}">
+      <div class="flex items-start gap-3">
+        <div class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+          <img src="${a.img}" class="w-full h-full object-cover" alt="">
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] px-1.5 py-0.5 rounded" style="background: ${a.color}22; color: ${a.color};">${a.tagLabel}</span>
+            <span class="text-xs" style="color: var(--fg-muted);">${a.readTime} 分钟</span>
+          </div>
+          <div class="font-semibold text-sm mt-1 truncate">${highlightMatch(a.title, q)}</div>
+          <div class="text-xs mt-1 line-clamp-1" style="color: var(--fg-muted);">${highlightMatch(a.desc, q)}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  searchCount.textContent = currentResults.length;
+
+  searchResults.querySelectorAll('.search-result').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx);
+      closeSearch();
+      openReader(currentResults[idx].id);
+    });
+    el.addEventListener('mouseenter', () => {
+      selectedIdx = parseInt(el.dataset.idx);
+      updateSelected();
+    });
+  });
+}
+
+function updateSelected() {
+  searchResults.querySelectorAll('.search-result').forEach((el, i) => {
+    el.classList.toggle('selected', i === selectedIdx);
+  });
+  const sel = searchResults.querySelector('.selected');
+  if (sel) sel.scrollIntoView({ block: 'nearest' });
+}
+
+document.getElementById('search-trigger').addEventListener('click', openSearch);
+searchOverlay.addEventListener('click', (e) => {
+  if (e.target === searchOverlay) closeSearch();
+});
+searchInput.addEventListener('input', (e) => renderSearchResults(e.target.value));
+
+/* ============================================================
+   Keyboard Help Modal
+   ============================================================ */
+const helpOverlay = document.getElementById('help-overlay');
+document.getElementById('help-trigger').addEventListener('click', () => {
+  helpOverlay.classList.add('open');
+});
+document.getElementById('help-close').addEventListener('click', () => {
+  helpOverlay.classList.remove('open');
+});
+helpOverlay.addEventListener('click', (e) => {
+  if (e.target === helpOverlay) helpOverlay.classList.remove('open');
+});
+
+/* ============================================================
+   Bookmark feature (localStorage)
+   ============================================================ */
+let bookmarks = [];
+try {
+  bookmarks = JSON.parse(localStorage.getItem('lumina-bookmarks') || '[]');
+} catch (_) { bookmarks = []; }
+
+function saveBookmarks() {
+  try { localStorage.setItem('lumina-bookmarks', JSON.stringify(bookmarks)); } catch (_) {}
+  updateBookmarkUI();
+}
+
+function toggleBookmark(id) {
+  const idx = bookmarks.indexOf(id);
+  if (idx === -1) {
+    bookmarks.push(id);
+    showToast('已收藏文章', 'bookmark');
+  } else {
+    bookmarks.splice(idx, 1);
+    showToast('已取消收藏', 'bookmark');
+  }
+  saveBookmarks();
+  updateReaderBookmarkBtn();
+  renderArticles(currentTag);
+}
+
+function updateReaderBookmarkBtn() {
+  if (!currentReaderId) return;
+  const isBookmarked = bookmarks.includes(currentReaderId);
+  const icon = readerBookmarkBtn.querySelector('i');
+  if (isBookmarked) {
+    icon.className = 'fa-solid fa-bookmark';
+    readerBookmarkBtn.style.color = 'var(--accent2)';
+  } else {
+    icon.className = 'fa-regular fa-bookmark';
+    readerBookmarkBtn.style.color = '';
+  }
+}
+
+function updateBookmarkUI() {
+  const count = bookmarks.length;
+  document.getElementById('bookmark-count').textContent = count > 0 ? count : '';
+  renderBookmarkList();
+}
+
+function renderBookmarkList() {
+  const list = document.getElementById('bookmark-list');
+  if (bookmarks.length === 0) {
+    list.innerHTML = `<p class="text-sm text-center py-6" style="color: var(--fg-muted);">还没有收藏的文章<br><span class="text-xs">阅读时按 <kbd>B</kbd> 或点击书签图标收藏</span></p>`;
+    return;
+  }
+  list.innerHTML = bookmarks.map(id => {
+    const a = articles.find(x => x.id === id);
+    if (!a) return '';
+    return `
+      <div class="bookmark-item" data-id="${a.id}">
+        <img src="${a.img}" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium leading-tight line-clamp-2">${a.title}</div>
+          <div class="text-xs mt-1" style="color: var(--fg-muted);">${a.tagLabel} · ${a.readTime}分钟</div>
+        </div>
+        <button class="remove-bm text-xs" style="color: var(--fg-muted);" data-id="${a.id}" aria-label="移除收藏"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    `;
+  }).join('');
+  list.querySelectorAll('.bookmark-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('.remove-bm')) return;
+      const id = parseInt(item.dataset.id);
+      document.getElementById('bookmark-panel').classList.remove('open');
+      openReader(id);
+    });
+  });
+  list.querySelectorAll('.remove-bm').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleBookmark(parseInt(btn.dataset.id));
+    });
+  });
+}
+
+document.getElementById('bookmark-toggle').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('bookmark-panel').classList.toggle('open');
+});
+document.getElementById('bookmark-clear').addEventListener('click', () => {
+  if (bookmarks.length === 0) return;
+  bookmarks = [];
+  saveBookmarks();
+  updateReaderBookmarkBtn();
+  renderArticles(currentTag);
+  showToast('已清空收藏', 'bookmark');
+});
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('bookmark-panel');
+  const toggle = document.getElementById('bookmark-toggle');
+  if (panel.classList.contains('open') && !panel.contains(e.target) && !toggle.contains(e.target)) {
+    panel.classList.remove('open');
+  }
+});
+
+/* ============================================================
+   Keyboard shortcuts
+   ============================================================ */
+document.addEventListener('keydown', (e) => {
+  // Ctrl/Cmd + K
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    if (searchOpen) closeSearch(); else openSearch();
+    return;
+  }
+  // ? 打开帮助 (排除输入框)
+  if (e.key === '?' && !/INPUT|TEXTAREA/.test(e.target.tagName)) {
+    e.preventDefault();
+    helpOverlay.classList.toggle('open');
+    return;
+  }
+  // Esc
+  if (e.key === 'Escape') {
+    if (searchOpen) closeSearch();
+    else if (readerOpen) closeReader();
+    else if (helpOverlay.classList.contains('open')) helpOverlay.classList.remove('open');
+    else if (imageZoomOverlay.classList.contains('open')) imageZoomOverlay.classList.remove('open');
+    else if (document.getElementById('bookmark-panel').classList.contains('open')) document.getElementById('bookmark-panel').classList.remove('open');
+    else if (document.getElementById('mobile-menu').classList.contains('open')) toggleMobileMenu(false);
+    return;
+  }
+  // B 收藏 (阅读时)
+  if (e.key.toLowerCase() === 'b' && readerOpen && !/INPUT|TEXTAREA/.test(e.target.tagName) && !e.ctrlKey && !e.metaKey) {
+    e.preventDefault();
+    if (currentReaderId) toggleBookmark(currentReaderId);
+    return;
+  }
+  // 搜索导航
+  if (searchOpen && currentResults.length > 0) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIdx = (selectedIdx + 1) % currentResults.length;
+      updateSelected();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIdx = (selectedIdx - 1 + currentResults.length) % currentResults.length;
+      updateSelected();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const a = currentResults[selectedIdx];
+      closeSearch();
+      openReader(a.id);
+    }
+  }
+  // Reader 内 Shift+左右 切换
+  if (readerOpen && !searchOpen) {
+    if (e.key === 'ArrowLeft' && e.shiftKey) { e.preventDefault(); navigateReader(-1); }
+    if (e.key === 'ArrowRight' && e.shiftKey) { e.preventDefault(); navigateReader(1); }
+  }
+  // 首页 ←/→ 切换卡片
+  if (!readerOpen && !searchOpen && !/INPUT|TEXTAREA/.test(e.target.tagName)) {
+    if (e.key === 'ArrowLeft') rotateCarousel(-1);
+    if (e.key === 'ArrowRight') rotateCarousel(1);
+  }
+});
+
+/* ============================================================
+   Theme toggle (with system preference)
+   ============================================================ */
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  themeIcon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  try { localStorage.setItem('lumina-theme', theme); } catch (_) {}
+}
+
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+  showToast(next === 'dark' ? '已切换至深色模式' : '已切换至浅色模式', 'theme');
+});
+
+// 加载主题: 优先 localStorage, 其次系统偏好
+try {
+  const saved = localStorage.getItem('lumina-theme');
+  if (saved) {
+    setTheme(saved);
+  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    setTheme('light');
+  }
+} catch (_) {}
+
+// 监听系统主题变化 (仅当用户未手动设置时)
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  try {
+    if (!localStorage.getItem('lumina-theme')) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  } catch (_) {}
+});
+
+/* ============================================================
+   Mobile menu
+   ============================================================ */
+function toggleMobileMenu(force) {
+  const menu = document.getElementById('mobile-menu');
+  if (force === false) menu.classList.remove('open');
+  else if (force === true) menu.classList.add('open');
+  else menu.classList.toggle('open');
+}
+document.getElementById('mobile-menu-btn').addEventListener('click', () => toggleMobileMenu(true));
+document.getElementById('mobile-menu-close').addEventListener('click', () => toggleMobileMenu(false));
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => toggleMobileMenu(false)));
+
+/* ============================================================
+   Newsletter form
+   ============================================================ */
+document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('newsletter-email').value.trim();
+  if (!email) return;
+  document.getElementById('newsletter-email').value = '';
+  showToast(`已为你订阅 · ${email}`, 'envelope');
+});
+
+/* ============================================================
+   Toast
+   ============================================================ */
+const toast = document.getElementById('toast');
+const toastMsg = document.getElementById('toast-msg');
+let toastTimer = null;
+
+function showToast(msg, icon = 'check') {
+  const iconMap = {
+    check: 'fa-circle-check',
+    envelope: 'fa-envelope',
+    share: 'fa-share-nodes',
+    play: 'fa-play',
+    pause: 'fa-pause',
+    theme: 'fa-palette',
+    bookmark: 'fa-bookmark',
+  };
+  toast.querySelector('i').className = `fa-solid ${iconMap[icon] || 'fa-circle-check'}`;
+  toastMsg.textContent = msg;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+/* ============================================================
+   Reading progress + back-to-top + reveal + counters
+   ============================================================ */
+const progressBar = document.getElementById('progress-bar');
+const backToTop = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+  progressBar.style.width = pct + '%';
+  if (window.scrollY > 600) backToTop.classList.add('show');
+  else backToTop.classList.remove('show');
+}, { passive: true });
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.counter);
+    const duration = 1500;
+    const startTime = performance.now();
+    function tick(now) {
+      const t = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString();
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+
+/* ============================================================
+   初始化
+   ============================================================ */
+let currentTag = 'all';
+renderArticles(currentTag);
+updateBookmarkUI();
+
+// hash 路由 (统一格式 #article-{id})
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#article-')) {
+    const id = parseInt(hash.replace('#article-', ''));
+    if (id) setTimeout(() => openReader(id), 500);
+  }
+});
+
+console.log('%cLUMINA %c· 个人博客 v2 已加载',
+  'font-size:24px;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;color:transparent;',
+  'font-size:12px;color:#71717a;');
+console.log('%c快捷键: ⌘K 搜索 · ←/→ 切换 · Shift+←/→ 翻文章 · B 收藏 · ? 帮助 · Esc 关闭',
+  'font-size:11px;color:#6366f1;');
+</script>
+
+<!-- Custom Cursor Script -->
+<script>
+(function() {
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
+  if (!cursorDot || !cursorRing) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+  let isClicking = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+  });
+
+  document.addEventListener('mousedown', () => {
+    isClicking = true;
+    cursorDot.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    cursorRing.style.transform = 'translate(-50%, -50%) scale(0.9)';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isClicking = false;
+    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Use event delegation for hover effects (works with dynamic elements)
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target.closest('a, button, .card, .article-card, .tag-chip, .nav-link, .reader-panel, [role="button"], input, textarea');
+    if (target) cursorRing.classList.add('hover');
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    const target = e.target.closest('a, button, .card, .article-card, .tag-chip, .nav-link, .reader-panel, [role="button"], input, textarea');
+    if (target) cursorRing.classList.remove('hover');
+  });
+})();
+</script>
+
+
+
+</body></html>
