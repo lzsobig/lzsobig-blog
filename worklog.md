@@ -107,3 +107,24 @@ Stage Summary:
 - Homepage Scene 1 now rich (5 cards + dots + DESCEND cue) like original REVERIE
 - Scene 2 transition page no longer empty/ugly — full gateway with ring, orbs, chips, CTA, stats
 - Both verified via VLM as "丰富,饱满且富有层次感"
+
+---
+Task ID: 15
+Agent: main
+Task: Fix Scene 1 title position (center in portal opening) + add original View Reel cards + simplify Scene 2 (remove AI-feel decorations)
+
+Work Log:
+- User feedback: 1) Scene 1 title too high (not visible), put it in center of the portal opening; 2) cards still not added; 3) Scene 2 too AI-feel, make it minimal
+- VLM diagnosed: Scene 1 title was at left:60px/top:46% (not in the arch), arch opening was empty; Scene 2 had floating orbs + gradient rings + colored category chips = too flashy
+- Scene 1 fix: moved heading from left-aligned to centered (top:50%/left:50% translate -50%) — now sits in the portal arch opening
+- Scene 1 cards: replaced article-preview cards with original "View Reel" play-button cards (white circle + triangle + "View Reel" label on image bg, with blur mask) + "12 深度随笔" number stat card — faithful to original index.html
+- Scene 2 simplified: removed floating colored orbs, gradient portal rings, colored category chips, mini stat row, eyebrow line. Kept only: title "进入知识世界" + subtitle + one simple outline "开始阅读 →" button
+- Lint clean, no console errors
+- VLM verified Scene 1: title in arch opening center, 3 View Reel cards on right, "穿越门户" cue at bottom
+- VLM verified Scene 2: no flashy decorations, clean & minimal
+- Mobile responsive verified (centered layout, no overflow)
+
+Stage Summary:
+- Scene 1 title now centered in portal opening (visible, not too high)
+- Scene 1 has original View Reel play cards (faithful to index.html)
+- Scene 2 minimal — just title + subtitle + simple button, no AI-feel decorations
