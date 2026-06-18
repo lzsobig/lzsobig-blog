@@ -15,19 +15,22 @@ function highlightMatch(text: string, query: string): string {
 }
 
 export default function SearchModal() {
-  const { searchOpen, setSearchOpen, openReader } = useBlogStore();
+  const searchOpen = useBlogStore((s) => s.searchOpen);
+  // Only mount the inner panel when open → state resets naturally on each open
+  if (!searchOpen) return null;
+  return <SearchPanel />;
+}
+
+function SearchPanel() {
+  const { setSearchOpen, openReader } = useBlogStore();
   const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (searchOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
-      setQuery("");
-      setActiveIdx(0);
-    }
-  }, [searchOpen]);
+    const id = setTimeout(() => inputRef.current?.focus(), 50);
+    return () => clearTimeout(id);
+  }, []);
 
   const results = query
     ? articles
@@ -65,15 +68,13 @@ export default function SearchModal() {
     openReader(id);
   };
 
-  if (!searchOpen) return null;
-
   return (
     <div
       className="search-overlay"
       onClick={(e) => e.target === e.currentTarget && setSearchOpen(false)}
     >
       <div
-        className="w-full max-w-2xl mx-auto mt-[12vh] mx-4 rounded-2xl overflow-hidden glass-strong"
+        className="w-full max-w-2xl mx-4 mt-[12vh] rounded-2xl overflow-hidden glass-strong"
         style={{ boxShadow: "var(--shadow)" }}
       >
         {/* Input */}
@@ -221,3 +222,6 @@ export default function SearchModal() {
     </div>
   );
 }
+
+// silence unused import warning (formatDate kept for potential future use)
+void formatDate;

@@ -85,21 +85,38 @@ export function CustomCursor() {
 
 /* ===== Particles ===== */
 export function Particles() {
-  const [particles] = useState(() =>
-    Array.from({ length: 28 }, () => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      size: Math.random() * 4 + 1,
-      delay: Math.random() * 14,
-      duration: Math.random() * 8 + 10,
-      color: Math.random() < 0.5 ? "#8b5cf6" : "#ec4899",
-      opacity: Math.random() * 0.4 + 0.1,
-    }))
-  );
+  const [particles, setParticles] = useState<
+    {
+      left: number;
+      top: number;
+      size: number;
+      delay: number;
+      duration: number;
+      color: string;
+      opacity: number;
+    }[]
+  >([]);
 
-  if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return null;
-  }
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // defer to next tick to avoid synchronous setState in effect body
+    const id = setTimeout(() => {
+      setParticles(
+        Array.from({ length: 28 }, () => ({
+          left: Math.random() * 100,
+          top: Math.random() * 100,
+          size: Math.random() * 4 + 1,
+          delay: Math.random() * 14,
+          duration: Math.random() * 8 + 10,
+          color: Math.random() < 0.5 ? "#8b5cf6" : "#ec4899",
+          opacity: Math.random() * 0.4 + 0.1,
+        }))
+      );
+    }, 0);
+    return () => clearTimeout(id);
+  }, []);
+
+  if (particles.length === 0) return null;
 
   return (
     <div
