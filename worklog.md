@@ -42,3 +42,21 @@ Stage Summary:
 - All elements from both source files preserved: Portal (curtains, starfield, portal ring zoom, parallax, scene transitions) + LUMINA (3D carousel, custom cursor, particles, reader modal w/ TOC+code highlight+share, Cmd+K search, localStorage bookmarks, help, image zoom, toast, back-to-top, theme toggle, animated stat counters, scroll reveal)
 - 12 original AI+建造/能源 articles with full HTML body content
 - Lint clean, dev server running, all core interactions browser-verified
+
+---
+Task ID: 9-12
+Agent: main
+Task: Simplify homepage per user feedback — keep Portal Hero 100% intact (crystal), remove redundant 3D carousel, smooth transition
+
+Work Log:
+- User feedback: 首页太杂 + Portal 水晶很好看要全保留
+- Removed FeaturedCarousel (3D rotating ring) from BlogOrchestrator — it duplicated the Portal preview cards AND the articles grid (featured articles shown 3 times = clutter)
+- Kept PortalHero 100% unchanged (crystal ring, curtains, starfield, nebula, WeChat card, 3 article preview cards, scene transitions, scroll-zoom)
+- Added smooth Portal → blog transition: gradient fade from portal darkness + "欢迎进入 知识世界" welcome heading above Stats band
+- New section order: Portal → 知识世界(Stats) → 关于 → 文章 → 订阅 → Footer
+- Lint clean, no console errors, Agent Browser verified: carousel gone, portal intact, reader/search/theme all work
+
+Stage Summary:
+- Homepage decluttered: removed redundant 3D carousel section
+- Portal crystal effect fully preserved (user-requested "全保留")
+- Clean transition from immersive portal into blog content
