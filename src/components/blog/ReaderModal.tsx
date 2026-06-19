@@ -134,6 +134,7 @@ export default function ReaderModal() {
   useEffect(() => {
     if (!article) return;
     document.body.style.overflow = "hidden";
+    document.body.classList.add("reader-open");
     window.history.replaceState(null, "", `#article-${article.id}`);
 
     const panel = panelRef.current;
@@ -161,6 +162,7 @@ export default function ReaderModal() {
 
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove("reader-open");
       panel.removeEventListener("click", onClick);
       window.history.replaceState(null, "", window.location.pathname);
     };
@@ -353,8 +355,99 @@ export default function ReaderModal() {
           </div>
         </div>
 
-        {/* Article body */}
-        <article className="max-w-3xl mx-auto px-5 md:px-8 py-10">
+        {/* Article body — TOC fixed left, content right */}
+        <div className="flex max-w-6xl mx-auto">
+          {/* Desktop TOC — fixed left column */}
+          {toc.length > 0 && (
+            <aside className="hidden lg:block w-52 flex-shrink-0 relative">
+              <div className="sticky top-24 px-4 py-10">
+                <div
+                  className="rounded-2xl p-5"
+                  style={{
+                    background: "var(--glass)",
+                    border: "1px solid var(--border)",
+                    backdropFilter: "blur(12px)",
+                  }}
+                >
+                  <div
+                    className="text-[11px] font-bold uppercase mb-4"
+                    style={{
+                      color: "var(--fg-muted)",
+                      letterSpacing: "0.15em",
+                    }}
+                  >
+                    目录
+                  </div>
+                  <div className="space-y-0.5">
+                    {toc.map((t, i) => (
+                      <button
+                        key={t.id}
+                        onClick={() => scrollToToc(t.id)}
+                        className="block w-full text-left py-2 px-3 text-[13px] rounded-lg transition-all"
+                        style={{
+                          color:
+                            activeToc === t.id
+                              ? "var(--accent)"
+                              : "var(--fg-muted)",
+                          background:
+                            activeToc === t.id
+                              ? "color-mix(in srgb, var(--accent) 10%, transparent)"
+                              : "transparent",
+                          fontWeight: activeToc === t.id ? 600 : 400,
+                        }}
+                      >
+                        <span
+                          className="inline-block w-5 text-[11px] mr-1.5"
+                          style={{ opacity: 0.5 }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {t.text}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  className="rounded-2xl p-4 mt-3"
+                  style={{
+                    background: "var(--glass)",
+                    border: "1px solid var(--border)",
+                    backdropFilter: "blur(12px)",
+                  }}
+                >
+                  <div
+                    className="text-[11px] font-bold uppercase mb-3"
+                    style={{
+                      color: "var(--fg-muted)",
+                      letterSpacing: "0.15em",
+                    }}
+                  >
+                    分享
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleShare("twitter")}
+                      className="flex-1 h-9 rounded-lg btn-ghost grid place-items-center text-xs font-medium"
+                      aria-label="分享到 Twitter"
+                    >
+                      𝕏
+                    </button>
+                    <button
+                      onClick={() => handleShare("weibo")}
+                      className="flex-1 h-9 rounded-lg btn-ghost grid place-items-center text-xs font-medium"
+                      aria-label="分享到微博"
+                    >
+                      微博
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          )}
+
+          {/* Article content */}
+          <article className="flex-1 min-w-0 max-w-3xl px-5 md:px-8 py-10">
           {/* Meta */}
           <div className="flex items-center gap-3 mb-4">
             <span
@@ -455,64 +548,6 @@ export default function ReaderModal() {
               className="prose-blog flex-1 min-w-0"
               dangerouslySetInnerHTML={{ __html: html }}
             />
-
-            {/* Desktop TOC sidebar */}
-            {toc.length > 0 && (
-              <aside className="hidden lg:block w-52 flex-shrink-0">
-                <div className="sticky top-24">
-                  <div
-                    className="text-xs font-semibold mb-3"
-                    style={{ color: "var(--fg-muted)", letterSpacing: "0.1em" }}
-                  >
-                    目录
-                  </div>
-                  {toc.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => scrollToToc(t.id)}
-                      className="block w-full text-left py-1.5 text-sm transition-colors"
-                      style={{
-                        color:
-                          activeToc === t.id
-                            ? "var(--accent)"
-                            : "var(--fg-soft)",
-                        borderLeft:
-                          activeToc === t.id
-                            ? "2px solid var(--accent)"
-                            : "2px solid transparent",
-                        paddingLeft: "12px",
-                      }}
-                    >
-                      {t.text}
-                    </button>
-                  ))}
-                  <div className="mt-6 pt-6 border-t" style={{ borderColor: "var(--border)" }}>
-                    <div
-                      className="text-xs font-semibold mb-3"
-                      style={{ color: "var(--fg-muted)", letterSpacing: "0.1em" }}
-                    >
-                      分享
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleShare("twitter")}
-                        className="w-9 h-9 rounded-lg btn-ghost grid place-items-center"
-                        aria-label="分享到 Twitter"
-                      >
-                        𝕏
-                      </button>
-                      <button
-                        onClick={() => handleShare("weibo")}
-                        className="w-9 h-9 rounded-lg btn-ghost grid place-items-center text-xs"
-                        aria-label="分享到微博"
-                      >
-                        微
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </aside>
-            )}
           </div>
 
           {/* Related */}
@@ -563,6 +598,7 @@ export default function ReaderModal() {
             lzsobig · {formatDate(article.date)} · #{String(article.id).padStart(2, "0")}
           </div>
         </article>
+        </div>
       </div>
     </div>
   );

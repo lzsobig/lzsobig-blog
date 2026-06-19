@@ -7,7 +7,6 @@ import PortalHero from "./PortalHero";
 import Navigation from "./Navigation";
 import FeaturedCarousel from "./FeaturedCarousel";
 import {
-  StatsBand,
   About,
   ArticlesGrid,
   Newsletter,
@@ -200,7 +199,34 @@ export default function BlogOrchestrator() {
         style={{ minHeight: "auto" }}
       >
         <FeaturedCarousel />
-        <StatsBand />
+
+        {/* Transition Zone — matching blog.html style */}
+        <section
+          className="py-16 md:py-20 px-6 md:px-12 relative z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(6,8,15,0.95), var(--bg))",
+          }}
+        >
+          <div className="max-w-4xl mx-auto text-center reveal">
+            <div
+              className="text-xs uppercase tracking-[0.3em] mb-4"
+              style={{ color: "var(--accent)" }}
+            >
+              Welcome
+            </div>
+            <h2 className="text-2xl md:text-4xl font-black tracking-tight gradient-text">
+              穿越门户，进入知识世界
+            </h2>
+            <p
+              className="mt-4 text-base md:text-lg"
+              style={{ color: "var(--fg-soft)" }}
+            >
+              这里有 AI 与工程交叉领域的技术拆解、行业观察和实用工具。
+            </p>
+          </div>
+        </section>
+
         <About />
         <ArticlesGrid />
         <Newsletter />

@@ -26,6 +26,8 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
 
   const [entranceDone, setEntranceDone] = useState(false);
   const [uiVisible, setUiVisible] = useState(false);
+  const [wechatOpen, setWechatOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const featured = getFeaturedArticles().slice(0, 3);
 
@@ -319,18 +321,23 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            zIndex: 50,
+            zIndex: 60,
             padding: "22px 48px",
+            pointerEvents: "none",
           }}
         >
           <div
             className="nav-group-desktop"
-            style={{ display: "flex", gap: "36px" }}
+            style={{ display: "flex", gap: "36px", pointerEvents: "auto" }}
           >
-            {["首页", "关于", "文章"].map((t) => (
+            {[
+              { label: "首页", action: onEnterBlog },
+              { label: "关于", action: () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }) },
+              { label: "文章", action: () => document.getElementById("articles")?.scrollIntoView({ behavior: "smooth" }) },
+            ].map((item) => (
               <button
-                key={t}
-                onClick={onEnterBlog}
+                key={item.label}
+                onClick={item.action}
                 style={{
                   fontFamily: "'Imprima',sans-serif",
                   fontSize: "12px",
@@ -343,7 +350,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                   cursor: "pointer",
                 }}
               >
-                {t}
+                {item.label}
               </button>
             ))}
           </div>
@@ -351,7 +358,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             aria-label="lzsobig"
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            style={{ background: "none", border: "none", cursor: "pointer", pointerEvents: "auto" }}
           >
             <svg
               width="28"
@@ -372,12 +379,16 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
           </button>
           <div
             className="nav-group-desktop"
-            style={{ display: "flex", gap: "36px" }}
+            style={{ display: "flex", gap: "36px", pointerEvents: "auto" }}
           >
-            {["订阅", "公众号", "联系"].map((t) => (
+            {[
+              { label: "订阅", action: () => document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" }) },
+              { label: "公众号", action: () => setWechatOpen(true) },
+              { label: "联系", action: () => setContactOpen(true) },
+            ].map((item) => (
               <button
-                key={t}
-                onClick={onEnterBlog}
+                key={item.label}
+                onClick={item.action}
                 style={{
                   fontFamily: "'Imprima',sans-serif",
                   fontSize: "12px",
@@ -390,7 +401,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                   cursor: "pointer",
                 }}
               >
-                {t}
+                {item.label}
               </button>
             ))}
           </div>
@@ -403,13 +414,13 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
             position: "absolute",
             inset: 0,
             zIndex: 20,
-            pointerEvents: "none",
+            pointerEvents: "auto",
             opacity: 0,
           }}
         >
           <div
             ref={scene1ChildrenRef}
-            style={{ width: "100%", height: "100%", opacity: 0 }}
+            style={{ width: "100%", height: "100%", opacity: 0, pointerEvents: "auto" }}
           >
             <div
               className="scene1-desktop"
@@ -433,24 +444,37 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(30px,4vw,52px)",
-                    lineHeight: 1.05,
-                    letterSpacing: "0.04em",
+                    fontSize: "clamp(32px,4.5vw,56px)",
+                    lineHeight: 1.1,
+                    letterSpacing: "0.06em",
+                    color: "rgba(255,240,220,0.95)",
                   }}
                 >
-                  AI <span style={{ color: "rgba(255,220,180,0.75)" }}>×</span>{" "}
+                  AI <span style={{ color: "rgba(255,210,160,0.8)" }}>×</span>{" "}
                   建造
                 </div>
                 <div
                   style={{
                     fontFamily: "'Viaoda Libre',serif",
-                    fontSize: "clamp(48px,6.8vw,86px)",
-                    lineHeight: 0.92,
+                    fontSize: "clamp(46px,6.5vw,80px)",
+                    lineHeight: 0.9,
                     letterSpacing: "-0.02em",
-                    marginTop: "2px",
+                    marginTop: "4px",
                   }}
                 >
                   重新定义工程
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "clamp(13px,1.2vw,16px)",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,220,180,0.7)",
+                    marginTop: "14px",
+                  }}
+                >
+                  Redefining Engineering with AI
                 </div>
                 <p
                   style={{
@@ -467,6 +491,54 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 </p>
               </div>
 
+              {/* Lower-left corner text — decorative, Reverie-style */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "18%",
+                  left: "5%",
+                  color: "#fff",
+                  textShadow: "0 2px 18px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.95)",
+                  maxWidth: "280px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "12px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,220,180,0.7)",
+                    marginBottom: "8px",
+                  }}
+                >
+                  EXPLORE &gt; BLOG
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Viaoda Libre',serif",
+                    fontSize: "clamp(32px,3.6vw,50px)",
+                    lineHeight: 1,
+                    letterSpacing: "0.01em",
+                    marginBottom: "10px",
+                  }}
+                >
+                  知识世界
+                </div>
+                <p
+                  style={{
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "14px",
+                    lineHeight: 1.7,
+                    color: "rgba(255,245,235,0.8)",
+                    margin: 0,
+                  }}
+                >
+                  Where code meets concrete,<br />
+                  and ideas shape the built world.
+                </p>
+              </div>
+
               {/* Cards (right) — original "View Reel" style play cards + number card */}
               <div
                 style={{
@@ -476,6 +548,7 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                   transform: "translateY(-50%)",
                   display: "flex",
                   gap: "12px",
+                  pointerEvents: "auto",
                 }}
               >
                 {/* Card 1: View Reel (featured article 1) */}
@@ -814,19 +887,32 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
                 }}
               >
                 <div
-                  style={{ fontSize: "clamp(26px,7vw,42px)", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "clamp(28px,8vw,44px)", letterSpacing: "0.06em", lineHeight: 1.1 }}
                 >
-                  AI <span style={{ color: "rgba(255,220,180,0.7)" }}>×</span>{" "}
+                  AI <span style={{ color: "rgba(255,210,160,0.8)" }}>×</span>{" "}
                   建造
                 </div>
                 <div
                   style={{
-                    fontSize: "clamp(48px,15vw,76px)",
-                    letterSpacing: "-0.02em",
-                    lineHeight: 0.9,
+                    fontSize: "clamp(46px,14vw,72px)",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 0.88,
+                    marginTop: "4px",
                   }}
                 >
                   重新定义工程
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'Imprima',sans-serif",
+                    fontSize: "12px",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,220,180,0.7)",
+                    marginTop: "12px",
+                  }}
+                >
+                  Redefining Engineering with AI
                 </div>
               </div>
               <p
@@ -952,6 +1038,141 @@ export default function PortalHero({ onEnterBlog }: PortalHeroProps) {
           }
         `}</style>
       </div>
+
+      {/* WeChat QR Modal */}
+      {wechatOpen && (
+        <div
+          className="fixed inset-0 z-[600] flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+          onClick={() => setWechatOpen(false)}
+        >
+          <div
+            className="relative max-w-md w-full mx-4 rounded-2xl overflow-hidden"
+            style={{ background: "var(--bg-soft)", border: "1px solid var(--border)" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setWechatOpen(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full grid place-items-center z-10 btn-ghost text-sm"
+            >
+              ✕
+            </button>
+            <img
+              src="https://i.imgur.com/placeholder-wechat.jpg"
+              alt="AI4E建智工坊 公众号"
+              className="w-full"
+              style={{ display: "none" }}
+            />
+            <div className="p-6 text-center">
+              <div className="text-lg font-bold mb-2" style={{ color: "var(--fg)" }}>
+                微信公众号
+              </div>
+              <div className="text-sm mb-4" style={{ color: "var(--fg-muted)" }}>
+                AI4E建智工坊
+              </div>
+              <div
+                className="rounded-xl p-4 mx-auto"
+                style={{ background: "#f0faf0", maxWidth: "280px" }}
+              >
+                <div className="text-sm font-semibold" style={{ color: "#07c160" }}>
+                  微信扫一扫
+                </div>
+                <div className="text-xs mt-1" style={{ color: "#666" }}>
+                  搜索「AI4E建智工坊」关注公众号
+                </div>
+                <div className="mt-3 text-xs" style={{ color: "#999" }}>
+                  获取更多 AI 与能源工程资讯
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Modal */}
+      {contactOpen && (
+        <div
+          className="fixed inset-0 z-[600] flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+          onClick={() => setContactOpen(false)}
+        >
+          <div
+            className="relative max-w-sm w-full mx-4 rounded-2xl p-6"
+            style={{ background: "var(--bg-soft)", border: "1px solid var(--border)" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setContactOpen(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full grid place-items-center btn-ghost text-sm"
+            >
+              ✕
+            </button>
+            <div className="text-lg font-bold mb-1" style={{ color: "var(--fg)" }}>
+              联系我
+            </div>
+            <div className="text-sm mb-5" style={{ color: "var(--fg-muted)" }}>
+              留下邮箱，我会尽快回复
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const fd = new FormData(e.currentTarget);
+                window.open(
+                  `mailto:lzsobig@outlook.com?subject=来自博客的联系&body=${encodeURIComponent(
+                    `来自: ${fd.get("name")}\n邮箱: ${fd.get("email")}\n\n${fd.get("message")}`
+                  )}`,
+                  "_blank"
+                );
+                setContactOpen(false);
+              }}
+              className="space-y-3"
+            >
+              <input
+                name="name"
+                placeholder="你的名字"
+                required
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none"
+                style={{
+                  background: "var(--glass)",
+                  border: "1px solid var(--border)",
+                  color: "var(--fg)",
+                }}
+              />
+              <input
+                name="email"
+                type="email"
+                placeholder="邮箱地址"
+                required
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none"
+                style={{
+                  background: "var(--glass)",
+                  border: "1px solid var(--border)",
+                  color: "var(--fg)",
+                }}
+              />
+              <textarea
+                name="message"
+                placeholder="想说的话..."
+                rows={3}
+                required
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none"
+                style={{
+                  background: "var(--glass)",
+                  border: "1px solid var(--border)",
+                  color: "var(--fg)",
+                }}
+              />
+              <button
+                type="submit"
+                className="w-full py-2.5 rounded-xl text-sm font-semibold text-white"
+                style={{ background: "linear-gradient(135deg, var(--accent), var(--accent2))" }}
+              >
+                发送邮件
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

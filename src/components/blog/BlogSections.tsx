@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTilt3D } from "@/hooks/useEffects";
 import {
   articles,
   ArticleTag,
@@ -10,13 +11,13 @@ import {
 } from "@/data/articles";
 import { useBlogStore } from "@/store/blog-store";
 
-const TAG_FILTERS: { tag: ArticleTag | "all"; label: string; icon: string }[] = [
-  { tag: "all", label: "全部", icon: "◎" },
-  { tag: "smart-build", label: "智能建造", icon: "🏗️" },
-  { tag: "energy", label: "能源工程", icon: "⚡" },
-  { tag: "ai-app", label: "AI 应用", icon: "🤖" },
-  { tag: "frontier", label: "前沿技术", icon: "🚀" },
-  { tag: "tools", label: "工具推荐", icon: "🧰" },
+const TAG_FILTERS: { tag: ArticleTag | "all"; label: string }[] = [
+  { tag: "all", label: "全部" },
+  { tag: "smart-build", label: "智能建造" },
+  { tag: "energy", label: "能源工程" },
+  { tag: "ai-app", label: "AI 应用" },
+  { tag: "frontier", label: "前沿技术" },
+  { tag: "tools", label: "工具推荐" },
 ];
 
 export function StatsBand() {
@@ -214,7 +215,7 @@ export function About() {
                 className="text-xs font-semibold mb-1.5"
                 style={{ color: "var(--accent)" }}
               >
-                AI × 智能建造
+                施工质量 · 结构监测
               </div>
               <div className="text-sm" style={{ color: "var(--fg-soft)" }}>
                 CV 质量检测 · BIM 审图 · 无人机巡检
@@ -225,7 +226,7 @@ export function About() {
                 className="text-xs font-semibold mb-1.5"
                 style={{ color: "var(--accent2)" }}
               >
-                AI × 能源工程
+                能源优化 · 碳排核算
               </div>
               <div className="text-sm" style={{ color: "var(--fg-soft)" }}>
                 能耗预测 · HVAC 优化 · 碳排核算
@@ -275,20 +276,17 @@ export function ArticlesGrid() {
       : articles.filter((a) => a.tag === activeTag);
 
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      (e) => {
-        if (e[0].isIntersecting) {
-          setVisible(true);
-        }
-      },
-      { threshold: 0.05 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const mo = new MutationObserver(() => {
+      el.querySelectorAll(".reveal:not(.visible)").forEach((n) =>
+        n.classList.add("visible")
+      );
+    });
+    mo.observe(el, { childList: true, subtree: true });
+    return () => mo.disconnect();
   }, []);
 
   return (
@@ -329,7 +327,6 @@ export function ArticlesGrid() {
               onClick={() => setActiveTag(f.tag)}
               className={`tag-chip ${activeTag === f.tag ? "active" : ""}`}
             >
-              <span>{f.icon}</span>
               <span>{f.label}</span>
             </button>
           ))}
@@ -351,8 +348,18 @@ export function ArticlesGrid() {
                   className="article-card reveal"
                   style={{
                     transitionDelay: `${Math.min(i, 8) * 60}ms`,
-                    opacity: visible ? "" : 0,
-                    transform: visible ? "" : "translateY(30px)",
+                  }}
+                  onMouseMove={(e) => {
+                    const el = e.currentTarget;
+                    const rect = el.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width;
+                    const y = (e.clientY - rect.top) / rect.height;
+                    el.style.setProperty("--tilt-x", `${(0.5 - y) * 10}deg`);
+                    el.style.setProperty("--tilt-y", `${(x - 0.5) * 10}deg`);
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.setProperty("--tilt-x", "0deg");
+                    e.currentTarget.style.setProperty("--tilt-y", "0deg");
                   }}
                   onClick={() => openReader(a.id)}
                 >
@@ -514,30 +521,55 @@ export function Newsletter() {
     >
       <div className="max-w-4xl mx-auto px-4">
         <div
-          className={`relative rounded-3xl p-10 md:p-14 text-center overflow-hidden reveal ${
+          className={`newsletter-card relative rounded-3xl p-10 md:p-14 text-center overflow-hidden reveal ${
             visible ? "visible" : ""
           }`}
           style={{
             background: "var(--glass)",
             backdropFilter: "blur(16px)",
             border: "1px solid var(--border-strong)",
+            transform: "perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))",
+            transition: "transform 0.5s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.5s ease",
+          }}
+          onMouseMove={(e) => {
+            const el = e.currentTarget;
+            const rect = el.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            el.style.setProperty("--tilt-x", `${(0.5 - y) * 10}deg`);
+            el.style.setProperty("--tilt-y", `${(x - 0.5) * 10}deg`);
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.setProperty("--tilt-x", "0deg");
+            e.currentTarget.style.setProperty("--tilt-y", "0deg");
           }}
         >
-          {/* glow accents */}
+          {/* flowing glow accents */}
           <div
-            className="absolute top-0 right-0 w-64 h-64 rounded-full"
+            className="absolute -top-20 -right-20 w-80 h-80 rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)",
-              filter: "blur(20px)",
+                "radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)",
+              filter: "blur(30px)",
+              animation: "flowGlow1 8s ease-in-out infinite alternate",
             }}
           />
           <div
-            className="absolute bottom-0 left-0 w-64 h-64 rounded-full"
+            className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(236,72,153,0.2) 0%, transparent 70%)",
-              filter: "blur(20px)",
+                "radial-gradient(circle, rgba(236,72,153,0.25) 0%, transparent 70%)",
+              filter: "blur(30px)",
+              animation: "flowGlow2 10s ease-in-out infinite alternate",
+            }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full -translate-x-1/2 -translate-y-1/2"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
+              filter: "blur(25px)",
+              animation: "flowGlow3 12s ease-in-out infinite alternate",
             }}
           />
           <div className="relative">
@@ -578,7 +610,17 @@ export function Newsletter() {
               />
               <button
                 type="submit"
-                className="btn-primary px-6 py-3.5 rounded-full text-sm font-semibold whitespace-nowrap"
+                className="btn-primary magnetic-btn shimmer-btn px-6 py-3.5 rounded-full text-sm font-semibold whitespace-nowrap"
+                onMouseMove={(e) => {
+                  const el = e.currentTarget;
+                  const rect = el.getBoundingClientRect();
+                  const dx = e.clientX - (rect.left + rect.width / 2);
+                  const dy = e.clientY - (rect.top + rect.height / 2);
+                  el.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "";
+                }}
               >
                 订阅 ✈
               </button>

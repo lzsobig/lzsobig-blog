@@ -52,18 +52,20 @@ export default function Navigation() {
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled ? "py-2 nav-blur" : "py-3"
         }`}
-        style={
-          scrolled
-            ? undefined
+        style={{
+          ...(scrolled
+            ? {}
             : {
                 background: "transparent",
                 backdropFilter: "none",
                 WebkitBackdropFilter: "none",
                 borderBottom: "none",
-              }
-        }
+              }),
+          opacity: scrolled ? 1 : 0,
+          pointerEvents: scrolled ? "auto" : "none",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-3 items-center">
           {/* Logo */}
           <button
             onClick={() => handleNav("#hero")}
@@ -92,7 +94,7 @@ export default function Navigation() {
           </button>
 
           {/* Center links (desktop) */}
-          <div className="hidden md:flex items-center gap-9">
+          <div className="hidden md:flex items-center justify-center gap-9">
             {navLinks.map((l) => (
               <button
                 key={l.href}
@@ -106,7 +108,7 @@ export default function Navigation() {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-end gap-2">
             <button
               onClick={() => setSearchOpen(true)}
               className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg btn-ghost text-xs"

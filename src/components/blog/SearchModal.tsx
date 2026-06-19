@@ -72,9 +72,10 @@ function SearchPanel() {
     <div
       className="search-overlay"
       onClick={(e) => e.target === e.currentTarget && setSearchOpen(false)}
+      style={{ display: "flex", justifyContent: "center", alignItems: "flex-start" }}
     >
       <div
-        className="w-full max-w-2xl mx-4 mt-[12vh] rounded-2xl overflow-hidden glass-strong"
+        className="max-w-2xl w-full mt-[12vh] rounded-2xl overflow-hidden glass-strong"
         style={{ boxShadow: "var(--shadow)" }}
       >
         {/* Input */}
